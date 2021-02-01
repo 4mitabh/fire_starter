@@ -30,26 +30,14 @@ class SignInUI extends StatelessWidget {
                   LogoGraphicHeader(),
                   SizedBox(height: 48.0),
                   FormInputFieldWithIcon(
-                    controller: authController.emailController,
-                    iconPrefix: Icons.email,
-                    labelText: labels?.auth?.emailFormField,
-                    validator: Validator(labels).email,
-                    keyboardType: TextInputType.emailAddress,
+                    controller: authController.phoneController,
+                    iconPrefix: Icons.phone,
+                    labelText: labels?.auth?.phone,
+                    validator: Validator(labels).number,
+                    keyboardType: TextInputType.phone,
                     onChanged: (value) => null,
                     onSaved: (value) =>
-                        authController.emailController.text = value,
-                  ),
-                  FormVerticalSpace(),
-                  FormInputFieldWithIcon(
-                    controller: authController.passwordController,
-                    iconPrefix: Icons.lock,
-                    labelText: labels?.auth?.passwordFormField,
-                    validator: Validator(labels).password,
-                    obscureText: true,
-                    onChanged: (value) => null,
-                    onSaved: (value) =>
-                        authController.passwordController.text = value,
-                    maxLines: 1,
+                        authController.phoneController.text = value,
                   ),
                   FormVerticalSpace(),
                   PrimaryButton(
@@ -61,13 +49,25 @@ class SignInUI extends StatelessWidget {
                       }),
                   FormVerticalSpace(),
                   LabelButton(
-                    labelText: labels?.auth?.resetPasswordLabelButton,
-                    onPressed: () => Get.to(ResetPasswordUI()),
-                  ),
+                      labelText: labels?.auth?.googleSignIn,
+                      onPressed: () async {
+                        try {
+                          await authController.signInWithGoogle();
+                          Get.toNamed('home');
+                        } catch (e) {
+                          Get.snackbar('Error', e.toString());
+                        }
+                      }),
                   LabelButton(
-                    labelText: labels?.auth?.signUpLabelButton,
-                    onPressed: () => Get.to(SignUpUI()),
-                  ),
+                      labelText: labels?.auth?.appleSignIn,
+                      onPressed: () async {
+                        try {
+                          await authController.signInWithApple();
+                          Get.toNamed('home');
+                        } catch (e) {
+                          Get.snackbar('Error', e.toString());
+                        }
+                      }),
                 ],
               ),
             ),

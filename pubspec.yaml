@@ -5,7 +5,7 @@ author: Amitabh Mehta
 homepage: https://github.com/4mitabh/flutter_starter
 
 environment:
-    sdk: ">=2.7.0 <3.0.0"  # 2.12
+    sdk: "2.10.5"  # 2.12
     flutter: ">=1.17.0"
 
 dependencies:
@@ -29,11 +29,12 @@ dependencies:
   get_storage:
   flutter_sheet_localization:
   simple_gravatar:
+  intl:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner:
+  build_runner: ^1.10.2
   flutter_sheet_localization_generator:
 
 # For information on the generic Dart part of this file, see the
@@ -73,6 +74,3 @@ flutter:
   # For details regarding fonts in packages, see
   # https://flutter.dev/custom-fonts/#from-packages
 
-
-dependency_overrides:
-  intl: ^0.17.0-nullsafety.2

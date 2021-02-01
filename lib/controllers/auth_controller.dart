@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:simple_gravatar/simple_gravatar.dart';
 import 'package:fire_starter/localizations.dart';
 import 'package:fire_starter/models/models.dart';
@@ -16,6 +18,8 @@ class AuthController extends GetxController {
   AppLocalizations_Labels labels;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController otpController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -241,5 +245,53 @@ class AuthController extends GetxController {
     emailController.clear();
     passwordController.clear();
     return _auth.signOut();
+  }
+
+  Future<User> signInWithApple() async {
+    final appleIdCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+    );
+    final oAuthProvider = OAuthProvider('apple.com');
+    final credential = oAuthProvider.credential(
+      idToken: appleIdCredential.identityToken,
+      accessToken: appleIdCredential.authorizationCode,
+    );
+
+    print(credential);
+    // Once signed in, return the UserCredential
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // onSocialLogin(userCredential.user);
+    return userCredential.user;
+  }
+
+  Future<User> signInWithGoogle() async {
+    // Trigger the authentication flow
+
+    await GoogleSignIn().signOut(); // to ensure you can sign in different user.
+
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) throw labels.auth.aborted;
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    // Create a new credential
+    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // onSocialLogin(userCredential.user);
+    return userCredential.user;
   }
 }
