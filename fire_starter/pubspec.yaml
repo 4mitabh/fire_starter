@@ -5,16 +5,36 @@ author: Amitabh Mehta
 homepage: https://github.com/4mitabh/flutter_starter
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0"
+    sdk: ">=2.7.0 <3.0.0"  # 2.12
+    flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter    
+
+
+  firebase_auth: ^0.20.0
+  firebase_core: ^0.7.0
+  cloud_firestore: ^0.16.0
+  firebase_messaging:
+  firebase_storage:
+  firebase_analytics:
+  permission_handler:
+  google_sign_in:
+  sign_in_with_apple:
+  crypto:
+  get:
+  get_storage:
+  flutter_sheet_localization:
+  simple_gravatar:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
+  flutter_sheet_localization_generator:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -52,3 +72,7 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/custom-fonts/#from-packages
+
+
+dependency_overrides:
+  intl: ^0.17.0-nullsafety.2
