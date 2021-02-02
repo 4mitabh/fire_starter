@@ -18,7 +18,7 @@ dependencies:
   firebase_auth: ^0.20.0
   firebase_core: ^0.7.0
   cloud_firestore: ^0.16.0
-  firebase_messaging:
+  firebase_messaging: ^8.0.0-dev
   firebase_storage:
   firebase_analytics:
   permission_handler:
