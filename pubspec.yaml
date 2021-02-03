@@ -5,15 +5,14 @@ author: Amitabh Mehta
 homepage: https://github.com/4mitabh/flutter_starter
 
 environment:
-    sdk: "2.10.5"  # 2.12
-    flutter: ">=1.17.0"
+  sdk: "2.10.5" # 2.12
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
-    sdk: flutter    
-
+    sdk: flutter
 
   firebase_auth: ^0.20.0
   firebase_core: ^0.7.0
@@ -24,8 +23,9 @@ dependencies:
   permission_handler:
   google_sign_in:
   sign_in_with_apple:
-  crypto:
+  logger:
   get:
+  country_pickers:
   get_storage:
   flutter_sheet_localization:
   simple_gravatar:
@@ -42,7 +42,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # To add assets to your package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -53,7 +52,6 @@ flutter:
   #
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # To add custom fonts to your package, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
@@ -73,4 +71,3 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/custom-fonts/#from-packages
-

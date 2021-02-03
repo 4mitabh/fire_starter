@@ -17,9 +17,9 @@ class AuthController extends GetxController {
   static AuthController to = Get.find();
   AppLocalizations_Labels labels;
   TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController otpController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -38,16 +38,16 @@ class AuthController extends GetxController {
 
   @override
   void onClose() {
+    phoneController?.dispose();
     nameController?.dispose();
-    emailController?.dispose();
-    passwordController?.dispose();
+    otpController?.dispose();
     super.onClose();
   }
 
   handleAuthChanged(_firebaseUser) async {
     //get user data from firestore
     if (_firebaseUser?.uid != null) {
-      firestoreUser.bindStream(streamFirestoreUser());
+      firestoreUser.bindStream(await streamFirestoreUser());
       await isAdmin();
     }
 
@@ -65,9 +65,10 @@ class AuthController extends GetxController {
   Stream<User> get user => _auth.authStateChanges();
 
   //Streams the firestore user from the firestore collection
-  Stream<UserModel> streamFirestoreUser() {
+  Future<Stream<UserModel>> streamFirestoreUser() async {
     print('streamFirestoreUser()');
-    if (firebaseUser?.value?.uid != null) {
+    var userRecord = await getFirestoreUser();
+    if (userRecord != null) {
       return _db
           .doc('/users/${firebaseUser.value.uid}')
           .snapshots()
@@ -80,8 +81,16 @@ class AuthController extends GetxController {
   //get the firestore user from the firestore collection
   Future<UserModel> getFirestoreUser() {
     if (firebaseUser?.value?.uid != null) {
-      return _db.doc('/users/${firebaseUser.value.uid}').get().then(
-          (documentSnapshot) => UserModel.fromMap(documentSnapshot.data()));
+      return _db
+          .doc('/users/${firebaseUser.value.uid}')
+          .get()
+          .then((documentSnapshot) {
+        if (documentSnapshot.exists)
+          return UserModel.fromMap(documentSnapshot.data());
+        else {
+          return _createNewUserFirestore();
+        }
+      });
     }
     return null;
   }
@@ -96,6 +105,23 @@ class AuthController extends GetxController {
           password: passwordController.text.trim());
       emailController.clear();
       passwordController.clear();
+      hideLoadingIndicator();
+    } catch (error) {
+      hideLoadingIndicator();
+      Get.snackbar(labels.auth.signInErrorTitle, labels.auth.signInError,
+          snackPosition: SnackPosition.BOTTOM,
+          duration: Duration(seconds: 7),
+          backgroundColor: Get.theme.snackBarTheme.backgroundColor,
+          colorText: Get.theme.snackBarTheme.actionTextColor);
+    }
+  }
+
+  //Method to handle user sign in using email and password
+  signInWithPhone(BuildContext context) async {
+    final labels = AppLocalizations.of(context);
+    showLoadingIndicator();
+    try {
+      await _auth.signInWithPhoneNumber(phoneController.text.trim());
       hideLoadingIndicator();
     } catch (error) {
       hideLoadingIndicator();
@@ -200,6 +226,20 @@ class AuthController extends GetxController {
   void _createUserFirestore(UserModel user, User _firebaseUser) {
     _db.doc('/users/${_firebaseUser.uid}').set(user.toJson());
     update();
+  }
+
+  UserModel _createNewUserFirestore() {
+    User _firebaseUser = firebaseUser?.value;
+    UserModel _newUser = UserModel(
+      uid: _firebaseUser.uid,
+      email: _firebaseUser.email,
+      name: _firebaseUser.displayName,
+      photoUrl: _firebaseUser.photoURL,
+      phone: _firebaseUser.phoneNumber,
+    );
+    //create the user in firestore
+    _createUserFirestore(_newUser, _firebaseUser);
+    return _newUser;
   }
 
   //password reset email

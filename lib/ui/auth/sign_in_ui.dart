@@ -48,26 +48,28 @@ class SignInUI extends StatelessWidget {
                         }
                       }),
                   FormVerticalSpace(),
-                  LabelButton(
-                      labelText: labels?.auth?.googleSignIn,
-                      onPressed: () async {
-                        try {
-                          await authController.signInWithGoogle();
-                          Get.toNamed('home');
-                        } catch (e) {
-                          Get.snackbar('Error', e.toString());
-                        }
-                      }),
-                  LabelButton(
-                      labelText: labels?.auth?.appleSignIn,
-                      onPressed: () async {
-                        try {
-                          await authController.signInWithApple();
-                          Get.toNamed('home');
-                        } catch (e) {
-                          Get.snackbar('Error', e.toString());
-                        }
-                      }),
+                  if (GetPlatform.isAndroid)
+                    LabelButton(
+                        labelText: labels?.auth?.googleSignIn,
+                        onPressed: () async {
+                          try {
+                            await authController.signInWithGoogle();
+                            Get.toNamed('home');
+                          } catch (e) {
+                            Get.snackbar('Error', e.toString());
+                          }
+                        }),
+                  if (GetPlatform.isMacOS || GetPlatform.isIOS)
+                    LabelButton(
+                        labelText: labels?.auth?.appleSignIn,
+                        onPressed: () async {
+                          try {
+                            await authController.signInWithApple();
+                            Get.toNamed('home');
+                          } catch (e) {
+                            Get.snackbar('Error', e.toString());
+                          }
+                        }),
                 ],
               ),
             ),

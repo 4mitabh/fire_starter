@@ -12,60 +12,69 @@ class HomeUI extends StatelessWidget {
 
     return GetBuilder<AuthController>(
       init: AuthController(),
-      builder: (controller) => controller?.firestoreUser?.value?.uid == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Scaffold(
-              appBar: AppBar(
-                title: Text(labels?.home?.title),
-                actions: [
-                  IconButton(
-                      icon: Icon(Icons.settings),
-                      onPressed: () {
-                        Get.to(SettingsUI());
-                      }),
-                ],
-              ),
-              body: Center(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: 120),
-                    Avatar(controller.firestoreUser.value),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        FormVerticalSpace(),
-                        Text(
-                            labels.home.uidLabel +
-                                ': ' +
-                                controller.firestoreUser.value.uid,
-                            style: TextStyle(fontSize: 16)),
-                        FormVerticalSpace(),
-                        Text(
-                            labels.home.nameLabel +
-                                ': ' +
-                                controller.firestoreUser.value.name,
-                            style: TextStyle(fontSize: 16)),
-                        FormVerticalSpace(),
-                        Text(
-                            labels.home.emailLabel +
-                                ': ' +
-                                controller.firestoreUser.value.email,
-                            style: TextStyle(fontSize: 16)),
-                        FormVerticalSpace(),
-                        Text(
-                            labels.home.adminUserLabel +
-                                ': ' +
-                                controller.admin.value.toString(),
-                            style: TextStyle(fontSize: 16)),
-                      ],
-                    ),
+      builder: (controller) {
+        print(controller?.firestoreUser?.value?.uid);
+        return controller?.firestoreUser?.value?.uid == null
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Scaffold(
+                appBar: AppBar(
+                  title: Text(labels?.home?.title),
+                  actions: [
+                    IconButton(
+                        icon: Icon(Icons.settings),
+                        onPressed: () {
+                          Get.to(SettingsUI());
+                        }),
                   ],
                 ),
-              ),
-            ),
+                body: Center(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 120),
+                      Avatar(controller.firestoreUser.value),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          FormVerticalSpace(),
+                          Text(
+                              labels.home.uidLabel +
+                                  ': ' +
+                                  controller.firestoreUser.value.uid,
+                              style: TextStyle(fontSize: 16)),
+                          FormVerticalSpace(),
+                          Text(
+                              labels.home.nameLabel +
+                                  ': ' +
+                                  (controller.firestoreUser.value.name ?? ''),
+                              style: TextStyle(fontSize: 16)),
+                          FormVerticalSpace(),
+                          Text(
+                              labels.home.emailLabel +
+                                  ': ' +
+                                  (controller.firestoreUser.value.email ?? ''),
+                              style: TextStyle(fontSize: 16)),
+                          FormVerticalSpace(),
+                          Text(
+                              labels.home.phoneLabel +
+                                  ': ' +
+                                  (controller.firestoreUser.value.phone ?? ''),
+                              style: TextStyle(fontSize: 16)),
+                          FormVerticalSpace(),
+                          Text(
+                              labels.home.adminUserLabel +
+                                  ': ' +
+                                  controller.admin.value.toString(),
+                              style: TextStyle(fontSize: 16)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+      },
     );
   }
 }

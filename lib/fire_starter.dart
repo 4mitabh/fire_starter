@@ -16,6 +16,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart' as permissionHander;
 
 part './base.dart';
@@ -35,16 +36,16 @@ class FireStarter extends Base {
 
   Future<void> init({
     // String firebaseServerToken,
-     Map<String, Map<dynamic, dynamic>> settings,
+    Map<String, Map<dynamic, dynamic>> settings,
     // Map<String, Map<String, String>> translations,
   }) async {
-      WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await GetStorage.init();
-  Get.put<AuthController>(AuthController());
-  Get.put<ThemeController>(ThemeController());
-  Get.put<LanguageController>(LanguageController());
-
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+    await GetStorage.init();
+    Get.put<AuthController>(AuthController());
+    Get.put<ThemeController>(ThemeController());
+    Get.put<LanguageController>(LanguageController());
+    Get.put<LanguageController>(LanguageController());
+    Get.put<Logger>(Logger());
   }
-
 }

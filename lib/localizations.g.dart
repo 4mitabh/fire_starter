@@ -68,10 +68,11 @@ class AppLocalizations {
         nameLabel: 'Name',
         uidLabel: 'UID',
         emailLabel: 'Email',
+        phoneLabel: 'Phone',
         adminUserLabel: 'Admin User',
       ),
       app: AppLocalizations_Labels_App(
-        title: 'Flutter Starter Project',
+        title: 'Scorizen',
       ),
       validator: AppLocalizations_Labels_Validator(
         email: 'Please enter a valid email address.',
@@ -140,10 +141,11 @@ class AppLocalizations {
         nameLabel: 'Nom',
         uidLabel: 'UID',
         emailLabel: 'Email',
+        phoneLabel: 'Téléphone',
         adminUserLabel: 'utilisateur admin',
       ),
       app: AppLocalizations_Labels_App(
-        title: 'Flutter projet de démarrage',
+        title: 'Scorizen',
       ),
       validator: AppLocalizations_Labels_Validator(
         email: 'S\'il vous plaît, mettez une adresse email valide.',
@@ -215,10 +217,11 @@ class AppLocalizations {
         nameLabel: 'Nombre',
         uidLabel: 'UID',
         emailLabel: 'Email',
+        phoneLabel: 'Teléfono',
         adminUserLabel: 'admin User',
       ),
       app: AppLocalizations_Labels_App(
-        title: 'Proyecto de arranque aleteo',
+        title: 'Scorizen',
       ),
       validator: AppLocalizations_Labels_Validator(
         email:
@@ -288,10 +291,11 @@ class AppLocalizations {
         nameLabel: 'Name',
         uidLabel: 'UID',
         emailLabel: 'Email',
+        phoneLabel: 'Telefon',
         adminUserLabel: 'Admin Benutzer',
       ),
       app: AppLocalizations_Labels_App(
-        title: 'Flutter Starter-Projekt',
+        title: 'Scorizen',
       ),
       validator: AppLocalizations_Labels_Validator(
         email: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
@@ -358,10 +362,11 @@ class AppLocalizations {
         nameLabel: 'नाम',
         uidLabel: 'यूआईडी',
         emailLabel: 'ईमेल',
+        phoneLabel: 'फ़ोन',
         adminUserLabel: 'व्यवस्थापक उपयोगकर्ता',
       ),
       app: AppLocalizations_Labels_App(
-        title: 'स्पंदन स्टार्टर परियोजना',
+        title: 'Scorizen',
       ),
       validator: AppLocalizations_Labels_Validator(
         email: 'कृपया एक वैध ई - मेल एड्रेस डालें।',
@@ -428,10 +433,11 @@ class AppLocalizations {
         nameLabel: 'Nome',
         uidLabel: 'UID',
         emailLabel: 'O email',
+        phoneLabel: 'telefone',
         adminUserLabel: 'admin User',
       ),
       app: AppLocalizations_Labels_App(
-        title: 'Projeto de arranque Flutter',
+        title: 'Scorizen',
       ),
       validator: AppLocalizations_Labels_Validator(
         email: 'Por favor insira um endereço de e-mail válido.',
@@ -496,10 +502,11 @@ class AppLocalizations {
         nameLabel: '名称',
         uidLabel: 'UID',
         emailLabel: '电子邮件',
+        phoneLabel: '电话',
         adminUserLabel: '管理员用户',
       ),
       app: AppLocalizations_Labels_App(
-        title: '扑启动项目',
+        title: 'Scorizen',
       ),
       validator: AppLocalizations_Labels_Validator(
         email: '请输入有效的电子邮件地址。',
@@ -563,10 +570,11 @@ class AppLocalizations {
         nameLabel: '名前',
         uidLabel: 'UID',
         emailLabel: 'Eメール',
+        phoneLabel: '電話',
         adminUserLabel: '管理者ユーザー',
       ),
       app: AppLocalizations_Labels_App(
-        title: 'フラッタースタータープロジェクト',
+        title: 'Scorizen',
       ),
       validator: AppLocalizations_Labels_Validator(
         email: '有効なメールアドレスを入力してください。',
@@ -632,10 +640,11 @@ class AppLocalizations {
         nameLabel: 'имя',
         uidLabel: 'UID',
         emailLabel: 'Эл. адрес',
+        phoneLabel: 'Телефон',
         adminUserLabel: 'Пользователь Admin',
       ),
       app: AppLocalizations_Labels_App(
-        title: 'Проект флаттер Starter',
+        title: 'Scorizen',
       ),
       validator: AppLocalizations_Labels_Validator(
         email: 'Пожалуйста, введите действительный адрес электронной почты.',
@@ -898,6 +907,7 @@ class AppLocalizations_Labels_Home {
       this.nameLabel,
       this.uidLabel,
       this.emailLabel,
+      this.phoneLabel,
       this.adminUserLabel});
 
   final String title;
@@ -907,6 +917,8 @@ class AppLocalizations_Labels_Home {
   final String uidLabel;
 
   final String emailLabel;
+
+  final String phoneLabel;
 
   final String adminUserLabel;
 
@@ -920,6 +932,8 @@ class AppLocalizations_Labels_Home {
         return uidLabel;
       case 'emailLabel':
         return emailLabel;
+      case 'phoneLabel':
+        return phoneLabel;
       case 'adminUserLabel':
         return adminUserLabel;
       default:

@@ -10,7 +10,6 @@ class AppRoutes {
     GetPage(name: '/signup', page: () => SignUpUI()),
     GetPage(name: '/home', page: () => HomeUI()),
     GetPage(name: '/settings', page: () => SettingsUI()),
-    GetPage(name: '/reset-password', page: () => ResetPasswordUI()),
     GetPage(name: '/update-profile', page: () => UpdateProfileUI()),
   ];
 }

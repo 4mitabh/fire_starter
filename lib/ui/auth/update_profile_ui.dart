@@ -71,11 +71,6 @@ class UpdateProfileUI extends StatelessWidget {
                               authController?.firestoreUser?.value?.email);
                         }
                       }),
-                  FormVerticalSpace(),
-                  LabelButton(
-                    labelText: labels?.auth?.resetPasswordLabelButton,
-                    onPressed: () => Get.to(ResetPasswordUI()),
-                  ),
                 ],
               ),
             ),
