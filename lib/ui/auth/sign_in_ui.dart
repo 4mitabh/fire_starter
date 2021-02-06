@@ -20,7 +20,7 @@ class SignInUI extends StatelessWidget {
       body: FutureBuilder(
           future: getCountry(),
           builder: (context, snapshot) {
-            return buildForm(context, snapshot.data);
+            return Obx(() => buildForm(context, snapshot.data));
           }),
     );
   }
@@ -39,48 +39,57 @@ class SignInUI extends StatelessWidget {
               children: <Widget>[
                 LogoGraphicHeader(),
                 SizedBox(height: 48.0),
-                InternationalPhoneNumberInput(
-                  onInputChanged: (PhoneNumber number) {
-                    // print(number.phoneNumber);
-                  },
-                  // onInputValidated: (bool value) {
-                  //   print(value);
-                  // },
-                  selectorConfig: SelectorConfig(
-                    selectorType: PhoneInputSelectorType.DIALOG,
+                if (!authController.waitingForOTP.value)
+                  InternationalPhoneNumberInput(
+                    onInputChanged: (PhoneNumber number) {
+                      // print(number.phoneNumber);
+                    },
+                    onInputValidated: (bool valid) {},
+                    selectorConfig: SelectorConfig(
+                      selectorType: PhoneInputSelectorType.DIALOG,
+                    ),
+                    ignoreBlank: true,
+                    autoValidateMode: AutovalidateMode.onUserInteraction,
+                    // selectorTextStyle: TextStyle(color: Colors.black),
+                    textFieldController: authController.phoneController,
+                    formatInput: true,
+                    countries: ['IN', 'US', 'CA', 'JP'],
+                    // keyboardType: TextInputType.numberWithOptions(
+                    //     signed: true, decimal: false),
+                    inputBorder: OutlineInputBorder(),
+                    initialValue: PhoneNumber(isoCode: country),
+                    onSaved: (PhoneNumber number) {
+                      print('On Saved: $number');
+                      authController.requestOTP(context, number.toString());
+                    },
+                    // maxLength: 16,
+                    spaceBetweenSelectorAndTextField: 0,
+                  )
+                else
+                  FormInputFieldWithIcon(
+                    controller: authController.otpController,
+                    iconPrefix: Icons.vpn_key,
+                    labelText: labels?.auth?.enterOTP,
+                    // validator: Validator(labels).number,
+                    keyboardType: TextInputType.phone,
+                    onChanged: (value) => null,
+                    onSaved: (value) => authController.phoneController.text = value,
                   ),
-                  ignoreBlank: true,
-                  autoValidateMode: AutovalidateMode.onUserInteraction,
-                  // selectorTextStyle: TextStyle(color: Colors.black),
-                  textFieldController: authController.phoneController,
-                  // formatInput: false,
-                  countries: ['IN', 'US', 'CA', 'JP'],
-                  // keyboardType: TextInputType.numberWithOptions(
-                  //     signed: true, decimal: false),
-                  inputBorder: OutlineInputBorder(),
-                  initialValue: PhoneNumber(isoCode: country),
-                  onSaved: (PhoneNumber number) {
-                    print('On Saved: $number');
-                  },
-                ),
-                FormInputFieldWithIcon(
-                  controller: authController.phoneController,
-                  iconPrefix: Icons.phone,
-                  labelText: labels?.auth?.phone,
-                  validator: Validator(labels).number,
-                  keyboardType: TextInputType.phone,
-                  onChanged: (value) => null,
-                  onSaved: (value) =>
-                      authController.phoneController.text = value,
-                ),
                 FormVerticalSpace(),
-                PrimaryButton(
-                    labelText: labels?.auth?.signInButton,
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        authController.signInWithEmailAndPassword(context);
-                      }
-                    }),
+                if (!authController.waitingForOTP.value)
+                  PrimaryButton(
+                      labelText: labels?.auth?.requestOTP,
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) _formKey.currentState.save();
+                      })
+                else
+                  PrimaryButton(
+                      labelText: labels?.auth?.signInButton,
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          authController.verifyOTP(context);
+                        }
+                      }),
                 FormVerticalSpace(),
                 if (GetPlatform.isAndroid)
                   LabelButton(

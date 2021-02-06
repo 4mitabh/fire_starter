@@ -7,7 +7,6 @@ class AppRoutes {
   static final routes = [
     GetPage(name: '/', page: () => SplashUI()),
     GetPage(name: '/signin', page: () => SignInUI()),
-    GetPage(name: '/signup', page: () => SignUpUI()),
     GetPage(name: '/home', page: () => HomeUI()),
     GetPage(name: '/settings', page: () => SettingsUI()),
     GetPage(name: '/update-profile', page: () => UpdateProfileUI()),

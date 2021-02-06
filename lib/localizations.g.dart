@@ -20,37 +20,23 @@ class AppLocalizations {
         appleSignIn: 'Apple Sign In',
         aborted: 'Sign In Aborted',
         phone: 'Enter Phone Number',
-        otp: 'Enter OTP',
+        requestOTP: 'Get OTP',
+        enterOTP: 'Enter OTP',
+        otpVerificationSentTitle: 'OTP Sent',
+        otpVerificationSent: 'OTP Sent to your mobile number',
         signInButton: 'Sign In',
-        signUpButton: 'Sign Up',
-        resetPasswordButton: 'Send Password Reset',
-        emailFormField: 'Email',
-        passwordFormField: 'Password',
         nameFormField: 'Name',
+        emailFormField: 'Email',
         signInErrorTitle: 'Sign In Error',
-        signInError: 'Login failed: email or password incorrect.',
+        signInError: 'Login failed: OTP incorrect',
         resetPasswordLabelButton: 'Forgot password?',
-        signUpLabelButton: 'Create an Account',
-        signUpErrorTitle: 'Sign Up Failed.',
-        signUpError: 'There was a problem signing up.  Please try again later.',
-        signInLabelButton: 'Have an Account? Sign In.',
-        resetPasswordNoticeTitle: 'Password Reset Email Sent',
-        resetPasswordNotice:
-            'Check your email and follow the instructions to reset your password.',
-        resetPasswordFailed: 'Password Reset Email Failed',
-        signInonResetPasswordLabelButton: 'Sign In',
         updateUser: 'Update Profile',
         updateUserSuccessNoticeTitle: 'User Updated',
         updateUserSuccessNotice: 'User information successfully updated.',
         updateUserFailNotice: 'Failed to update user',
-        enterPassword: 'Enter your password',
         cancel: 'Cancel',
         submit: 'Submit',
-        changePasswordLabelButton: 'Change Password',
-        resetPasswordTitle: 'Reset Password',
         updateProfileTitle: 'Update Profile',
-        wrongPasswordNoticeTitle: 'Login Failed',
-        wrongPasswordNotice: 'The password does not match our records.',
         unknownError: 'Unknown Error',
       ),
       settings: AppLocalizations_Labels_Settings(
@@ -90,40 +76,24 @@ class AppLocalizations {
         appleSignIn: 'Apple Connexion',
         aborted: 'Se connecter Aborted',
         phone: 'Entrez numéro de téléphone',
-        otp: 'Entrez OTP',
+        requestOTP: 'Get OTP',
+        enterOTP: 'Entrez OTP',
+        otpVerificationSentTitle: 'Sent Bureau du Procureur',
+        otpVerificationSent: 'OTP envoyé à votre numéro de téléphone mobile',
         signInButton: 'Se connecter',
-        signUpButton: 'Signer',
-        resetPasswordButton: 'Envoyer Password Reset',
-        emailFormField: 'Email',
-        passwordFormField: 'Mot de passe',
         nameFormField: 'Nom',
+        emailFormField: 'Email',
         signInErrorTitle: 'Erreur de connexion',
-        signInError: 'Échec de la connexion: e-mail ou mot de passe incorrect.',
+        signInError: 'Échec de la connexion: OTP incorrect',
         resetPasswordLabelButton: 'Mot de passe oublié?',
-        signUpLabelButton: 'Créer un compte',
-        signUpErrorTitle: 'Échec de l\'inscription.',
-        signUpError:
-            'Il y avait un problème de signer. Veuillez réessayer plus tard.',
-        signInLabelButton: 'Avoir un compte? Se connecter.',
-        resetPasswordNoticeTitle: 'Réinitialiser le mot de passe e-mail envoyé',
-        resetPasswordNotice:
-            'Vérifiez votre e-mail et suivez les instructions pour réinitialiser votre mot de passe.',
-        resetPasswordFailed: 'Réinitialiser le mot de passe Email Échec',
-        signInonResetPasswordLabelButton: 'Se connecter',
         updateUser: 'Mettre à jour le profil',
         updateUserSuccessNoticeTitle: 'Mise à jour l\'utilisateur',
         updateUserSuccessNotice:
             'Informations sur l\'utilisateur mis à jour avec succès.',
         updateUserFailNotice: 'Impossible de mettre à jour l\'utilisateur',
-        enterPassword: 'Tapez votre mot de passe',
         cancel: 'Annuler',
         submit: 'Soumettre',
-        changePasswordLabelButton: 'Changer le mot de passe',
-        resetPasswordTitle: 'réinitialiser le mot de passe',
         updateProfileTitle: 'Mettre à jour le profil',
-        wrongPasswordNoticeTitle: 'Échec de la connexion',
-        wrongPasswordNotice:
-            'Le mot de passe ne correspond pas à nos dossiers.',
         unknownError: 'Erreur inconnue',
       ),
       settings: AppLocalizations_Labels_Settings(
@@ -163,43 +133,24 @@ class AppLocalizations {
         appleSignIn: 'En sesión de Apple',
         aborted: 'Iniciar sesión abortada',
         phone: 'Ingresar número telefónico',
-        otp: 'Introduzca OTP',
+        requestOTP: 'Get OTP',
+        enterOTP: 'Introduzca OTP',
+        otpVerificationSentTitle: 'Enviados OTP',
+        otpVerificationSent: 'OTP enviada a su número de teléfono móvil',
         signInButton: 'Registrarse',
-        signUpButton: 'Contratar',
-        resetPasswordButton: 'Enviar restablecimiento de contraseña',
-        emailFormField: 'Email',
-        passwordFormField: 'Contraseña',
         nameFormField: 'Nombre',
+        emailFormField: 'Email',
         signInErrorTitle: 'Error al iniciar sesión',
-        signInError:
-            'La conexión falló: correo electrónico o contraseña incorrecta.',
+        signInError: 'La conexión falló: OTP incorrectos',
         resetPasswordLabelButton: '¿Se te olvidó tu contraseña?',
-        signUpLabelButton: 'Crea una cuenta',
-        signUpErrorTitle: 'Registro fallido.',
-        signUpError:
-            'Hubo un problema al inscribirse. Por favor, inténtelo de nuevo más tarde.',
-        signInLabelButton: '¿Tener una cuenta? Registrarse.',
-        resetPasswordNoticeTitle:
-            'Restablecer contraseña de correo electrónico enviados',
-        resetPasswordNotice:
-            'Consultar su correo electrónico y siga las instrucciones para restablecer su contraseña.',
-        resetPasswordFailed:
-            'Restablecer contraseña de correo electrónico incorrecto',
-        signInonResetPasswordLabelButton: 'Registrarse',
         updateUser: 'Actualización del perfil',
         updateUserSuccessNoticeTitle: 'Actualización de usuario',
         updateUserSuccessNotice:
             'La información de usuario actualizada correctamente.',
         updateUserFailNotice: 'Error al usuario la actualización',
-        enterPassword: 'Ingresa tu contraseña',
         cancel: 'Cancelar',
         submit: 'Enviar',
-        changePasswordLabelButton: 'Cambia la contraseña',
-        resetPasswordTitle: 'Restablecer la contraseña',
         updateProfileTitle: 'Actualización del perfil',
-        wrongPasswordNoticeTitle: 'Error de inicio de sesion',
-        wrongPasswordNotice:
-            'La contraseña no coincide con nuestros registros.',
         unknownError: 'Error desconocido',
       ),
       settings: AppLocalizations_Labels_Settings(
@@ -240,40 +191,24 @@ class AppLocalizations {
         appleSignIn: 'Apple Anmelden',
         aborted: 'Anmelden Aborted',
         phone: 'Telefonnummer eingeben',
-        otp: 'Geben Sie OTP',
+        requestOTP: 'Get OTP',
+        enterOTP: 'Geben Sie OTP',
+        otpVerificationSentTitle: 'OTP Sent',
+        otpVerificationSent: 'OTP an Ihre Handy-Nummer',
         signInButton: 'Anmelden',
-        signUpButton: 'Anmeldung',
-        resetPasswordButton: 'Senden Passwort zurücksetzen',
-        emailFormField: 'Email',
-        passwordFormField: 'Passwort',
         nameFormField: 'Name',
+        emailFormField: 'Email',
         signInErrorTitle: 'Anmelden Fehler',
-        signInError: 'Fehler bei der Anmeldung: E-Mail oder Passwort falsch.',
+        signInError: 'Fehler bei der Anmeldung: OTP falsch',
         resetPasswordLabelButton: 'Passwort vergessen?',
-        signUpLabelButton: 'Ein Konto erstellen',
-        signUpErrorTitle: 'Anmeldung gescheitert.',
-        signUpError:
-            'Es gab ein Problem anmeldest. Bitte versuchen Sie es später noch einmal.',
-        signInLabelButton: 'Ein Konto haben? Anmelden.',
-        resetPasswordNoticeTitle: 'Passwort zurücksetzen E-Mail gesendet',
-        resetPasswordNotice:
-            'Überprüfen Sie Ihre E-Mail und folgen Sie den Anweisungen, um Ihr Passwort zurücksetzen können.',
-        resetPasswordFailed: 'Passwort zurücksetzen E-Mail fehlgeschlagen',
-        signInonResetPasswordLabelButton: 'Anmelden',
         updateUser: 'Profil aktualisieren',
         updateUserSuccessNoticeTitle: 'Benutzer Aktualisiert',
         updateUserSuccessNotice:
             'Benutzerinformationen erfolgreich aktualisiert.',
         updateUserFailNotice: 'Fehler beim Update Benutzer',
-        enterPassword: 'Geben Sie Ihr Passwort',
         cancel: 'Stornieren',
         submit: 'einreichen',
-        changePasswordLabelButton: 'Ändere das Passwort',
-        resetPasswordTitle: 'Passwort zurücksetzen',
         updateProfileTitle: 'Profil aktualisieren',
-        wrongPasswordNoticeTitle: 'Fehler bei der Anmeldung',
-        wrongPasswordNotice:
-            'Das Passwort nicht unsere entsprechenden Datensätze gefunden.',
         unknownError: 'Unbekannter Fehler',
       ),
       settings: AppLocalizations_Labels_Settings(
@@ -313,38 +248,23 @@ class AppLocalizations {
         appleSignIn: 'एप्पल साइन इन करें',
         aborted: 'साइन इन गर्भपात',
         phone: 'फोन नंबर दर्ज',
-        otp: 'OTP दर्ज करें',
+        requestOTP: 'प्राप्त OTP',
+        enterOTP: 'OTP दर्ज करें',
+        otpVerificationSentTitle: 'OTP भेजा',
+        otpVerificationSent: 'OTP अपना मोबाइल नंबर पर भेजा गया',
         signInButton: 'दाखिल करना',
-        signUpButton: 'साइन अप करें',
-        resetPasswordButton: 'भेजें पासवर्ड रीसेट',
-        emailFormField: 'ईमेल',
-        passwordFormField: 'कुंजिका',
         nameFormField: 'नाम',
+        emailFormField: 'ईमेल',
         signInErrorTitle: 'साइन इन त्रुटि',
-        signInError: 'लॉगइन असफल: ईमेल या पासवर्ड गलत है।',
+        signInError: 'लॉगइन असफल: OTP गलत',
         resetPasswordLabelButton: 'पासवर्ड भूल गए?',
-        signUpLabelButton: 'खाता बनाएं',
-        signUpErrorTitle: 'साइन अप विफल रहा।',
-        signUpError:
-            'साइन अप करने में समस्या हुई थी। बाद में पुन: प्रयास करें।',
-        signInLabelButton: 'एक खाता है? दाखिल करना।',
-        resetPasswordNoticeTitle: 'पासवर्ड रीसेट ईमेल भेजा',
-        resetPasswordNotice:
-            'अपने ईमेल की जाँच करें और निर्देशों का अपना पासवर्ड रीसेट करने का पालन करें।',
-        resetPasswordFailed: 'पासवर्ड रीसेट ईमेल में विफल',
-        signInonResetPasswordLabelButton: 'दाखिल करना',
         updateUser: 'प्रोफ़ाइल अपडेट करें',
         updateUserSuccessNoticeTitle: 'उपयोगकर्ता अपडेट किया गया',
         updateUserSuccessNotice: 'उपयोगकर्ता जानकारी सफलतापूर्वक अपडेट।',
         updateUserFailNotice: 'उपयोगकर्ता अद्यतन करने में विफल',
-        enterPassword: 'अपना पासवर्ड डालें',
         cancel: 'रद्द करना',
         submit: 'प्रस्तुत',
-        changePasswordLabelButton: 'पासवर्ड बदलें',
-        resetPasswordTitle: 'पासवर्ड रीसेट',
         updateProfileTitle: 'प्रोफ़ाइल अपडेट करें',
-        wrongPasswordNoticeTitle: 'लॉगिन विफल',
-        wrongPasswordNotice: 'पासवर्ड हमारे रिकॉर्ड से मेल नहीं खाता।',
         unknownError: 'अज्ञात त्रुटि',
       ),
       settings: AppLocalizations_Labels_Settings(
@@ -383,39 +303,24 @@ class AppLocalizations {
         appleSignIn: 'Sinal Apple Em',
         aborted: 'Entrar Aborted',
         phone: 'Introduzir número de telefone',
-        otp: 'Digite OTP',
+        requestOTP: 'get OTP',
+        enterOTP: 'Digite OTP',
+        otpVerificationSentTitle: 'OTP Sent',
+        otpVerificationSent: 'OTP Enviado para o seu número de telemóvel',
         signInButton: 'Assinar em',
-        signUpButton: 'Inscrever-se',
-        resetPasswordButton: 'Enviar Password Reset',
-        emailFormField: 'O email',
-        passwordFormField: 'Senha',
         nameFormField: 'Nome',
+        emailFormField: 'O email',
         signInErrorTitle: 'Entrar erro',
-        signInError: 'Falha de logon: e-mail ou senha incorreta.',
+        signInError: 'Falha de logon: OTP incorreta',
         resetPasswordLabelButton: 'Esqueceu sua senha?',
-        signUpLabelButton: 'Crie a sua conta aqui',
-        signUpErrorTitle: 'Registre-se Falhou.',
-        signUpError:
-            'Houve um problema se inscrever. Por favor, tente novamente mais tarde.',
-        signInLabelButton: 'Ter uma conta? Assinar em.',
-        resetPasswordNoticeTitle: 'Senha enviada uma reinicialização',
-        resetPasswordNotice:
-            'Verifique se o seu e-mail e siga as instruções para redefinir sua senha.',
-        resetPasswordFailed: 'Password Reset-mail Falha',
-        signInonResetPasswordLabelButton: 'Assinar em',
         updateUser: 'Atualizar perfil',
         updateUserSuccessNoticeTitle: 'do usuário atualizada',
         updateUserSuccessNotice:
             'informações do usuário atualizado com sucesso.',
         updateUserFailNotice: 'Falha ao usuário de atualização',
-        enterPassword: 'Coloque sua senha',
         cancel: 'Cancelar',
         submit: 'Enviar',
-        changePasswordLabelButton: 'Alterar a senha',
-        resetPasswordTitle: 'Password Reset',
         updateProfileTitle: 'Atualizar perfil',
-        wrongPasswordNoticeTitle: 'Falha no login',
-        wrongPasswordNotice: 'A senha não coincide com nossos registros.',
         unknownError: 'Erro desconhecido',
       ),
       settings: AppLocalizations_Labels_Settings(
@@ -455,36 +360,23 @@ class AppLocalizations {
         appleSignIn: '苹果登录',
         aborted: '登录中止',
         phone: '输入电话号码',
-        otp: '输入OTP',
+        requestOTP: '获取OTP',
+        enterOTP: '输入OTP',
+        otpVerificationSentTitle: 'OTP发送',
+        otpVerificationSent: 'OTP发送到您的手机号码',
         signInButton: '登入',
-        signUpButton: '报名',
-        resetPasswordButton: '发送密码重置',
-        emailFormField: '电子邮件',
-        passwordFormField: '密码',
         nameFormField: '名称',
+        emailFormField: '电子邮件',
         signInErrorTitle: '登录错误',
-        signInError: '登录失败：电子邮件或密码不正确。',
+        signInError: '登录失败：不正确OTP',
         resetPasswordLabelButton: '忘记密码？',
-        signUpLabelButton: '创建一个帐户',
-        signUpErrorTitle: '注册失败。',
-        signUpError: '有注册的问题。请稍后再试。',
-        signInLabelButton: '有一个账户？登入。',
-        resetPasswordNoticeTitle: '密码重置邮件已发送',
-        resetPasswordNotice: '检查你的电子邮件，并按照重置密码的说明。',
-        resetPasswordFailed: '密码重置电子邮件失败',
-        signInonResetPasswordLabelButton: '登入',
         updateUser: '更新配置文件',
         updateUserSuccessNoticeTitle: '用户更新',
         updateUserSuccessNotice: '用户信息更新成功。',
         updateUserFailNotice: '无法更新用户',
-        enterPassword: '输入您的密码',
         cancel: '取消',
         submit: '提交',
-        changePasswordLabelButton: '更改密码',
-        resetPasswordTitle: '重设密码',
         updateProfileTitle: '更新配置文件',
-        wrongPasswordNoticeTitle: '登录失败',
-        wrongPasswordNotice: '该密码不符合我们的记录。',
         unknownError: '未知错误',
       ),
       settings: AppLocalizations_Labels_Settings(
@@ -514,7 +406,7 @@ class AppLocalizations {
         name: '请输入姓名。',
         number: '请输入一个数字。',
         notEmpty: '这是一个必填字段。',
-        amount: '请输入一个数，即250  - 没有美元符号和无分',
+        amount: '请输入一个数即250  - 没有美元符号和无分',
       ),
     ),
     Locale.fromSubtags(languageCode: 'ja'): AppLocalizations_Labels(
@@ -523,36 +415,23 @@ class AppLocalizations {
         appleSignIn: 'アップルサインイン',
         aborted: '中止サインイン',
         phone: '電話番号を入力します。',
-        otp: 'OTPを入力します。',
+        requestOTP: '取得OTP',
+        enterOTP: 'OTPを入力します。',
+        otpVerificationSentTitle: 'OTP SENT',
+        otpVerificationSent: 'お使いの携帯電話番号に送信されたOTP',
         signInButton: 'ログイン',
-        signUpButton: 'サインアップ',
-        resetPasswordButton: '送信パスワードリセット',
-        emailFormField: 'Eメール',
-        passwordFormField: 'パスワード',
         nameFormField: '名前',
+        emailFormField: 'Eメール',
         signInErrorTitle: 'エラーサインイン',
-        signInError: 'ログインに失敗しました：電子メールまたはパスワードが正しくありません。',
+        signInError: 'ログインに失敗しました：OTP正しくありません',
         resetPasswordLabelButton: 'パスワードをお忘れですか？',
-        signUpLabelButton: 'アカウントを作成する',
-        signUpErrorTitle: 'サインアップは失敗しました。',
-        signUpError: 'サインアップする問題が発生しました。後ほど再度お試しください。',
-        signInLabelButton: 'アカウントを持っています？ログイン。',
-        resetPasswordNoticeTitle: 'パスワードリセットのメール送信され',
-        resetPasswordNotice: 'あなたの電子メールをチェックして、あなたのパスワードをリセットするための指示に従ってください。',
-        resetPasswordFailed: 'パスワードリセットのメールが失敗しました。',
-        signInonResetPasswordLabelButton: 'ログイン',
         updateUser: 'プロフィールを更新',
         updateUserSuccessNoticeTitle: 'ユーザーの更新',
         updateUserSuccessNotice: 'ユーザー情報が正常に更新します。',
         updateUserFailNotice: '更新ユーザーに失敗しました。',
-        enterPassword: 'パスワードを入力してください',
         cancel: 'キャンセル',
         submit: '参加する',
-        changePasswordLabelButton: 'パスワードを変更する',
-        resetPasswordTitle: 'パスワードを再設定する',
         updateProfileTitle: 'プロフィールを更新',
-        wrongPasswordNoticeTitle: 'ログインに失敗しました',
-        wrongPasswordNotice: 'パスワードは我々の記録と一致しません。',
         unknownError: '不明なエラー',
       ),
       settings: AppLocalizations_Labels_Settings(
@@ -591,38 +470,23 @@ class AppLocalizations {
         appleSignIn: 'Яблоко Вход',
         aborted: 'Вход в систему абортированных',
         phone: 'Введите номер телефона',
-        otp: 'Введите одноразовый пароль',
+        requestOTP: 'Get OTP',
+        enterOTP: 'Введите одноразовый пароль',
+        otpVerificationSentTitle: 'OTP Sent',
+        otpVerificationSent: 'OTP Отправленные на свой мобильный номер',
         signInButton: 'Войти в систему',
-        signUpButton: 'Зарегистрироваться',
-        resetPasswordButton: 'Отправить Сброс пароля',
-        emailFormField: 'Эл. адрес',
-        passwordFormField: 'пароль',
         nameFormField: 'имя',
+        emailFormField: 'Эл. адрес',
         signInErrorTitle: 'Ошибка входа',
-        signInError:
-            'Войти не удалось: адрес электронной почты или пароль неверен.',
+        signInError: 'Войти не удалось: OTP некорректный',
         resetPasswordLabelButton: 'Забыли пароль?',
-        signUpLabelButton: 'Завести аккаунт',
-        signUpErrorTitle: 'Регистрация прошла неудачно.',
-        signUpError: 'Была проблема подписания. Пожалуйста, попробуйте позже.',
-        signInLabelButton: 'Иметь аккаунт? Войти в систему.',
-        resetPasswordNoticeTitle: 'Сброс пароля Email Sent',
-        resetPasswordNotice:
-            'Проверьте электронную почту и следуйте инструкциям, чтобы сбросить пароль.',
-        resetPasswordFailed: 'Сброс пароля Email Failed',
-        signInonResetPasswordLabelButton: 'Войти в систему',
         updateUser: 'Обновить профиль',
         updateUserSuccessNoticeTitle: 'Пользователь Обновлено',
         updateUserSuccessNotice: 'Информация о пользователе успешно обновлена.',
         updateUserFailNotice: 'Не удался пользователь обновления',
-        enterPassword: 'Введите свой пароль',
         cancel: 'Отмена',
         submit: 'Разместить',
-        changePasswordLabelButton: 'Изменить пароль',
-        resetPasswordTitle: 'Сброс пароля',
         updateProfileTitle: 'Обновить профиль',
-        wrongPasswordNoticeTitle: 'Ошибка входа',
-        wrongPasswordNotice: 'Пароль не соответствует нашим данным.',
         unknownError: 'Неизвестная ошибка',
       ),
       settings: AppLocalizations_Labels_Settings(
@@ -670,36 +534,23 @@ class AppLocalizations_Labels_Auth {
       this.appleSignIn,
       this.aborted,
       this.phone,
-      this.otp,
+      this.requestOTP,
+      this.enterOTP,
+      this.otpVerificationSentTitle,
+      this.otpVerificationSent,
       this.signInButton,
-      this.signUpButton,
-      this.resetPasswordButton,
-      this.emailFormField,
-      this.passwordFormField,
       this.nameFormField,
+      this.emailFormField,
       this.signInErrorTitle,
       this.signInError,
       this.resetPasswordLabelButton,
-      this.signUpLabelButton,
-      this.signUpErrorTitle,
-      this.signUpError,
-      this.signInLabelButton,
-      this.resetPasswordNoticeTitle,
-      this.resetPasswordNotice,
-      this.resetPasswordFailed,
-      this.signInonResetPasswordLabelButton,
       this.updateUser,
       this.updateUserSuccessNoticeTitle,
       this.updateUserSuccessNotice,
       this.updateUserFailNotice,
-      this.enterPassword,
       this.cancel,
       this.submit,
-      this.changePasswordLabelButton,
-      this.resetPasswordTitle,
       this.updateProfileTitle,
-      this.wrongPasswordNoticeTitle,
-      this.wrongPasswordNotice,
       this.unknownError});
 
   final String googleSignIn;
@@ -710,41 +561,25 @@ class AppLocalizations_Labels_Auth {
 
   final String phone;
 
-  final String otp;
+  final String requestOTP;
+
+  final String enterOTP;
+
+  final String otpVerificationSentTitle;
+
+  final String otpVerificationSent;
 
   final String signInButton;
 
-  final String signUpButton;
-
-  final String resetPasswordButton;
+  final String nameFormField;
 
   final String emailFormField;
-
-  final String passwordFormField;
-
-  final String nameFormField;
 
   final String signInErrorTitle;
 
   final String signInError;
 
   final String resetPasswordLabelButton;
-
-  final String signUpLabelButton;
-
-  final String signUpErrorTitle;
-
-  final String signUpError;
-
-  final String signInLabelButton;
-
-  final String resetPasswordNoticeTitle;
-
-  final String resetPasswordNotice;
-
-  final String resetPasswordFailed;
-
-  final String signInonResetPasswordLabelButton;
 
   final String updateUser;
 
@@ -754,21 +589,11 @@ class AppLocalizations_Labels_Auth {
 
   final String updateUserFailNotice;
 
-  final String enterPassword;
-
   final String cancel;
 
   final String submit;
 
-  final String changePasswordLabelButton;
-
-  final String resetPasswordTitle;
-
   final String updateProfileTitle;
-
-  final String wrongPasswordNoticeTitle;
-
-  final String wrongPasswordNotice;
 
   final String unknownError;
 
@@ -782,42 +607,26 @@ class AppLocalizations_Labels_Auth {
         return aborted;
       case 'phone':
         return phone;
-      case 'otp':
-        return otp;
+      case 'requestOTP':
+        return requestOTP;
+      case 'enterOTP':
+        return enterOTP;
+      case 'otpVerificationSentTitle':
+        return otpVerificationSentTitle;
+      case 'otpVerificationSent':
+        return otpVerificationSent;
       case 'signInButton':
         return signInButton;
-      case 'signUpButton':
-        return signUpButton;
-      case 'resetPasswordButton':
-        return resetPasswordButton;
-      case 'emailFormField':
-        return emailFormField;
-      case 'passwordFormField':
-        return passwordFormField;
       case 'nameFormField':
         return nameFormField;
+      case 'emailFormField':
+        return emailFormField;
       case 'signInErrorTitle':
         return signInErrorTitle;
       case 'signInError':
         return signInError;
       case 'resetPasswordLabelButton':
         return resetPasswordLabelButton;
-      case 'signUpLabelButton':
-        return signUpLabelButton;
-      case 'signUpErrorTitle':
-        return signUpErrorTitle;
-      case 'signUpError':
-        return signUpError;
-      case 'signInLabelButton':
-        return signInLabelButton;
-      case 'resetPasswordNoticeTitle':
-        return resetPasswordNoticeTitle;
-      case 'resetPasswordNotice':
-        return resetPasswordNotice;
-      case 'resetPasswordFailed':
-        return resetPasswordFailed;
-      case 'signInonResetPasswordLabelButton':
-        return signInonResetPasswordLabelButton;
       case 'updateUser':
         return updateUser;
       case 'updateUserSuccessNoticeTitle':
@@ -826,22 +635,12 @@ class AppLocalizations_Labels_Auth {
         return updateUserSuccessNotice;
       case 'updateUserFailNotice':
         return updateUserFailNotice;
-      case 'enterPassword':
-        return enterPassword;
       case 'cancel':
         return cancel;
       case 'submit':
         return submit;
-      case 'changePasswordLabelButton':
-        return changePasswordLabelButton;
-      case 'resetPasswordTitle':
-        return resetPasswordTitle;
       case 'updateProfileTitle':
         return updateProfileTitle;
-      case 'wrongPasswordNoticeTitle':
-        return wrongPasswordNoticeTitle;
-      case 'wrongPasswordNotice':
-        return wrongPasswordNotice;
       case 'unknownError':
         return unknownError;
       default:

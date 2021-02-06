@@ -1,3 +1,4 @@
+import 'package:fire_starter/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
@@ -6,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:simple_gravatar/simple_gravatar.dart';
 import 'package:fire_starter/localizations.dart';
 import 'package:fire_starter/models/models.dart';
 import 'package:fire_starter/ui/auth/auth.dart';
@@ -19,13 +19,13 @@ class AuthController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController otpController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   Rx<User> firebaseUser = Rx<User>();
   Rx<UserModel> firestoreUser = Rx<UserModel>();
   final RxBool admin = false.obs;
+  final RxBool waitingForOTP = false.obs;
+  String _verificationId;
 
   @override
   void onReady() async {
@@ -69,10 +69,7 @@ class AuthController extends GetxController {
     print('streamFirestoreUser()');
     var userRecord = await getFirestoreUser();
     if (userRecord != null) {
-      return _db
-          .doc('/users/${firebaseUser.value.uid}')
-          .snapshots()
-          .map((snapshot) => UserModel.fromMap(snapshot.data()));
+      return _db.doc('/users/${firebaseUser.value.uid}').snapshots().map((snapshot) => UserModel.fromMap(snapshot.data()));
     }
 
     return null;
@@ -81,10 +78,7 @@ class AuthController extends GetxController {
   //get the firestore user from the firestore collection
   Future<UserModel> getFirestoreUser() {
     if (firebaseUser?.value?.uid != null) {
-      return _db
-          .doc('/users/${firebaseUser.value.uid}')
-          .get()
-          .then((documentSnapshot) {
+      return _db.doc('/users/${firebaseUser.value.uid}').get().then((documentSnapshot) {
         if (documentSnapshot.exists)
           return UserModel.fromMap(documentSnapshot.data());
         else {
@@ -96,15 +90,16 @@ class AuthController extends GetxController {
   }
 
   //Method to handle user sign in using email and password
-  signInWithEmailAndPassword(BuildContext context) async {
+  verifyOTP(BuildContext context) async {
+    String code = otpController.text.trim();
+    GetLogger.to.v('Using OTP $code ');
     final labels = AppLocalizations.of(context);
     showLoadingIndicator();
     try {
-      await _auth.signInWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-      emailController.clear();
-      passwordController.clear();
+      await _auth.signInWithCredential(PhoneAuthProvider.credential(
+        verificationId: _verificationId,
+        smsCode: code,
+      ));
       hideLoadingIndicator();
     } catch (error) {
       hideLoadingIndicator();
@@ -117,14 +112,35 @@ class AuthController extends GetxController {
   }
 
   //Method to handle user sign in using email and password
-  signInWithPhone(BuildContext context) async {
+  requestOTP(BuildContext context, String phone) async {
+    GetLogger.to.v('Sending OTP to $phone ');
     final labels = AppLocalizations.of(context);
     showLoadingIndicator();
     try {
-      await _auth.signInWithPhoneNumber(phoneController.text.trim());
-      hideLoadingIndicator();
+      await _auth.verifyPhoneNumber(
+          phoneNumber: phone,
+          verificationCompleted: (credential) {
+            FirebaseAuth.instance.signInWithCredential(credential);
+            hideLoadingIndicator();
+          },
+          timeout: const Duration(seconds: 10),
+          verificationFailed: (error) {
+            GetLogger.to.e(error);
+            hideLoadingIndicator();
+            Get.snackbar(labels.auth.signInErrorTitle, labels.auth.signInError, snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 7));
+          },
+          codeSent: (verificationId, __) {
+            waitingForOTP.value = true;
+            _verificationId = verificationId;
+            Get.snackbar(labels.auth.otpVerificationSentTitle, labels.auth.otpVerificationSent,
+                snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 7));
+          },
+          codeAutoRetrievalTimeout: (_) => hideLoadingIndicator());
+      // hideLoadingIndicator();
     } catch (error) {
       hideLoadingIndicator();
+      GetLogger.to.e(error);
+      waitingForOTP.value = false;
       Get.snackbar(labels.auth.signInErrorTitle, labels.auth.signInError,
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 7),
@@ -133,63 +149,14 @@ class AuthController extends GetxController {
     }
   }
 
-  // User registration using email and password
-  registerWithEmailAndPassword(BuildContext context) async {
-    final labels = AppLocalizations.of(context);
-    showLoadingIndicator();
-    try {
-      await _auth
-          .createUserWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text)
-          .then((result) async {
-        print('uID: ' + result.user.uid);
-        print('email: ' + result.user.email);
-        //get photo url from gravatar if user has one
-        Gravatar gravatar = Gravatar(emailController.text);
-        String gravatarUrl = gravatar.imageUrl(
-          size: 200,
-          defaultImage: GravatarImage.retro,
-          rating: GravatarRating.pg,
-          fileExtension: true,
-        );
-        //create the new user object
-        UserModel _newUser = UserModel(
-            uid: result.user.uid,
-            email: result.user.email,
-            name: nameController.text,
-            photoUrl: gravatarUrl);
-        //create the user in firestore
-        _createUserFirestore(_newUser, result.user);
-        emailController.clear();
-        passwordController.clear();
-        hideLoadingIndicator();
-      });
-    } catch (error) {
-      hideLoadingIndicator();
-      Get.snackbar(labels.auth.signUpErrorTitle, error.message,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 10),
-          backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
-    }
-  }
-
   //handles updating the user when updating profile
-  Future<void> updateUser(BuildContext context, UserModel user, String oldEmail,
-      String password) async {
+  Future<void> updateUser(BuildContext context, UserModel user) async {
     final labels = AppLocalizations.of(context);
     try {
-      showLoadingIndicator();
-      await _auth
-          .signInWithEmailAndPassword(email: oldEmail, password: password)
-          .then((_firebaseUser) {
-        _firebaseUser.user
-            .updateEmail(user.email)
-            .then((value) => _updateUserFirestore(user, _firebaseUser.user));
-      });
+      User _firebaseUser = firebaseUser?.value;
+      _updateUserFirestore(user, _firebaseUser);
       hideLoadingIndicator();
-      Get.snackbar(labels.auth.updateUserSuccessNoticeTitle,
-          labels.auth.updateUserSuccessNotice,
+      Get.snackbar(labels.auth.updateUserSuccessNoticeTitle, labels.auth.updateUserSuccessNotice,
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 5),
           backgroundColor: Get.theme.snackBarTheme.backgroundColor,
@@ -199,16 +166,7 @@ class AuthController extends GetxController {
       // print("Error: " + errors[1]);
       hideLoadingIndicator();
       print(error.code);
-      String authError;
-      switch (error.code) {
-        case 'ERROR_WRONG_PASSWORD':
-          authError = labels.auth.wrongPasswordNotice;
-          break;
-        default:
-          authError = labels.auth.unknownError;
-          break;
-      }
-      Get.snackbar(labels.auth.wrongPasswordNoticeTitle, authError,
+      Get.snackbar(labels.auth.unknownError, error.code,
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 10),
           backgroundColor: Get.theme.snackBarTheme.backgroundColor,
@@ -242,34 +200,10 @@ class AuthController extends GetxController {
     return _newUser;
   }
 
-  //password reset email
-  Future<void> sendPasswordResetEmail(BuildContext context) async {
-    final labels = AppLocalizations.of(context);
-    showLoadingIndicator();
-    try {
-      await _auth.sendPasswordResetEmail(email: emailController.text);
-      hideLoadingIndicator();
-      Get.snackbar(
-          labels.auth.resetPasswordNoticeTitle, labels.auth.resetPasswordNotice,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 5),
-          backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
-    } catch (error) {
-      hideLoadingIndicator();
-      Get.snackbar(labels.auth.resetPasswordFailed, error.message,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 10),
-          backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
-    }
-  }
-
   //check if user is an admin user
   isAdmin() async {
     await getUser.then((user) async {
-      DocumentSnapshot adminRef =
-          await _db.collection('admin').doc(user?.uid).get();
+      DocumentSnapshot adminRef = await _db.collection('admin').doc(user?.uid).get();
       if (adminRef.exists) {
         admin.value = true;
       } else {
@@ -282,8 +216,9 @@ class AuthController extends GetxController {
   // Sign out
   Future<void> signOut() {
     nameController.clear();
-    emailController.clear();
-    passwordController.clear();
+    phoneController.clear();
+    otpController.clear();
+    waitingForOTP.value = false;
     return _auth.signOut();
   }
 
@@ -299,13 +234,7 @@ class AuthController extends GetxController {
       idToken: appleIdCredential.identityToken,
       accessToken: appleIdCredential.authorizationCode,
     );
-
-    print(credential);
-    // Once signed in, return the UserCredential
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-
-    // onSocialLogin(userCredential.user);
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
     return userCredential.user;
   }
 
@@ -318,8 +247,7 @@ class AuthController extends GetxController {
     if (googleUser == null) throw labels.auth.aborted;
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
     // Create a new credential
     final GoogleAuthCredential credential = GoogleAuthProvider.credential(
@@ -328,8 +256,7 @@ class AuthController extends GetxController {
     );
 
     // Once signed in, return the UserCredential
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
 
     // onSocialLogin(userCredential.user);
     return userCredential.user;
