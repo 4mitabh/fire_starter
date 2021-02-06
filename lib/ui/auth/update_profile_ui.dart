@@ -38,13 +38,6 @@ class UpdateProfileUI extends StatelessWidget {
                     onSaved: (value) => authController.nameController.text = value,
                   ),
                   FormVerticalSpace(),
-                  // FormInputFieldWithIcon(
-                  //     iconPrefix: Icons.email,
-                  //     labelText: labels?.auth?.emailFormField,
-                  //     validator: Validator(labels).email,
-                  //     keyboardType: TextInputType.emailAddress,
-                  //     enabled: false),
-                  // FormVerticalSpace(),
                   PrimaryButton(
                       labelText: labels?.auth?.updateUser,
                       onPressed: () async {

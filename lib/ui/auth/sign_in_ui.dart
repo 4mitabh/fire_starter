@@ -91,7 +91,7 @@ class SignInUI extends StatelessWidget {
                         }
                       }),
                 FormVerticalSpace(),
-                if (GetPlatform.isAndroid)
+                if (!authController.waitingForOTP.value && GetPlatform.isAndroid)
                   LabelButton(
                       labelText: labels?.auth?.googleSignIn,
                       onPressed: () async {
@@ -102,7 +102,7 @@ class SignInUI extends StatelessWidget {
                           Get.snackbar('Error', e.toString());
                         }
                       }),
-                if (GetPlatform.isMacOS || GetPlatform.isIOS)
+                if (!authController.waitingForOTP.value && (GetPlatform.isMacOS || GetPlatform.isIOS))
                   LabelButton(
                       labelText: labels?.auth?.appleSignIn,
                       onPressed: () async {
@@ -113,6 +113,10 @@ class SignInUI extends StatelessWidget {
                           Get.snackbar('Error', e.toString());
                         }
                       }),
+                if (authController.waitingForOTP.value)
+                  LabelButton(
+                      labelText: labels?.auth?.otpVerificationChangeNumber(phone: authController.phoneNumber),
+                      onPressed: () => authController.cancelPhoneVerification()),
               ],
             ),
           ),

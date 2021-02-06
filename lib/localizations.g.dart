@@ -23,7 +23,9 @@ class AppLocalizations {
         requestOTP: 'Get OTP',
         enterOTP: 'Enter OTP',
         otpVerificationSentTitle: 'OTP Sent',
-        otpVerificationSent: 'OTP Sent to your mobile number',
+        otpVerificationSent: 'OTP sent to your mobile number',
+        otpVerificationChangeNumber: ({phone}) =>
+            '''OTP sent to ${phone}. Number not correct?''',
         signInButton: 'Sign In',
         nameFormField: 'Name',
         emailFormField: 'Email',
@@ -80,6 +82,8 @@ class AppLocalizations {
         enterOTP: 'Entrez OTP',
         otpVerificationSentTitle: 'Sent Bureau du Procureur',
         otpVerificationSent: 'OTP envoyé à votre numéro de téléphone mobile',
+        otpVerificationChangeNumber: ({phone}) =>
+            '''OTP envoyé à {{téléphone}}. Nombre incorrect?''',
         signInButton: 'Se connecter',
         nameFormField: 'Nom',
         emailFormField: 'Email',
@@ -136,7 +140,9 @@ class AppLocalizations {
         requestOTP: 'Get OTP',
         enterOTP: 'Introduzca OTP',
         otpVerificationSentTitle: 'Enviados OTP',
-        otpVerificationSent: 'OTP enviada a su número de teléfono móvil',
+        otpVerificationSent: 'OTP enviado a su número de teléfono móvil',
+        otpVerificationChangeNumber: ({phone}) =>
+            '''OTP enviado al teléfono {{}}. Número no es correcta?''',
         signInButton: 'Registrarse',
         nameFormField: 'Nombre',
         emailFormField: 'Email',
@@ -195,6 +201,8 @@ class AppLocalizations {
         enterOTP: 'Geben Sie OTP',
         otpVerificationSentTitle: 'OTP Sent',
         otpVerificationSent: 'OTP an Ihre Handy-Nummer',
+        otpVerificationChangeNumber: ({phone}) =>
+            '''OTP an {{Telefon}}. Nummer nicht korrekt?''',
         signInButton: 'Anmelden',
         nameFormField: 'Name',
         emailFormField: 'Email',
@@ -251,7 +259,9 @@ class AppLocalizations {
         requestOTP: 'प्राप्त OTP',
         enterOTP: 'OTP दर्ज करें',
         otpVerificationSentTitle: 'OTP भेजा',
-        otpVerificationSent: 'OTP अपना मोबाइल नंबर पर भेजा गया',
+        otpVerificationSent: 'OTP अपने मोबाइल नंबर पर भेजा',
+        otpVerificationChangeNumber: ({phone}) =>
+            '''OTP भेजा {{फोन}}। संख्या नहीं सही है?''',
         signInButton: 'दाखिल करना',
         nameFormField: 'नाम',
         emailFormField: 'ईमेल',
@@ -306,7 +316,9 @@ class AppLocalizations {
         requestOTP: 'get OTP',
         enterOTP: 'Digite OTP',
         otpVerificationSentTitle: 'OTP Sent',
-        otpVerificationSent: 'OTP Enviado para o seu número de telemóvel',
+        otpVerificationSent: 'OTP enviada para o seu número de telemóvel',
+        otpVerificationChangeNumber: ({phone}) =>
+            '''OTP enviado para {{telefone}}. Número não está correta?''',
         signInButton: 'Assinar em',
         nameFormField: 'Nome',
         emailFormField: 'O email',
@@ -364,6 +376,7 @@ class AppLocalizations {
         enterOTP: '输入OTP',
         otpVerificationSentTitle: 'OTP发送',
         otpVerificationSent: 'OTP发送到您的手机号码',
+        otpVerificationChangeNumber: ({phone}) => '''OTP发送到{{电话}}。号码不正确？''',
         signInButton: '登入',
         nameFormField: '名称',
         emailFormField: '电子邮件',
@@ -418,7 +431,9 @@ class AppLocalizations {
         requestOTP: '取得OTP',
         enterOTP: 'OTPを入力します。',
         otpVerificationSentTitle: 'OTP SENT',
-        otpVerificationSent: 'お使いの携帯電話番号に送信されたOTP',
+        otpVerificationSent: 'OTPは、あなたの携帯電話番号に送信されました',
+        otpVerificationChangeNumber: ({phone}) =>
+            '''OTPは{{}}電話に送られます。番号が正しくありませんか？''',
         signInButton: 'ログイン',
         nameFormField: '名前',
         emailFormField: 'Eメール',
@@ -473,7 +488,9 @@ class AppLocalizations {
         requestOTP: 'Get OTP',
         enterOTP: 'Введите одноразовый пароль',
         otpVerificationSentTitle: 'OTP Sent',
-        otpVerificationSent: 'OTP Отправленные на свой мобильный номер',
+        otpVerificationSent: 'OTP отправлено на Ваш номер мобильного',
+        otpVerificationChangeNumber: ({phone}) =>
+            '''OTP адрес {{телефон}}. Номер не правильно?''',
         signInButton: 'Войти в систему',
         nameFormField: 'имя',
         emailFormField: 'Эл. адрес',
@@ -528,6 +545,9 @@ class AppLocalizations {
       Localizations.of<AppLocalizations>(context, AppLocalizations)?.labels;
 }
 
+typedef AppLocalizations_Labels_Auth_otpVerificationChangeNumber = String
+    Function({@required String phone});
+
 class AppLocalizations_Labels_Auth {
   const AppLocalizations_Labels_Auth(
       {this.googleSignIn,
@@ -538,6 +558,8 @@ class AppLocalizations_Labels_Auth {
       this.enterOTP,
       this.otpVerificationSentTitle,
       this.otpVerificationSent,
+      AppLocalizations_Labels_Auth_otpVerificationChangeNumber
+          otpVerificationChangeNumber,
       this.signInButton,
       this.nameFormField,
       this.emailFormField,
@@ -551,7 +573,8 @@ class AppLocalizations_Labels_Auth {
       this.cancel,
       this.submit,
       this.updateProfileTitle,
-      this.unknownError});
+      this.unknownError})
+      : _otpVerificationChangeNumber = otpVerificationChangeNumber;
 
   final String googleSignIn;
 
@@ -568,6 +591,9 @@ class AppLocalizations_Labels_Auth {
   final String otpVerificationSentTitle;
 
   final String otpVerificationSent;
+
+  final AppLocalizations_Labels_Auth_otpVerificationChangeNumber
+      _otpVerificationChangeNumber;
 
   final String signInButton;
 
@@ -647,6 +673,11 @@ class AppLocalizations_Labels_Auth {
         return '';
     }
   }
+
+  String otpVerificationChangeNumber({@required String phone}) =>
+      _otpVerificationChangeNumber(
+        phone: phone,
+      );
 }
 
 class AppLocalizations_Labels_Settings {

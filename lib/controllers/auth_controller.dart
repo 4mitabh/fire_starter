@@ -26,6 +26,7 @@ class AuthController extends GetxController {
   final RxBool admin = false.obs;
   final RxBool waitingForOTP = false.obs;
   String _verificationId;
+  String phoneNumber;
 
   @override
   void onReady() async {
@@ -113,6 +114,7 @@ class AuthController extends GetxController {
 
   //Method to handle user sign in using email and password
   requestOTP(BuildContext context, String phone) async {
+    phoneNumber = phone;
     GetLogger.to.v('Sending OTP to $phone ');
     final labels = AppLocalizations.of(context);
     showLoadingIndicator();
@@ -147,6 +149,11 @@ class AuthController extends GetxController {
           backgroundColor: Get.theme.snackBarTheme.backgroundColor,
           colorText: Get.theme.snackBarTheme.actionTextColor);
     }
+  }
+
+  cancelPhoneVerification() {
+    waitingForOTP.value = false;
+    otpController.clear();
   }
 
   //handles updating the user when updating profile
