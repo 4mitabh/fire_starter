@@ -1,10 +1,9 @@
+import 'package:fire_starter/ui/blob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'dart:core';
 import 'package:get/get.dart';
 import 'package:fire_starter/localizations.dart';
-import 'package:fire_starter/ui/auth/auth.dart';
 import 'package:fire_starter/ui/components/components.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:fire_starter/controllers/controllers.dart';
@@ -17,12 +16,13 @@ class SignInUI extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
+        body: Blob(
+      child: FutureBuilder(
           future: getCountry(),
           builder: (context, snapshot) {
             return Obx(() => buildForm(context, snapshot.data));
           }),
-    );
+    ));
   }
 
   Form buildForm(BuildContext context, String country) {
@@ -37,6 +37,7 @@ class SignInUI extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                Text('Scorizen', textAlign: TextAlign.center, style: TextStyle(fontSize: 38, fontWeight: FontWeight.w100, color: Colors.white)),
                 LogoGraphicHeader(),
                 SizedBox(height: 48.0),
                 if (!authController.waitingForOTP.value)
