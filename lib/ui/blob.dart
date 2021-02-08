@@ -1,18 +1,18 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:fire_starter/controllers/theme_controller.dart';
 import 'package:flutter/material.dart';
 
 class Blob extends StatelessWidget {
   final Widget child;
 
-  final Color background;
-  Blob({this.child, this.background = Colors.red /*const Color.fromRGBO(255,255,255, 1)*/});
+  Blob({this.child});
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Bubbles(background: background),
+        Bubbles(),
         BackdropFilter(
           filter: ImageFilter.blur(
             sigmaX: 16.0,
@@ -26,9 +26,6 @@ class Blob extends StatelessWidget {
 }
 
 class Bubbles extends StatefulWidget {
-  final Color background;
-
-  const Bubbles({Key key, this.background}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _BubblesState();
@@ -36,16 +33,18 @@ class Bubbles extends StatefulWidget {
 }
 
 class _BubblesState extends State<Bubbles> with SingleTickerProviderStateMixin {
+  final ThemeController themeController = ThemeController.to;
+  Color background;
   AnimationController _controller;
   List<Bubble> bubbles;
   final int numberOfBubbles = 6;
-  final Color color = Colors.blue;
+  Color color;
   final double maxBubbleSize = 200.0;
 
   @override
   void initState() {
     super.initState();
-
+    color = themeController.isDarkModeOn ? const Color.fromRGBO(30, 30, 55, 1) : const Color.fromRGBO(100, 140, 255, 1);
     // Initialize bubbles
     bubbles = List();
     int i = numberOfBubbles;
@@ -71,7 +70,9 @@ class _BubblesState extends State<Bubbles> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      foregroundPainter: BubblePainter(bubbles: bubbles, background: widget.background),
+      foregroundPainter: BubblePainter(
+          bubbles: bubbles,
+          background: themeController.isDarkModeOn ? const Color.fromRGBO(155, 130, 130, 1) : const Color.fromRGBO(255, 100, 100, 1)),
       size: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
     );
   }
@@ -106,9 +107,10 @@ class Bubble {
   double radius;
   double x;
   double y;
+  final ThemeController themeController = ThemeController.to;
 
   Bubble(Color colour, double maxBubbleSize) {
-    this.colour = colour.withOpacity(Random().nextDouble());
+    this.colour = colour.withOpacity(0.5 + Random().nextDouble() / 2);
     this.direction = Random().nextDouble() * 360;
     this.speed = 0.01;
     this.radius = Random().nextDouble() * maxBubbleSize;
@@ -116,7 +118,8 @@ class Bubble {
 
   draw(Canvas canvas, Size canvasSize) {
     Paint paint = new Paint()
-      ..color = colour
+      // ..color = colour
+      ..color = themeController.isDarkModeOn ? const Color.fromRGBO(70, 70, 105, 1) : const Color.fromRGBO(100, 140, 255, 1)
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.fill;
 

@@ -13,7 +13,6 @@ class HomeUI extends StatelessWidget {
     return GetBuilder<AuthController>(
       init: AuthController(),
       builder: (controller) {
-        print(controller?.firestoreUser?.value?.uid);
         return controller?.firestoreUser?.value?.uid == null
             ? Center(
                 child: CircularProgressIndicator(),
@@ -39,35 +38,15 @@ class HomeUI extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           FormVerticalSpace(),
-                          Text(
-                              labels.home.uidLabel +
-                                  ': ' +
-                                  controller.firestoreUser.value.uid,
-                              style: TextStyle(fontSize: 16)),
+                          Text(labels.home.uidLabel + ': ' + controller.firestoreUser.value.uid, style: TextStyle(fontSize: 16)),
                           FormVerticalSpace(),
-                          Text(
-                              labels.home.nameLabel +
-                                  ': ' +
-                                  (controller.firestoreUser.value.name ?? ''),
-                              style: TextStyle(fontSize: 16)),
+                          Text(labels.home.nameLabel + ': ' + (controller.firestoreUser.value.name ?? ''), style: TextStyle(fontSize: 16)),
                           FormVerticalSpace(),
-                          Text(
-                              labels.home.emailLabel +
-                                  ': ' +
-                                  (controller.firestoreUser.value.email ?? ''),
-                              style: TextStyle(fontSize: 16)),
+                          Text(labels.home.emailLabel + ': ' + (controller.firestoreUser.value.email ?? ''), style: TextStyle(fontSize: 16)),
                           FormVerticalSpace(),
-                          Text(
-                              labels.home.phoneLabel +
-                                  ': ' +
-                                  (controller.firestoreUser.value.phone ?? ''),
-                              style: TextStyle(fontSize: 16)),
+                          Text(labels.home.phoneLabel + ': ' + (controller.firestoreUser.value.phone ?? ''), style: TextStyle(fontSize: 16)),
                           FormVerticalSpace(),
-                          Text(
-                              labels.home.adminUserLabel +
-                                  ': ' +
-                                  controller.admin.value.toString(),
-                              style: TextStyle(fontSize: 16)),
+                          Text(labels.home.adminUserLabel + ': ' + controller.admin.value.toString(), style: TextStyle(fontSize: 16)),
                         ],
                       ),
                     ],

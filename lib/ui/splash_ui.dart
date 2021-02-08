@@ -1,3 +1,4 @@
+import 'package:fire_starter/ui/components/logo_graphic_header.dart';
 import 'package:flutter/material.dart';
 
 class SplashUI extends StatelessWidget {
@@ -6,7 +7,7 @@ class SplashUI extends StatelessWidget {
     return Scaffold(
       body: Container(
         child: Center(
-          child: CircularProgressIndicator(),
+          child: LogoGraphicHeader(),
         ),
       ),
     );

@@ -19,8 +19,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart' as permissionHander;
 
-part './base.dart';
-
 /// FireFlutter
 ///
 /// Recommendation: instantiate `FireFlutter` class into a global variable
@@ -28,7 +26,7 @@ part './base.dart';
 ///
 /// Warning: instantiate it after `initFirebase`. One of good places is insdie
 /// the first widget loaded by `runApp()` or home screen.
-class FireStarter extends Base {
+class FireStarter {
   /// [socialLoginHandler] will be invoked when a social login success or fail.
   FireStarter() {
     // print('FireFlutter');
@@ -45,7 +43,15 @@ class FireStarter extends Base {
     Get.put<AuthController>(AuthController());
     Get.put<ThemeController>(ThemeController());
     Get.put<LanguageController>(LanguageController());
-    Get.put<LanguageController>(LanguageController());
     Get.put<Logger>(Logger());
+
+    ThemeController themeController = ThemeController.to;
+    Timer.periodic(const Duration(seconds: 6), (Timer timer) {
+      return themeController.setThemeMode(themeController.isDarkModeOn ? 'light' : 'dark');
+    });
+    LanguageController languageController = LanguageController.to;
+    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+      return languageController.updateLanguage(languageController.currentLanguage == 'en' ? 'hi' : 'en');
+    });
   }
 }
