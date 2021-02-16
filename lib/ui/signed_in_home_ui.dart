@@ -1,5 +1,5 @@
 import 'package:fire_starter/ui/auth/auth.dart';
-import 'package:fire_starter/ui/components/navbar.dart';
+import 'package:fire_starter/ui/components/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:fire_starter/ui/ui.dart';
 import 'package:get/get.dart';

@@ -1,4 +1,4 @@
-import 'package:fire_starter/ui/components/logo_graphic_header.dart';
+import 'package:fire_starter/ui/components/widgets/logo_graphic_header.dart';
 import 'package:flutter/material.dart';
 
 class SplashUI extends StatelessWidget {

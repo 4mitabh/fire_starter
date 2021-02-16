@@ -1,9 +1,9 @@
 import 'package:fire_starter/controllers/controllers.dart';
 import 'package:fire_starter/localizations.dart';
-import 'package:fire_starter/ui/components/blob.dart';
-import 'package:fire_starter/ui/components/avatar.dart';
-import 'package:fire_starter/ui/components/form_vertical_spacing.dart';
-import 'package:fire_starter/ui/components/glass_container.dart';
+import 'package:fire_starter/ui/components/widgets/blob.dart';
+import 'package:fire_starter/ui/components/widgets/avatar.dart';
+import 'package:fire_starter/ui/components/forms/form_vertical_spacing.dart';
+import 'package:fire_starter/ui/components/widgets/glass_container.dart';
 import 'package:flutter/material.dart';
 
 class HomeUI extends StatelessWidget {

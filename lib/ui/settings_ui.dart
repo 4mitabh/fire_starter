@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fire_starter/ui/auth/auth.dart';
 import 'package:get/get.dart';
-import 'package:fire_starter/ui/components/segmented_selector.dart';
+import 'package:fire_starter/ui/components/widgets/segmented_selector.dart';
 import 'package:fire_starter/localizations.dart';
 import 'package:fire_starter/controllers/controllers.dart';
 import 'package:fire_starter/ui/components/components.dart';

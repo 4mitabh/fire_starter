@@ -1,4 +1,4 @@
-import 'package:fire_starter/ui/components/blob.dart';
+import 'package:fire_starter/ui/components/widgets/blob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:core';
