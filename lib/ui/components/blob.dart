@@ -105,8 +105,8 @@ class Bubble {
   double direction;
   double speed;
   double radius;
-  double x;
-  double y;
+  double x = 0;
+  double y = 0;
   final ThemeController themeController = ThemeController.to;
 
   Bubble(Color colour, double maxBubbleSize) {

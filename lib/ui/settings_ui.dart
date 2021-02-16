@@ -20,6 +20,7 @@ class SettingsUI extends StatelessWidget {
       appBar: AppBar(
         title: Text(labels.settings.title),
       ),
+      // backgroundColor: Colors.transparent,
       body: _buildLayoutSection(context),
     );
   }
@@ -76,16 +77,9 @@ class SettingsUI extends StatelessWidget {
   themeListTile(BuildContext context) {
     final labels = AppLocalizations.of(context);
     final List<MenuOptionsModel> themeOptions = [
-      MenuOptionsModel(
-          key: "system",
-          value: labels.settings.system,
-          icon: Icons.brightness_4),
-      MenuOptionsModel(
-          key: "light",
-          value: labels.settings.light,
-          icon: Icons.brightness_low),
-      MenuOptionsModel(
-          key: "dark", value: labels.settings.dark, icon: Icons.brightness_3)
+      MenuOptionsModel(key: "system", value: labels.settings.system, icon: Icons.brightness_4),
+      MenuOptionsModel(key: "light", value: labels.settings.light, icon: Icons.brightness_low),
+      MenuOptionsModel(key: "dark", value: labels.settings.dark, icon: Icons.brightness_3)
     ];
     return GetBuilder<ThemeController>(
       builder: (controller) => ListTile(

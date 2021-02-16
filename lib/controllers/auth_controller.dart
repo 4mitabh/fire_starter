@@ -9,8 +9,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:fire_starter/localizations.dart';
 import 'package:fire_starter/models/models.dart';
-import 'package:fire_starter/ui/auth/auth.dart';
-import 'package:fire_starter/ui/ui.dart';
 import 'package:fire_starter/ui/components/components.dart';
 
 class AuthController extends GetxController {
@@ -53,9 +51,9 @@ class AuthController extends GetxController {
     }
 
     if (_firebaseUser == null) {
-      Get.offAll(SignInUI());
+      Get.toNamed('/signin');
     } else {
-      Get.offAll(HomeUI());
+      Get.toNamed('/home');
     }
   }
 

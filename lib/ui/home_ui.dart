@@ -1,59 +1,46 @@
-import 'package:flutter/material.dart';
-import 'package:fire_starter/localizations.dart';
 import 'package:fire_starter/controllers/controllers.dart';
-import 'package:fire_starter/ui/components/components.dart';
-import 'package:fire_starter/ui/ui.dart';
-import 'package:get/get.dart';
+import 'package:fire_starter/localizations.dart';
+import 'package:fire_starter/ui/components/blob.dart';
+import 'package:fire_starter/ui/components/avatar.dart';
+import 'package:fire_starter/ui/components/form_vertical_spacing.dart';
+import 'package:fire_starter/ui/components/glass_container.dart';
+import 'package:flutter/material.dart';
 
 class HomeUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final labels = AppLocalizations.of(context);
+    final controller = AuthController.to;
 
-    return GetBuilder<AuthController>(
-      init: AuthController(),
-      builder: (controller) {
-        return controller?.firestoreUser?.value?.uid == null
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Scaffold(
-                appBar: AppBar(
-                  title: Text(labels?.home?.title),
-                  actions: [
-                    IconButton(
-                        icon: Icon(Icons.settings),
-                        onPressed: () {
-                          Get.to(SettingsUI());
-                        }),
+    return Blob(
+      child: GlassContainer(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 120),
+                Avatar(controller.firestoreUser.value),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    FormVerticalSpace(),
+                    Text('${labels.home.uidLabel}: ${controller.firestoreUser?.value?.uid}', style: TextStyle(fontSize: 16)),
+                    FormVerticalSpace(),
+                    Text('${labels.home.nameLabel}: ${controller.firestoreUser?.value?.name ?? ''}', style: TextStyle(fontSize: 16)),
+                    FormVerticalSpace(),
+                    Text('${labels.home.emailLabel}: ${controller.firestoreUser?.value?.email ?? ''}', style: TextStyle(fontSize: 16)),
+                    FormVerticalSpace(),
+                    Text('${labels.home.phoneLabel}: ${controller.firestoreUser?.value?.phone ?? ''}', style: TextStyle(fontSize: 16)),
+                    FormVerticalSpace(),
+                    Text('${labels.home.adminUserLabel}: ${controller.admin.value?.toString() ?? ''}', style: TextStyle(fontSize: 16)),
                   ],
                 ),
-                body: Center(
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 120),
-                      Avatar(controller.firestoreUser.value),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          FormVerticalSpace(),
-                          Text(labels.home.uidLabel + ': ' + controller.firestoreUser.value.uid, style: TextStyle(fontSize: 16)),
-                          FormVerticalSpace(),
-                          Text(labels.home.nameLabel + ': ' + (controller.firestoreUser.value.name ?? ''), style: TextStyle(fontSize: 16)),
-                          FormVerticalSpace(),
-                          Text(labels.home.emailLabel + ': ' + (controller.firestoreUser.value.email ?? ''), style: TextStyle(fontSize: 16)),
-                          FormVerticalSpace(),
-                          Text(labels.home.phoneLabel + ': ' + (controller.firestoreUser.value.phone ?? ''), style: TextStyle(fontSize: 16)),
-                          FormVerticalSpace(),
-                          Text(labels.home.adminUserLabel + ': ' + controller.admin.value.toString(), style: TextStyle(fontSize: 16)),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              );
-      },
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,21 +1,11 @@
 library firestarter;
 
-import 'dart:convert';
-import 'dart:io';
-import 'dart:ui' as ui;
 import 'dart:async';
-import 'package:crypto/crypto.dart';
 import 'package:fire_starter/controllers/controllers.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart' as permissionHander;
 
@@ -40,9 +30,9 @@ class FireStarter {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     await GetStorage.init();
+    Get.put<LanguageController>(LanguageController());
     Get.put<AuthController>(AuthController());
     Get.put<ThemeController>(ThemeController());
-    Get.put<LanguageController>(LanguageController());
     Get.put<Logger>(Logger());
 
     ThemeController themeController = ThemeController.to;

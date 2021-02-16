@@ -30,7 +30,7 @@ dependencies:
   country_pickers:
   get_storage:
   flutter_sheet_localization:
-  simple_gravatar:
+  google_nav_bar:
   intl:
 
 dev_dependencies:
