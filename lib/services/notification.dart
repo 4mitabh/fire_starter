@@ -9,31 +9,29 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-class NotificaionService extends GetxService {
+class NotificationService extends GetxService {
   static const _NOTIFICATION_TOKEN = 'nt';
-  static NotificaionService get to => Get.find();
+  static NotificationService get to => Get.find();
   static FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   String _uid;
   StreamSubscription _fcmTokenListener;
-  NotificaionService() {
+  NotificationService() {
     AuthService authService = AuthService.to;
     authService.user.listen(userUpdated);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (message.notification != null) showSnackBar(message.notification.title, message.notification.body);
+    });
   }
-  // static FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  //  DocumentReference get tokenDoc =>
-  //     db.collection('meta').doc('user').collection('token').doc(user.uid);
 
   Future<void> _getPermissions() async {
     NotificationSettings settings = await _firebaseMessaging.requestPermission();
     if (settings.authorizationStatus != AuthorizationStatus.authorized) {
-      Get.snackbar('Notificaion', 'Notifications permission is ${settings.authorizationStatus}',
-          snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 7));
+      showSnackBar('Notificaion', 'Notifications permission is ${settings.authorizationStatus}', position: SnackPosition.TOP);
     }
   }
 
   Future<void> updateToken(String token) async {
     if (token == null || _uid == null) return null;
-    GetLogger.to.i('Update Token: $token');
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
     DocumentSnapshot userSS = await _firestore.doc('${FirebasePaths.users}/$_uid').get();
     var tokens = userSS.data() != null ? userSS.data()[_NOTIFICATION_TOKEN] : [];
@@ -61,7 +59,7 @@ class NotificaionService extends GetxService {
   }
 
   Future<void> removeToken() async {
-    String token = await _firebaseMessaging.getToken();
+    String token = GetStorage().read(_NOTIFICATION_TOKEN);
     if (token == null) return null;
     GetLogger.to.i('Removing Token: $token');
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -89,7 +87,9 @@ class NotificaionService extends GetxService {
     }
 
     _getPermissions();
-    _firebaseMessaging.getToken().then(updateToken);
+    _firebaseMessaging
+        .getToken(vapidKey: "BJBffsstCZH1_qU7CBSoec4_o9J0hLCKVFPpU45ExcXwnJISia8-2i98a5iGk3OPRfNUa07xYge4NQl-SHaA8Ko")
+        .then(updateToken);
     _fcmTokenListener = _firebaseMessaging.onTokenRefresh.listen(updateToken);
   }
 }

@@ -27,4 +27,8 @@ Future<String> getCountry() async {
   return 'IN';
 }
 
-showSnackBar(title, message) => Get.snackbar(title, message, snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 7));
+showSnackBar(title, message, {SnackPosition position = SnackPosition.TOP}) => Get.snackbar(title, message,
+    snackPosition: position,
+    duration: Duration(seconds: 7),
+    backgroundColor: Get.theme.snackBarTheme.backgroundColor,
+    colorText: Get.theme.snackBarTheme.actionTextColor);

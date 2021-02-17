@@ -4,13 +4,12 @@ import 'dart:async';
 import 'package:fire_starter/controllers/controllers.dart';
 import 'package:fire_starter/services/auth_service.dart';
 import 'package:fire_starter/services/database_query.dart';
-import 'package:fire_starter/services/notificaion.dart';
+import 'package:fire_starter/services/notification.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
-import 'package:permission_handler/permission_handler.dart' as permissionHander;
 
 /// FireFlutter
 ///
@@ -38,7 +37,7 @@ class FireStarter {
     Get.put<ThemeController>(ThemeController());
     Get.put<AuthService>(AuthService());
     Get.put<DatabaseService>(DatabaseService());
-    Get.put<NotificaionService>(NotificaionService());
+    Get.put<NotificationService>(NotificationService());
 
     ThemeController themeController = ThemeController.to;
     Timer.periodic(const Duration(seconds: 6), (Timer timer) {

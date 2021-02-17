@@ -20,7 +20,6 @@ dependencies:
   firebase_messaging: ^8.0.0-dev
   firebase_storage:
   firebase_analytics:
-  permission_handler:
   google_sign_in:
   sign_in_with_apple:
   intl_phone_number_input:
