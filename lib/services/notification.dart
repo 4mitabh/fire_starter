@@ -4,10 +4,18 @@ import 'package:fire_starter/constants/globals.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:fire_starter/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print("Background message: ${message.notification?.title} ${message.notification?.body}");
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  _firestore.enableNetwork();
+}
 
 class NotificationService extends GetxService {
   static const _NOTIFICATION_TOKEN = 'nt';
@@ -21,6 +29,7 @@ class NotificationService extends GetxService {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       if (message.notification != null) showSnackBar(message.notification.title, message.notification.body);
     });
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
   Future<void> _getPermissions() async {
