@@ -17,14 +17,4 @@ class BaseModel {
   }
 
   Map<String, dynamic> toJson() => properties;
-
-  Future<void> update() async {
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    try {
-      _firestore.doc(path).update(properties);
-    } catch (e) {
-      print(e);
-      rethrow;
-    }
-  }
 }

@@ -1,3 +1,4 @@
+import 'package:fire_starter/constants/globals.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,8 +12,8 @@ import 'package:fire_starter/localizations.dart';
 import 'package:fire_starter/models/models.dart';
 import 'package:fire_starter/ui/components/components.dart';
 
-class AuthController extends GetxController {
-  static AuthController to = Get.find();
+class SignInController extends GetxController {
+  static SignInController to = Get.find();
   AppLocalizations_Labels labels;
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -30,7 +31,7 @@ class AuthController extends GetxController {
   void onReady() async {
     //run every time auth state changes
     ever(firebaseUser, handleAuthChanged);
-    firebaseUser.value = await getUser;
+    firebaseUser.value = await getFirebaseUser;
     firebaseUser.bindStream(user);
     super.onReady();
   }
@@ -49,16 +50,10 @@ class AuthController extends GetxController {
       firestoreUser.bindStream(await streamFirestoreUser());
       await isAdmin();
     }
-
-    if (_firebaseUser == null) {
-      Get.toNamed('/signin');
-    } else {
-      Get.toNamed('/home');
-    }
   }
 
   // Firebase user one-time fetch
-  Future<User> get getUser async => _auth.currentUser;
+  Future<User> get getFirebaseUser async => _auth.currentUser;
 
   // Firebase user a realtime stream
   Stream<User> get user => _auth.authStateChanges();
@@ -68,7 +63,7 @@ class AuthController extends GetxController {
     print('streamFirestoreUser()');
     var userRecord = await getFirestoreUser();
     if (userRecord != null) {
-      return _db.doc('/users/${firebaseUser.value.uid}').snapshots().map((snapshot) => UserModel.fromMap(snapshot.data()));
+      return _db.doc('${FirebasePaths.users}/${firebaseUser.value.uid}').snapshots().map((snapshot) => UserModel.fromMap(snapshot.data()));
     }
 
     return null;
@@ -77,7 +72,7 @@ class AuthController extends GetxController {
   //get the firestore user from the firestore collection
   Future<UserModel> getFirestoreUser() {
     if (firebaseUser?.value?.uid != null) {
-      return _db.doc('/users/${firebaseUser.value.uid}').get().then((documentSnapshot) {
+      return _db.doc('${FirebasePaths.users}/${firebaseUser.value.uid}').get().then((documentSnapshot) {
         if (documentSnapshot.exists)
           return UserModel.fromMap(documentSnapshot.data());
         else {
@@ -181,13 +176,13 @@ class AuthController extends GetxController {
 
   //updates the firestore user in users collection
   void _updateUserFirestore(UserModel user, User _firebaseUser) {
-    _db.doc('/users/${_firebaseUser.uid}').update(user.toJson());
+    _db.doc('${FirebasePaths.users}/${_firebaseUser.uid}').update(user.toJson());
     update();
   }
 
   //create the firestore user in users collection
   void _createUserFirestore(UserModel user, User _firebaseUser) {
-    _db.doc('/users/${_firebaseUser.uid}').set(user.toJson());
+    _db.doc('${FirebasePaths.users}/${_firebaseUser.uid}').set(user.toJson());
     update();
   }
 
@@ -207,7 +202,7 @@ class AuthController extends GetxController {
 
   //check if user is an admin user
   isAdmin() async {
-    await getUser.then((user) async {
+    await getFirebaseUser.then((user) async {
       DocumentSnapshot adminRef = await _db.collection('admin').doc(user?.uid).get();
       if (adminRef.exists) {
         admin.value = true;

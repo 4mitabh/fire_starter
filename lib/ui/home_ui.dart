@@ -1,5 +1,6 @@
 import 'package:fire_starter/controllers/controllers.dart';
 import 'package:fire_starter/localizations.dart';
+import 'package:fire_starter/services/auth_service.dart';
 import 'package:fire_starter/ui/components/widgets/blob.dart';
 import 'package:fire_starter/ui/components/widgets/avatar.dart';
 import 'package:fire_starter/ui/components/forms/form_vertical_spacing.dart';
@@ -10,7 +11,7 @@ class HomeUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final labels = AppLocalizations.of(context);
-    final controller = AuthController.to;
+    final controller = AuthService.to;
 
     return Blob(
       child: GlassContainer(
@@ -33,7 +34,6 @@ class HomeUI extends StatelessWidget {
                     FormVerticalSpace(),
                     Text('${labels.home.phoneLabel}: ${controller.firestoreUser?.value?.phone ?? ''}', style: TextStyle(fontSize: 16)),
                     FormVerticalSpace(),
-                    Text('${labels.home.adminUserLabel}: ${controller.admin.value?.toString() ?? ''}', style: TextStyle(fontSize: 16)),
                   ],
                 ),
               ],

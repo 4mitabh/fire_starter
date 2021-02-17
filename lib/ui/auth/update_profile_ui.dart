@@ -1,20 +1,19 @@
+import 'package:fire_starter/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:fire_starter/models/models.dart';
 import 'package:fire_starter/localizations.dart';
 import 'package:fire_starter/ui/components/components.dart';
 import 'package:fire_starter/helpers/helpers.dart';
-import 'package:fire_starter/controllers/controllers.dart';
-import 'package:fire_starter/ui/auth/auth.dart';
 
 class UpdateProfileUI extends StatelessWidget {
-  final AuthController authController = AuthController.to;
+  final AuthService authController = AuthService.to;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController nameController = TextEditingController();
 
   Widget build(BuildContext context) {
     final labels = AppLocalizations.of(context);
-    authController.nameController.text = authController?.firestoreUser?.value?.name;
+    nameController.text = authController?.firestoreUser?.value?.name;
     return Scaffold(
       appBar: AppBar(title: Text(labels.auth.updateProfileTitle)),
       body: Form(
@@ -30,12 +29,12 @@ class UpdateProfileUI extends StatelessWidget {
                   LogoGraphicHeader(),
                   SizedBox(height: 48.0),
                   FormInputFieldWithIcon(
-                    controller: authController.nameController,
+                    controller: nameController,
                     iconPrefix: Icons.person,
                     labelText: labels.auth.nameFormField,
                     validator: Validator(labels).name,
                     onChanged: (value) => null,
-                    onSaved: (value) => authController.nameController.text = value,
+                    onSaved: (value) => nameController.text = value,
                   ),
                   FormVerticalSpace(),
                   PrimaryButton(
@@ -43,10 +42,8 @@ class UpdateProfileUI extends StatelessWidget {
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           SystemChannels.textInput.invokeMethod('TextInput.hide');
-                          UserModel _updatedUser = UserModel(
-                              uid: authController?.firestoreUser?.value?.uid,
-                              name: authController.nameController.text,
-                              photoUrl: authController?.firestoreUser?.value?.photoUrl);
+                          UserModel _updatedUser =
+                              UserModel(uid: authController?.firestoreUser?.value?.uid, photoUrl: authController?.firestoreUser?.value?.photoUrl);
                           authController.updateUser(context, _updatedUser);
                         }
                       }),

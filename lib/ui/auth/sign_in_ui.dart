@@ -1,3 +1,4 @@
+import 'sign_in_controller.dart';
 import 'package:fire_starter/ui/components/widgets/blob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,12 +7,15 @@ import 'package:get/get.dart';
 import 'package:fire_starter/localizations.dart';
 import 'package:fire_starter/ui/components/components.dart';
 import 'package:fire_starter/helpers/helpers.dart';
-import 'package:fire_starter/controllers/controllers.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:logger/logger.dart';
 
 class SignInUI extends StatelessWidget {
-  final AuthController authController = AuthController.to;
+  static Widget builder([RouteSettings routeSettings]) =>
+      GetBuilder<SignInController>(init: SignInController(), builder: (controller) => SignInUI(controller));
+
+  SignInUI(this._signInController);
+  final SignInController _signInController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget build(BuildContext context) {
@@ -40,7 +44,7 @@ class SignInUI extends StatelessWidget {
                 Text('Scorizen', textAlign: TextAlign.center, style: TextStyle(fontSize: 38, fontWeight: FontWeight.w100, color: Colors.white)),
                 LogoGraphicHeader(),
                 SizedBox(height: 48.0),
-                if (!authController.waitingForOTP.value)
+                if (!_signInController.waitingForOTP.value)
                   InternationalPhoneNumberInput(
                     onInputChanged: (PhoneNumber number) {
                       // print(number.phoneNumber);
@@ -52,7 +56,7 @@ class SignInUI extends StatelessWidget {
                     ignoreBlank: true,
                     autoValidateMode: AutovalidateMode.onUserInteraction,
                     // selectorTextStyle: TextStyle(color: Colors.black),
-                    textFieldController: authController.phoneController,
+                    textFieldController: _signInController.phoneController,
                     formatInput: true,
                     countries: ['IN', 'US', 'CA', 'JP'],
                     // keyboardType: TextInputType.numberWithOptions(
@@ -61,23 +65,23 @@ class SignInUI extends StatelessWidget {
                     initialValue: PhoneNumber(isoCode: country),
                     onSaved: (PhoneNumber number) {
                       print('On Saved: $number');
-                      authController.requestOTP(context, number.toString());
+                      _signInController.requestOTP(context, number.toString());
                     },
                     // maxLength: 16,
                     spaceBetweenSelectorAndTextField: 0,
                   )
                 else
                   FormInputFieldWithIcon(
-                    controller: authController.otpController,
+                    controller: _signInController.otpController,
                     iconPrefix: Icons.vpn_key,
                     labelText: labels?.auth?.enterOTP,
                     // validator: Validator(labels).number,
                     keyboardType: TextInputType.phone,
                     onChanged: (value) => null,
-                    onSaved: (value) => authController.phoneController.text = value,
+                    onSaved: (value) => _signInController.phoneController.text = value,
                   ),
                 FormVerticalSpace(),
-                if (!authController.waitingForOTP.value)
+                if (!_signInController.waitingForOTP.value)
                   PrimaryButton(
                       labelText: labels?.auth?.requestOTP,
                       onPressed: () {
@@ -88,36 +92,36 @@ class SignInUI extends StatelessWidget {
                       labelText: labels?.auth?.signInButton,
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          authController.verifyOTP(context);
+                          _signInController.verifyOTP(context);
                         }
                       }),
                 FormVerticalSpace(),
-                if (!authController.waitingForOTP.value && GetPlatform.isAndroid)
+                if (!_signInController.waitingForOTP.value && GetPlatform.isAndroid)
                   LabelButton(
                       labelText: labels?.auth?.googleSignIn,
                       onPressed: () async {
                         try {
-                          await authController.signInWithGoogle();
+                          await _signInController.signInWithGoogle();
                           Get.toNamed('home');
                         } catch (e) {
                           Get.snackbar('Error', e.toString());
                         }
                       }),
-                if (!authController.waitingForOTP.value && (GetPlatform.isMacOS || GetPlatform.isIOS))
+                if (!_signInController.waitingForOTP.value && (GetPlatform.isMacOS || GetPlatform.isIOS))
                   LabelButton(
                       labelText: labels?.auth?.appleSignIn,
                       onPressed: () async {
                         try {
-                          await authController.signInWithApple();
+                          await _signInController.signInWithApple();
                           Get.toNamed('home');
                         } catch (e) {
                           Get.snackbar('Error', e.toString());
                         }
                       }),
-                if (authController.waitingForOTP.value)
+                if (_signInController.waitingForOTP.value)
                   LabelButton(
-                      labelText: labels?.auth?.otpVerificationChangeNumber(phone: authController.phoneNumber),
-                      onPressed: () => authController.cancelPhoneVerification()),
+                      labelText: labels?.auth?.otpVerificationChangeNumber(phone: _signInController.phoneNumber),
+                      onPressed: () => _signInController.cancelPhoneVerification()),
               ],
             ),
           ),

@@ -23,7 +23,7 @@ class DataList extends GetView {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: DatabaseQuery.collection(path),
+        future: DatabaseService.collection(path),
         builder: (context, ss) {
           if (!ss.hasData) return Text('...');
           return ListView.builder(

@@ -3,6 +3,6 @@ import 'package:flutter/material.dart';
 
 class NotSignedInHome extends StatelessWidget {
   Widget build(BuildContext context) {
-    return SignInUI();
+    return SignInUI.builder();
   }
 }

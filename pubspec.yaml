@@ -32,7 +32,7 @@ dependencies:
   flutter_sheet_localization:
   google_nav_bar:
   intl:
-
+  package_info_plus:
 dev_dependencies:
   flutter_test:
     sdk: flutter

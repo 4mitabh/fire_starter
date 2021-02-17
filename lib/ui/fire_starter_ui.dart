@@ -45,7 +45,7 @@ class FireStarterUI extends StatelessWidget {
             builder = (_) => SplashUI();
             break;
           case 'signin':
-            builder = (_) => SignInUI();
+            builder = (_) => SignInUI.builder();
             break;
           case 'home':
             builder = (_) => SignedInHome.builder(settings);

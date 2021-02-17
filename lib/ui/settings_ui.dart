@@ -1,3 +1,4 @@
+import 'package:fire_starter/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fire_starter/ui/auth/auth.dart';
@@ -46,7 +47,7 @@ class SettingsUI extends StatelessWidget {
           title: Text(labels.settings.signOut),
           trailing: RaisedButton(
             onPressed: () {
-              AuthController.to.signOut();
+              AuthService.to.signOut();
             },
             child: Text(
               labels.settings.signOut,

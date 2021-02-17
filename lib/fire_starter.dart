@@ -2,6 +2,9 @@ library firestarter;
 
 import 'dart:async';
 import 'package:fire_starter/controllers/controllers.dart';
+import 'package:fire_starter/services/auth_service.dart';
+import 'package:fire_starter/services/database_query.dart';
+import 'package:fire_starter/services/notificaion.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,10 +33,12 @@ class FireStarter {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     await GetStorage.init();
-    Get.put<LanguageController>(LanguageController());
-    Get.put<AuthController>(AuthController());
-    Get.put<ThemeController>(ThemeController());
     Get.put<Logger>(Logger());
+    Get.put<LanguageController>(LanguageController());
+    Get.put<ThemeController>(ThemeController());
+    Get.put<AuthService>(AuthService());
+    Get.put<DatabaseService>(DatabaseService());
+    Get.put<NotificaionService>(NotificaionService());
 
     ThemeController themeController = ThemeController.to;
     Timer.periodic(const Duration(seconds: 6), (Timer timer) {
