@@ -42,11 +42,11 @@ class FireStarter {
     UpgradeCheckService.init();
 
     ThemeController themeController = ThemeController.to;
-    Timer.periodic(const Duration(seconds: 6), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 16), (Timer timer) {
       return themeController.setThemeMode(themeController.isDarkModeOn ? 'light' : 'dark');
     });
     LanguageController languageController = LanguageController.to;
-    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 13), (Timer timer) {
       return languageController.updateLanguage(languageController.currentLanguage == 'en' ? 'hi' : 'en');
     });
   }

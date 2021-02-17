@@ -1,6 +1,7 @@
 import 'package:fire_starter/constants/constants.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:fire_starter/localizations.dart';
+import 'package:fire_starter/services/upgrade_check.dart';
 import 'package:fire_starter/ui/auth/auth.dart';
 import 'package:fire_starter/ui/ui.dart';
 import 'package:fire_starter/ui/upgrade_prompt_ui.dart';
@@ -33,7 +34,7 @@ class FireStarterUI extends StatelessWidget {
       darkTheme: AppThemes.darkTheme,
       themeMode: ThemeMode.system,
       // home: StreamBuilder(stream: authcontorller.user, builder: (_, user) => (user?.data?.uid == null) ? SignInUI() : SignedInHome.builder()),
-      initialRoute: "/upgrade",
+      initialRoute: "/",
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
       ],
@@ -43,7 +44,7 @@ class FireStarterUI extends StatelessWidget {
         Widget Function(BuildContext) builder;
         switch (path[1]) {
           case '':
-            builder = (_) => UpgradePromptUI();
+            builder = (_) => PrereqsUI();
             break;
           case 'signin':
             builder = (_) => SignInUI.builder();
@@ -57,10 +58,7 @@ class FireStarterUI extends StatelessWidget {
           default:
             builder = (_) => Text(path[0]);
         }
-        return MaterialPageRoute(
-          builder: builder,
-          settings: settings,
-        );
+        return MaterialPageRoute(builder: builder, settings: settings, maintainState: false);
       },
     ));
   }

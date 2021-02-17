@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fire_starter/constants/constants.dart';
-import 'package:fire_starter/services/upgrade_check.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import '../models/models.dart';
+import 'package:fire_starter/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_starter/localizations.dart';
 import 'package:fire_starter/models/models.dart';
 import 'package:fire_starter/ui/components/components.dart';
@@ -45,7 +43,12 @@ class AuthService extends GetxService {
     if (_firebaseUser?.uid != null) {
       firestoreUser.bindStream(await streamFirestoreUser());
     }
-    if (UpgradeCheckService.check == 0) signinCheck();
+    Get.toNamed('/');
+    // if (_firebaseUser == null) {
+    //   Get.toNamed('/signin');
+    // } else {
+    //   Get.toNamed('/home');
+    // }
   }
 
   //Streams the firestore user from the firestore collection
@@ -128,13 +131,5 @@ class AuthService extends GetxService {
     firebaseUser(null);
     await Future.delayed(Duration(seconds: 2));
     return _auth.signOut();
-  }
-
-  void signinCheck() {
-    if (firebaseUser?.value?.uid == null) {
-      Get.toNamed('/signin');
-    } else {
-      Get.toNamed('/home');
-    }
   }
 }

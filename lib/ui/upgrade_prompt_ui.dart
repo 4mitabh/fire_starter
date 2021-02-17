@@ -1,5 +1,4 @@
 import 'package:fire_starter/helpers/helpers.dart';
-import 'package:fire_starter/services/auth_service.dart';
 import 'package:fire_starter/services/upgrade_check.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ class _UpgradePromptUIState extends State<UpgradePromptUI> {
   Widget build(BuildContext context) {
     switch (UpgradeCheckService.check) {
       case -1:
-        Future.delayed(Duration(seconds: 1)).then((value) => setState(() {}));
+        Future.delayed(Duration(seconds: 1)).then((value) => mounted ? setState(() {}) : null);
         return Material(
           child: SizedBox.expand(
               child: Container(
@@ -73,17 +72,13 @@ class _UpgradePromptUIState extends State<UpgradePromptUI> {
             ));
       case 2:
         UpgradeCheckService.reset();
-        Future.delayed(Duration(seconds: 1)).then((value) {
+        Future.delayed(Duration(seconds: 10)).then((value) {
           showSnackBar('Upgrade Available', 'It is recommended that you update to the latest build');
         });
-        Future.delayed(Duration(milliseconds: 1)).then((value) {
-          AuthService.to.signinCheck();
-        });
+        Future.delayed(Duration(milliseconds: 10)).then((_) => Get.offAllNamed('/'));
         break;
       case 0:
-        Future.delayed(Duration(milliseconds: 1)).then((value) {
-          AuthService.to.signinCheck();
-        });
+        Future.delayed(Duration(milliseconds: 10)).then((_) => Get.offAllNamed('/'));
         break;
     }
     return Container();

@@ -20,13 +20,12 @@ class SignInUI extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Blob(
-      child: FutureBuilder(
+      body: FutureBuilder(
           future: getCountry(),
           builder: (context, snapshot) {
-            return Obx(() => buildForm(context, snapshot.data));
+            return Blob(child: Obx(() => buildForm(context, snapshot.data)));
           }),
-    ));
+    );
   }
 
   Form buildForm(BuildContext context, String country) {
