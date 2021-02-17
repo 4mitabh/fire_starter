@@ -85,7 +85,7 @@ class NotificationService extends GetxService {
   }
 
   Future<void> userUpdated(User user) async {
-    if (user.uid == _uid) return;
+    if (user == null || user.uid == _uid) return;
     _uid = user.uid;
     if (user == null) {
       await removeToken();

@@ -5,6 +5,7 @@ import 'package:fire_starter/controllers/controllers.dart';
 import 'package:fire_starter/services/auth_service.dart';
 import 'package:fire_starter/services/database_query.dart';
 import 'package:fire_starter/services/notification.dart';
+import 'package:fire_starter/services/upgrade_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,6 +39,7 @@ class FireStarter {
     Get.put<AuthService>(AuthService());
     Get.put<DatabaseService>(DatabaseService());
     Get.put<NotificationService>(NotificationService());
+    UpgradeCheckService.init();
 
     ThemeController themeController = ThemeController.to;
     Timer.periodic(const Duration(seconds: 6), (Timer timer) {

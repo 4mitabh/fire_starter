@@ -18,8 +18,12 @@ class MetadataModel {
 
   static Future<MetadataModel> get() async {
     final FirebaseFirestore db = FirebaseFirestore.instance;
-    DocumentSnapshot doc = await db.doc('${FirebasePaths.metadata}/all').get();
-    return MetadataModel._fromDocumentSnapshot(doc);
+    try {
+      DocumentSnapshot doc = await db.doc('${FirebasePaths.metadata}/all').get();
+      return MetadataModel._fromDocumentSnapshot(doc);
+    } on Exception catch (e) {
+      return null;
+    }
   }
 
   factory MetadataModel._fromDocumentSnapshot(DocumentSnapshot snapshot) {

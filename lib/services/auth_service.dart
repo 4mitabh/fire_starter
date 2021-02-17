@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_starter/constants/constants.dart';
+import 'package:fire_starter/services/upgrade_check.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import '../models/models.dart';
 import 'package:flutter/material.dart';
@@ -44,12 +45,7 @@ class AuthService extends GetxService {
     if (_firebaseUser?.uid != null) {
       firestoreUser.bindStream(await streamFirestoreUser());
     }
-
-    if (_firebaseUser == null) {
-      Get.toNamed('/signin');
-    } else {
-      Get.toNamed('/home');
-    }
+    if (UpgradeCheckService.check == 0) signinCheck();
   }
 
   //Streams the firestore user from the firestore collection
@@ -132,5 +128,13 @@ class AuthService extends GetxService {
     firebaseUser(null);
     await Future.delayed(Duration(seconds: 2));
     return _auth.signOut();
+  }
+
+  void signinCheck() {
+    if (firebaseUser?.value?.uid == null) {
+      Get.toNamed('/signin');
+    } else {
+      Get.toNamed('/home');
+    }
   }
 }
