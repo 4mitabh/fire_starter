@@ -1,4 +1,4 @@
-import 'package:fire_starter/constants/globals.dart';
+import 'package:fire_starter/constants/constants.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -32,6 +32,7 @@ dependencies:
   google_nav_bar:
   intl:
   package_info_plus:
+  url_launcher:
 dev_dependencies:
   flutter_test:
     sdk: flutter

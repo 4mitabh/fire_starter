@@ -20,8 +20,3 @@ class Globals {
     MenuOptionsModel(key: "ru", value: "русский"), //Russian
   ];
 }
-
-class FirebasePaths {
-  static final prefix = '';
-  static final users = '/users';
-}

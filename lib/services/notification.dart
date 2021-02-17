@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fire_starter/constants/globals.dart';
+import 'package:fire_starter/constants/constants.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:fire_starter/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -44,6 +44,7 @@ class NotificationService extends GetxService {
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
     DocumentSnapshot userSS = await _firestore.doc('${FirebasePaths.users}/$_uid').get();
     var tokens = userSS.data() != null ? userSS.data()[_NOTIFICATION_TOKEN] : [];
+    GetLogger.to.i('Token Updated for $_uid to $token');
     if (tokens == null)
       tokens = [token];
     else if (!tokens.contains(token))
@@ -84,7 +85,6 @@ class NotificationService extends GetxService {
   }
 
   Future<void> userUpdated(User user) async {
-    GetLogger.to.i('User Updated : ${user.uid}');
     if (user.uid == _uid) return;
     _uid = user.uid;
     if (user == null) {
