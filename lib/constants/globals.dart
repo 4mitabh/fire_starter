@@ -20,3 +20,9 @@ class Globals {
     MenuOptionsModel(key: "ru", value: "русский"), //Russian
   ];
 }
+
+class RouteNames {
+  static const HOME = 'home';
+  static const SIGN_IN = 'signin';
+  static const UPGRADE = 'upgrade';
+}

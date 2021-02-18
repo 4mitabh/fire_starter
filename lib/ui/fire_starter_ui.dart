@@ -14,6 +14,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
 class FireStarterUI extends StatelessWidget {
+  final Map<String, Widget Function(BuildContext)> routes;
+  FireStarterUI({this.routes = const {}});
   @override
   Widget build(BuildContext context) {
     ThemeController.to.getThemeModeFromStore();
@@ -46,17 +48,17 @@ class FireStarterUI extends StatelessWidget {
           case '':
             builder = (_) => PrereqsUI();
             break;
-          case 'signin':
+          case RouteNames.SIGN_IN:
             builder = (_) => SignInUI.builder();
             break;
           case 'home':
             builder = (_) => SignedInHome.builder(settings);
             break;
-          case 'upgrade':
+          case RouteNames.UPGRADE:
             builder = (_) => UpgradePromptUI();
             break;
           default:
-            builder = (_) => Text(path[0]);
+            builder = routes[path[1]] ?? (_) => Text(path[0]);
         }
         return MaterialPageRoute(builder: builder, settings: settings, maintainState: false);
       },

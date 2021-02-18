@@ -101,7 +101,7 @@ class SignInUI extends StatelessWidget {
                       onPressed: () async {
                         try {
                           await _signInController.signInWithGoogle();
-                          Get.toNamed('home');
+                          // Get.toNamed('home');
                         } catch (e) {
                           Get.snackbar('Error', e.toString());
                         }
@@ -112,7 +112,7 @@ class SignInUI extends StatelessWidget {
                       onPressed: () async {
                         try {
                           await _signInController.signInWithApple();
-                          Get.toNamed('home');
+                          // Get.toNamed('home');
                         } catch (e) {
                           Get.snackbar('Error', e.toString());
                         }
