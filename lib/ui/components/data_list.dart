@@ -8,18 +8,19 @@ class DataListController extends GetxController {
 }
 
 class DataList extends GetView {
-  static Widget builder({Function onPressed, String path}) => GetBuilder<DataListController>(
+  static Widget builder({Function onPressed, String path, Widget Function(Map) itemBuilder}) => GetBuilder<DataListController>(
       init: DataListController(),
       builder: (controller) => DataList(
             controller,
             path: path,
+            itemBuilder: itemBuilder,
             onPressed: onPressed,
           ));
 
-  DataList(DataListController controller, {this.path, this.onPressed});
+  DataList(DataListController controller, {this.path, this.onPressed, this.itemBuilder});
   final String path;
   final void Function() onPressed;
-
+  final Widget Function(Map data) itemBuilder;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -29,7 +30,8 @@ class DataList extends GetView {
           return ListView.builder(
             itemCount: ss.data.length,
             itemBuilder: (_, index) {
-              return Text(ss.data[index].properties['name'] ?? ss.data[index].properties['phone'] ?? ss.data[index].properties['email']);
+              return itemBuilder(ss.data[index].properties);
+              // return Text(ss.data[index].properties['name'] ?? ss.data[index].properties['phone'] ?? ss.data[index].properties['email']);
             },
           );
         });

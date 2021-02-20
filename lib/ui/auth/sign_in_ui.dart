@@ -1,3 +1,5 @@
+import 'package:fire_starter/services/package_info.dart';
+
 import 'sign_in_controller.dart';
 import 'package:fire_starter/ui/components/widgets/blob.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +21,10 @@ class SignInUI extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder(
-          future: getCountry(),
-          builder: (context, snapshot) {
-            return Blob(child: Obx(() => buildForm(context, snapshot.data)));
-          }),
-    );
+    return Scaffold(body: Blob(child: Obx(() => buildForm(context))));
   }
 
-  Form buildForm(BuildContext context, String country) {
+  Form buildForm(BuildContext context) {
     final labels = AppLocalizations.of(context);
     return Form(
       key: _formKey,
@@ -40,7 +36,8 @@ class SignInUI extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text('Scorizen', textAlign: TextAlign.center, style: TextStyle(fontSize: 38, fontWeight: FontWeight.w100, color: Colors.white)),
+                Text(PackageInfoService.appName,
+                    textAlign: TextAlign.center, style: TextStyle(fontSize: 38, fontWeight: FontWeight.w100, color: Colors.white)),
                 LogoGraphicHeader(),
                 SizedBox(height: 48.0),
                 if (!_signInController.waitingForOTP.value)
@@ -61,7 +58,7 @@ class SignInUI extends StatelessWidget {
                     // keyboardType: TextInputType.numberWithOptions(
                     //     signed: true, decimal: false),
                     inputBorder: OutlineInputBorder(),
-                    initialValue: PhoneNumber(isoCode: country),
+                    initialValue: PhoneNumber(isoCode: PackageInfoService.country),
                     onSaved: (PhoneNumber number) {
                       print('On Saved: $number');
                       _signInController.requestOTP(context, number.toString());

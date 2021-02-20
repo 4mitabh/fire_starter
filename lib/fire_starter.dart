@@ -5,12 +5,14 @@ import 'package:fire_starter/controllers/controllers.dart';
 import 'package:fire_starter/services/auth_service.dart';
 import 'package:fire_starter/services/database_query.dart';
 import 'package:fire_starter/services/notification.dart';
+import 'package:fire_starter/services/package_info.dart';
 import 'package:fire_starter/services/upgrade_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 /// FireFlutter
 ///
@@ -33,6 +35,7 @@ class FireStarter {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     await GetStorage.init();
+    await PackageInfoService.init();
     Get.put<Logger>(Logger());
     Get.put<LanguageController>(LanguageController());
     Get.put<ThemeController>(ThemeController());

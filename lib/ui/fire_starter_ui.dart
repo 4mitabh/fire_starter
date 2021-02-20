@@ -51,14 +51,15 @@ class FireStarterUI extends StatelessWidget {
           case RouteNames.SIGN_IN:
             builder = (_) => SignInUI.builder();
             break;
-          case 'home':
-            builder = (_) => SignedInHome.builder(settings);
-            break;
+          // case 'home':
+          //   builder = (_) => SignedInHome.builder(settings);
+          //   break;
           case RouteNames.UPGRADE:
             builder = (_) => UpgradePromptUI();
             break;
           default:
-            builder = routes[path[1]] ?? (_) => Text(path[0]);
+            print('checking ${path[1]} ${routes[path[1]]} ');
+            builder = routes[path[1]] ?? (_) => SignedInHome.builder(settings); //.Text(path[1]);
         }
         return MaterialPageRoute(builder: builder, settings: settings, maintainState: false);
       },
