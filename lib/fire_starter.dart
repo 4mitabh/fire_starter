@@ -33,10 +33,10 @@ class FireStarter {
     // Map<String, Map<String, String>> translations,
   }) async {
     WidgetsFlutterBinding.ensureInitialized();
+    Get.put<Logger>(Logger());
     await Firebase.initializeApp();
     await GetStorage.init();
     await PackageInfoService.init();
-    Get.put<Logger>(Logger());
     Get.put<LanguageController>(LanguageController());
     Get.put<ThemeController>(ThemeController());
     Get.put<AuthService>(AuthService());
