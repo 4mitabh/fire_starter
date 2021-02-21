@@ -6,16 +6,23 @@ import '../models/models.dart';
 class DatabaseService extends GetxService {
   static FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  static Future<List<BaseModel>> collection(String path, {String orderby}) async {
+  static Future<List<FirebaseDoc>> collection(String path, {String orderby, bool useCache = true}) async {
     Query query = orderby == null ? _firestore.collection(path) : _firestore.collection(path).orderBy(orderby, descending: true);
     QuerySnapshot qs;
-    try {
-      qs = (await query.get(GetOptions(source: Source.cache))) ?? await query.get(GetOptions(source: Source.server));
-    } catch (_) {
+    if (!useCache)
       qs = await query.get(GetOptions(source: Source.server));
-    }
-    GetLogger.to.i('${query} got ${qs.docs.length} from ${qs.metadata.isFromCache ? 'cache' : 'server'}');
-    return qs.docs.map((QueryDocumentSnapshot doc) => BaseModel.fromDocumentSnapshot(doc)).toList();
+    else
+      try {
+        qs = (await query.get(GetOptions(source: Source.cache))) ?? await query.get(GetOptions(source: Source.server));
+        if (qs.metadata.isFromCache && qs.size == 0) {
+          GetLogger.to.w('${query} got ${qs.size} from ${qs.metadata.isFromCache ? 'cache' : 'server'}. Forcing get from server.');
+          qs = await query.get(GetOptions(source: Source.server));
+        }
+      } catch (_) {
+        qs = await query.get(GetOptions(source: Source.server));
+      }
+    GetLogger.to.i('${query} got ${qs.size} from ${qs.metadata.isFromCache ? 'cache' : 'server'}');
+    return qs.docs.map((QueryDocumentSnapshot doc) => FirebaseDoc.fromDocumentSnapshot(doc)).toList();
   }
 
   Future<void> update({Map data, String path}) async {
