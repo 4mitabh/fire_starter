@@ -26,9 +26,10 @@ class DatabaseService extends GetxService {
   }
 
   Future<void> update({Map data, String path}) async {
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
     try {
-      _firestore.doc(path).update(data);
+      data['ts'] = FieldValue.serverTimestamp();
+      GetLogger.to.i('Updating ${path} to ${data.toString()}');
+      _firestore.doc(path).set(data, SetOptions(merge: true));
     } catch (e) {
       print(e);
       rethrow;
