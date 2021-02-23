@@ -1,5 +1,5 @@
 import 'package:fire_starter/models/models.dart';
-import 'package:fire_starter/services/database_query.dart';
+import 'package:fire_starter/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

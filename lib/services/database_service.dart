@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_starter/helpers/helpers.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 import '../models/models.dart';
 
 class DatabaseService extends GetxService {
@@ -34,5 +34,29 @@ class DatabaseService extends GetxService {
       print(e);
       rethrow;
     }
+  }
+}
+
+class DocumentWatcher extends GetxController {
+  static FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  static DocumentWatcher get(path) {
+    try {
+      return Get.find(tag: path);
+    } catch (e) {
+      return Get.put<DocumentWatcher>(DocumentWatcher._(path), tag: path);
+    }
+  }
+
+  FirebaseDoc doc;
+  DocumentWatcher._(String path) {
+    GetLogger.to.d('New doc watcher for $path');
+    _firestore.doc(path).snapshots().listen(_updateListner);
+  }
+
+  _updateListner(DocumentSnapshot snapshot) {
+    GetLogger.to.d('Update from doc watcher for ${snapshot.reference.path}');
+    doc = FirebaseDoc.fromDocumentSnapshot(snapshot);
+    update();
   }
 }
