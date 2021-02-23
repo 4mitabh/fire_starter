@@ -3,7 +3,7 @@ library firestarter;
 import 'dart:async';
 import 'package:fire_starter/controllers/controllers.dart';
 import 'package:fire_starter/services/auth_service.dart';
-import 'package:fire_starter/services/database_query.dart';
+import 'package:fire_starter/services/database_service.dart';
 import 'package:fire_starter/services/notification.dart';
 import 'package:fire_starter/services/package_info.dart';
 import 'package:fire_starter/services/upgrade_check.dart';
@@ -44,13 +44,13 @@ class FireStarter {
     Get.put<NotificationService>(NotificationService());
     UpgradeCheckService.init();
 
-    ThemeController themeController = ThemeController.to;
-    Timer.periodic(const Duration(seconds: 16), (Timer timer) {
-      return themeController.setThemeMode(themeController.isDarkModeOn ? 'light' : 'dark');
-    });
-    LanguageController languageController = LanguageController.to;
-    Timer.periodic(const Duration(seconds: 13), (Timer timer) {
-      return languageController.updateLanguage(languageController.currentLanguage == 'en' ? 'hi' : 'en');
-    });
+    // ThemeController themeController = ThemeController.to;
+    // Timer.periodic(const Duration(seconds: 16), (Timer timer) {
+    //   return themeController.setThemeMode(themeController.isDarkModeOn ? 'light' : 'dark');
+    // });
+    // LanguageController languageController = LanguageController.to;
+    // Timer.periodic(const Duration(seconds: 13), (Timer timer) {
+    //   return languageController.updateLanguage(languageController.currentLanguage == 'en' ? 'hi' : 'en');
+    // });
   }
 }
