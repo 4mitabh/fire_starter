@@ -13,10 +13,13 @@ class Blob extends StatelessWidget {
     return Stack(
       children: [
         Bubbles(),
+        Container(
+          color: Theme.of(context).backgroundColor.withAlpha(150),
+        ),
         BackdropFilter(
           filter: ImageFilter.blur(
-            sigmaX: 16.0,
-            sigmaY: 16.0,
+            sigmaX: 36.0,
+            sigmaY: 36.0,
           ),
           child: child,
         ),

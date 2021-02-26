@@ -1,10 +1,5 @@
+import 'package:fire_starter/services/app_themes.dart';
 import 'package:flutter/material.dart';
-/*
-LabelButton(
-                labelText: 'Some Text',
-                onPressed: () => print('implement me'),
-              ),
-*/
 
 class LabelButton extends StatelessWidget {
   LabelButton({this.labelText, this.onPressed});
@@ -13,11 +8,20 @@ class LabelButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      child: Text(
-        labelText,
-      ),
-      onPressed: onPressed,
-    );
+    return OutlinedButton(
+        onPressed: onPressed,
+        child: Text(
+          labelText.toUpperCase(),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
+        ),
+
+        // color: Theme.of(context).backgroundColor.withAlpha(AppThemes.containerAlpha ~/ 4),
+        style: ElevatedButton.styleFrom(
+          side: BorderSide(width: 2, color: Theme.of(context).buttonColor.withAlpha(AppThemes.containerAlpha ~/ 2)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppThemes.containerRadius),
+          ),
+          padding: EdgeInsets.all(22),
+        ));
   }
 }

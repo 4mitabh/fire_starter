@@ -1,11 +1,5 @@
+import 'package:fire_starter/services/app_themes.dart';
 import 'package:flutter/material.dart';
-
-/*
-PrimaryButton(
-                labelText: 'UPDATE',
-                onPressed: () => print('Submit'),
-              ),
-*/
 
 class PrimaryButton extends StatelessWidget {
   PrimaryButton({this.labelText, this.onPressed});
@@ -15,13 +9,20 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      onPressed: onPressed,
-      padding: EdgeInsets.all(22),
-      child: Text(
-        labelText.toUpperCase(),
-        style: TextStyle(fontWeight: FontWeight.bold),
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: Container(
+          child: Center(
+              child: Text(
+            labelText.toUpperCase(),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
+          )),
+          decoration: AppThemes.to.kInnerDecoration(context),
+        ),
       ),
+      height: 66.0,
+      decoration: AppThemes.to.kGradientBoxDecoration(context),
     );
   }
 }

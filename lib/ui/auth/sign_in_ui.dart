@@ -35,8 +35,11 @@ class SignInUI extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text(PackageInfoService.appName,
-                    textAlign: TextAlign.center, style: TextStyle(fontSize: 38, fontWeight: FontWeight.w100, color: Colors.white)),
+                Text(
+                  PackageInfoService.appName,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 64, fontWeight: FontWeight.w100, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
+                ),
                 LogoGraphicHeader(),
                 SizedBox(height: 48.0),
                 if (!_signInController.waitingForOTP.value)
@@ -99,7 +102,7 @@ class SignInUI extends StatelessWidget {
                           await _signInController.signInWithGoogle();
                           // Get.toNamed('home');
                         } catch (e) {
-                          Get.snackbar('Error', e.toString());
+                          showSnackBar('Error', e.toString());
                         }
                       }),
                 if (!_signInController.waitingForOTP.value && (GetPlatform.isMacOS || GetPlatform.isIOS))
@@ -110,7 +113,7 @@ class SignInUI extends StatelessWidget {
                           await _signInController.signInWithApple();
                           // Get.toNamed('home');
                         } catch (e) {
-                          Get.snackbar('Error', e.toString());
+                          showSnackBar('Error', e.toString());
                         }
                       }),
                 if (_signInController.waitingForOTP.value)

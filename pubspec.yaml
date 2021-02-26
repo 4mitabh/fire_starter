@@ -33,6 +33,8 @@ dependencies:
   intl:
   package_info_plus:
   url_launcher:
+  flex_color_scheme:
+  flutter_glow:
 dev_dependencies:
   flutter_test:
     sdk: flutter

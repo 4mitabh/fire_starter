@@ -1,6 +1,7 @@
 library firestarter;
 
 import 'dart:async';
+import 'package:fire_starter/constants/constants.dart';
 import 'package:fire_starter/controllers/controllers.dart';
 import 'package:fire_starter/services/auth_service.dart';
 import 'package:fire_starter/services/database_service.dart';
@@ -12,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 /// FireFlutter
 ///
@@ -37,6 +37,7 @@ class FireStarter {
     await Firebase.initializeApp();
     await GetStorage.init();
     await PackageInfoService.init();
+    Get.put<AppThemes>(AppThemes());
     Get.put<LanguageController>(LanguageController());
     Get.put<ThemeController>(ThemeController());
     Get.put<AuthService>(AuthService());
@@ -44,10 +45,10 @@ class FireStarter {
     Get.put<NotificationService>(NotificationService());
     UpgradeCheckService.init();
 
-    // ThemeController themeController = ThemeController.to;
-    // Timer.periodic(const Duration(seconds: 16), (Timer timer) {
-    //   return themeController.setThemeMode(themeController.isDarkModeOn ? 'light' : 'dark');
-    // });
+    ThemeController themeController = ThemeController.to;
+    Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+      return themeController.setThemeMode(themeController.isDarkModeOn ? 'light' : 'dark');
+    });
     // LanguageController languageController = LanguageController.to;
     // Timer.periodic(const Duration(seconds: 13), (Timer timer) {
     //   return languageController.updateLanguage(languageController.currentLanguage == 'en' ? 'hi' : 'en');
