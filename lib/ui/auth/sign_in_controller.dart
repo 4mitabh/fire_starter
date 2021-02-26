@@ -1,108 +1,37 @@
-import 'package:fire_starter/constants/constants.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:fire_starter/localizations.dart';
-import 'package:fire_starter/models/models.dart';
+import 'package:fire_starter/services/auth_service.dart';
 import 'package:fire_starter/ui/components/components.dart';
 
 class SignInController extends GetxController {
   static SignInController to = Get.find();
+  static AuthService _authService = Get.find();
   AppLocalizations_Labels labels;
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController otpController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-  Rx<User> firebaseUser = Rx<User>();
-  Rx<UserModel> firestoreUser = Rx<UserModel>();
-  final RxBool admin = false.obs;
   final RxBool waitingForOTP = false.obs;
   String _verificationId;
   String phoneNumber;
 
   @override
   void onReady() async {
-    //run every time auth state changes
-    ever(firebaseUser, handleAuthChanged);
-    firebaseUser.value = await getFirebaseUser;
-    firebaseUser.bindStream(user);
     super.onReady();
   }
 
   @override
   void onClose() {
-    phoneController?.dispose();
-    nameController?.dispose();
-    otpController?.dispose();
+    // phoneController?.dispose();
+    // nameController?.dispose();
+    // otpController?.dispose();
     super.onClose();
-  }
-
-  handleAuthChanged(_firebaseUser) async {
-    //get user data from firestore
-    if (_firebaseUser?.uid != null) {
-      firestoreUser.bindStream(await streamFirestoreUser());
-      await isAdmin();
-    }
-  }
-
-  // Firebase user one-time fetch
-  Future<User> get getFirebaseUser async => _auth.currentUser;
-
-  // Firebase user a realtime stream
-  Stream<User> get user => _auth.authStateChanges();
-
-  //Streams the firestore user from the firestore collection
-  Future<Stream<UserModel>> streamFirestoreUser() async {
-    print('streamFirestoreUser()');
-    var userRecord = await getFirestoreUser();
-    if (userRecord != null) {
-      return _db.doc('${FirebasePaths.users}/${firebaseUser.value.uid}').snapshots().map((snapshot) => UserModel.fromMap(snapshot.data()));
-    }
-
-    return null;
-  }
-
-  //get the firestore user from the firestore collection
-  Future<UserModel> getFirestoreUser() {
-    if (firebaseUser?.value?.uid != null) {
-      return _db.doc('${FirebasePaths.users}/${firebaseUser.value.uid}').get().then((documentSnapshot) {
-        if (documentSnapshot.exists)
-          return UserModel.fromMap(documentSnapshot.data());
-        else {
-          return _createNewUserFirestore();
-        }
-      });
-    }
-    return null;
-  }
-
-  //Method to handle user sign in using email and password
-  verifyOTP(BuildContext context) async {
-    String code = otpController.text.trim();
-    GetLogger.to.v('Using OTP $code ');
-    final labels = AppLocalizations.of(context);
-    showLoadingIndicator();
-    try {
-      await _auth.signInWithCredential(PhoneAuthProvider.credential(
-        verificationId: _verificationId,
-        smsCode: code,
-      ));
-      hideLoadingIndicator();
-    } catch (error) {
-      hideLoadingIndicator();
-      Get.snackbar(labels.auth.signInErrorTitle, labels.auth.signInError,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 7),
-          backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
-    }
   }
 
   //Method to handle user sign in using email and password
@@ -144,73 +73,26 @@ class SignInController extends GetxController {
     }
   }
 
-  cancelPhoneVerification() {
-    waitingForOTP.value = false;
-    otpController.clear();
-  }
-
-  //handles updating the user when updating profile
-  Future<void> updateUser(BuildContext context, UserModel user) async {
+  //Method to handle user sign in using email and password
+  verifyOTP(BuildContext context) async {
+    String code = otpController.text.trim();
+    GetLogger.to.v('Using OTP $code ');
     final labels = AppLocalizations.of(context);
+    showLoadingIndicator();
     try {
-      User _firebaseUser = firebaseUser?.value;
-      _updateUserFirestore(user, _firebaseUser);
+      await _auth.signInWithCredential(PhoneAuthProvider.credential(
+        verificationId: _verificationId,
+        smsCode: code,
+      ));
       hideLoadingIndicator();
-      Get.snackbar(labels.auth.updateUserSuccessNoticeTitle, labels.auth.updateUserSuccessNotice,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 5),
-          backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
-    } on PlatformException catch (error) {
-      //List<String> errors = error.toString().split(',');
-      // print("Error: " + errors[1]);
+    } catch (error) {
       hideLoadingIndicator();
-      print(error.code);
-      Get.snackbar(labels.auth.unknownError, error.code,
+      Get.snackbar(labels.auth.signInErrorTitle, labels.auth.signInError,
           snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 10),
+          duration: Duration(seconds: 7),
           backgroundColor: Get.theme.snackBarTheme.backgroundColor,
           colorText: Get.theme.snackBarTheme.actionTextColor);
     }
-  }
-
-  //updates the firestore user in users collection
-  void _updateUserFirestore(UserModel user, User _firebaseUser) {
-    _db.doc('${FirebasePaths.users}/${_firebaseUser.uid}').update(user.toJson());
-    update();
-  }
-
-  //create the firestore user in users collection
-  void _createUserFirestore(UserModel user, User _firebaseUser) {
-    _db.doc('${FirebasePaths.users}/${_firebaseUser.uid}').set(user.toJson());
-    update();
-  }
-
-  UserModel _createNewUserFirestore() {
-    User _firebaseUser = firebaseUser?.value;
-    UserModel _newUser = UserModel(
-      uid: _firebaseUser.uid,
-      email: _firebaseUser.email,
-      name: _firebaseUser.displayName,
-      photoUrl: _firebaseUser.photoURL,
-      phone: _firebaseUser.phoneNumber,
-    );
-    //create the user in firestore
-    _createUserFirestore(_newUser, _firebaseUser);
-    return _newUser;
-  }
-
-  //check if user is an admin user
-  isAdmin() async {
-    await getFirebaseUser.then((user) async {
-      DocumentSnapshot adminRef = await _db.collection('admin').doc(user?.uid).get();
-      if (adminRef.exists) {
-        admin.value = true;
-      } else {
-        admin.value = false;
-      }
-      update();
-    });
   }
 
   // Sign out
@@ -219,7 +101,12 @@ class SignInController extends GetxController {
     phoneController.clear();
     otpController.clear();
     waitingForOTP.value = false;
-    return _auth.signOut();
+    return _authService.signOut();
+  }
+
+  cancelPhoneVerification() {
+    waitingForOTP.value = false;
+    otpController.clear();
   }
 
   Future<User> signInWithApple() async {

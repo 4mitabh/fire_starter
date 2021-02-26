@@ -37,9 +37,9 @@ class _BubblesState extends State<Bubbles> with SingleTickerProviderStateMixin {
   Color background;
   AnimationController _controller;
   List<Bubble> bubbles;
-  final int numberOfBubbles = 6;
+  final int numberOfBubbles = 3;
   Color color;
-  final double maxBubbleSize = 200.0;
+  final double maxBubbleSize = 400.0;
 
   @override
   void initState() {
@@ -112,7 +112,7 @@ class Bubble {
   Bubble(Color colour, double maxBubbleSize) {
     this.colour = colour.withOpacity(0.5 + Random().nextDouble() / 2);
     this.direction = Random().nextDouble() * 360;
-    this.speed = 0.01;
+    this.speed = 0.001;
     this.radius = Random().nextDouble() * maxBubbleSize;
   }
 

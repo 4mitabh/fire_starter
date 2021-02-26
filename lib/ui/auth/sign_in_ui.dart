@@ -1,7 +1,6 @@
 import 'package:fire_starter/services/package_info.dart';
-
 import 'sign_in_controller.dart';
-import 'package:fire_starter/ui/components/widgets/blob.dart';
+import 'package:fire_starter/ui/components/widgets/glass/blob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:core';

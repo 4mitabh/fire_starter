@@ -1,9 +1,8 @@
 import 'dart:ui';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class GlassContainer extends StatelessWidget {
+class Glass extends StatelessWidget {
   /// Creates a widget that combines custom painting class, positioning, and sizing widgets.
   ///
   /// [info] The `height` and `width` values include the padding.
@@ -12,7 +11,7 @@ class GlassContainer extends StatelessWidget {
   /// in glassmorphic container designs [Boxdecoration] is alredy being configured to you
   /// You can easily customize `BorderGradient` and `ContainerGradient` like:
   /// ```dart
-  /// GlassContainer(
+  /// Glass(
   /// width: 250,
   /// height: 250,
   ///  borderRadius: 20,
@@ -41,6 +40,8 @@ class GlassContainer extends StatelessWidget {
   ///  child: null
   /// ),
   /// ```
+  // ![An gradient glasmorphic container with the dimensions of 250 square pixels.] [====Example Link==== 🖼🔗]
+  /// (https://flutter.github.io/assets-for-api-docs/assets/widgets/container_a.png)
   final Key key;
 
   /// Align the [child] within the container.
@@ -65,6 +66,9 @@ class GlassContainer extends StatelessWidget {
   /// This padding is in addition to any padding inherent in the [decoration];
   /// see [Decoration.padding].
   final EdgeInsetsGeometry padding;
+
+  final double width;
+  final double height;
 
   /// Additional constraints to apply to the child.
   ///
@@ -101,33 +105,22 @@ class GlassContainer extends StatelessWidget {
   final double blur;
   final LinearGradient linearGradient;
   final LinearGradient borderGradient;
-  GlassContainer({
+  Glass({
     this.key,
     this.child,
     this.alignment,
-    this.padding = const EdgeInsets.all(8),
+    this.padding,
     this.shape = BoxShape.rectangle,
     this.constraints,
-    this.margin = const EdgeInsets.all(8),
+    this.margin,
     this.transform,
-    this.borderRadius = 20,
-    this.linearGradient = const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: const [
-      Color.fromARGB(150, 55, 55, 55),
-      Color.fromARGB(180, 155, 155, 155),
-    ], stops: [
-      0.1,
-      1,
-    ]),
-    this.border = 2,
-    this.blur = 20,
-    this.borderGradient = const LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: const [
-        Color.fromARGB(100, 255, 255, 255),
-        Color.fromARGB(10, 155, 155, 155),
-      ],
-    ),
+    @required this.width,
+    @required this.height,
+    @required this.borderRadius,
+    @required this.linearGradient,
+    @required this.border,
+    @required this.blur,
+    @required this.borderGradient,
   })  : assert(margin == null || margin.isNonNegative),
         assert(padding == null || padding.isNonNegative),
         assert(constraints == null || constraints.debugAssertIsValid()),
@@ -146,8 +139,10 @@ class GlassContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width,
       margin: margin,
       alignment: alignment,
+      height: height,
       transform: transform,
       child: Stack(
         children: [
@@ -165,16 +160,17 @@ class GlassContainer extends StatelessWidget {
               ),
             ),
           ),
-          GlassBorder(
+          GlassmorphicBorder(
             strokeWidth: border,
             radius: borderRadius,
+            width: width,
+            height: height,
             gradient: borderGradient,
           ),
           ClipRRect(
             clipBehavior: Clip.hardEdge,
             borderRadius: BorderRadius.circular(borderRadius),
             child: Container(
-              padding: padding,
               child: child,
             ),
           ),
@@ -194,13 +190,18 @@ class GlassContainer extends StatelessWidget {
 ///    [dev]   -- [  Supported   ✔ ]        :        [  Supported   ✔ ]
 ///   [beta]   -- [Not Supported ❌]        :        [  Supported   ✔ ]
 ///  [stable]  -- [Not Supported ❌]        :        [  Supported   ✔ ]
-class GlassBorder extends StatelessWidget {
+
+class GlassmorphicBorder extends StatelessWidget {
   final _GradientPainter _painter;
   final double _radius;
-  GlassBorder({
+  final width;
+  final height;
+  GlassmorphicBorder({
     @required double strokeWidth,
     @required double radius,
     @required Gradient gradient,
+    @required this.height,
+    @required this.width,
   })  : this._painter = _GradientPainter(strokeWidth: strokeWidth, radius: radius, gradient: gradient),
         this._radius = radius;
 
@@ -213,6 +214,8 @@ class GlassBorder extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(_radius)),
         ),
+        width: width,
+        height: height,
       ),
     );
   }
