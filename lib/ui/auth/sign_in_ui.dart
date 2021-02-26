@@ -1,3 +1,4 @@
+import 'package:fire_starter/constants/constants.dart';
 import 'package:fire_starter/services/package_info.dart';
 import 'sign_in_controller.dart';
 import 'package:fire_starter/ui/components/widgets/glass/blob.dart';
@@ -43,30 +44,37 @@ class SignInUI extends StatelessWidget {
                 LogoGraphicHeader(),
                 SizedBox(height: 48.0),
                 if (!_signInController.waitingForOTP.value)
-                  InternationalPhoneNumberInput(
-                    onInputChanged: (PhoneNumber number) {
-                      // print(number.phoneNumber);
-                    },
-                    onInputValidated: (bool valid) {},
-                    selectorConfig: SelectorConfig(
-                      selectorType: PhoneInputSelectorType.DIALOG,
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: AppThemes.to.kGradientBoxDecoration(context),
+                    child: InternationalPhoneNumberInput(
+                      onInputChanged: (PhoneNumber number) {
+                        // print(number.phoneNumber);
+                      },
+                      onInputValidated: (bool valid) {},
+                      selectorConfig: SelectorConfig(
+                        selectorType: PhoneInputSelectorType.DIALOG,
+                      ),
+                      selectorTextStyle: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
+                      ignoreBlank: true,
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      // selectorTextStyle: TextStyle(color: Colors.black),
+                      textFieldController: _signInController.phoneController,
+                      formatInput: true,
+                      countries: ['IN', 'US', 'CA', 'JP'],
+                      // keyboardType: TextInputType.numberWithOptions(
+                      //     signed: true, decimal: false),
+                      // inputBorder: InputBorder.none,
+                      textStyle: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
+                      inputDecoration: InputDecoration(fillColor: Colors.transparent, border: InputBorder.none),
+                      initialValue: PhoneNumber(isoCode: PackageInfoService.country),
+                      onSaved: (PhoneNumber number) {
+                        print('On Saved: $number');
+                        _signInController.requestOTP(context, number.toString());
+                      },
+                      // maxLength: 16,
+                      spaceBetweenSelectorAndTextField: 0,
                     ),
-                    ignoreBlank: true,
-                    autoValidateMode: AutovalidateMode.onUserInteraction,
-                    // selectorTextStyle: TextStyle(color: Colors.black),
-                    textFieldController: _signInController.phoneController,
-                    formatInput: true,
-                    countries: ['IN', 'US', 'CA', 'JP'],
-                    // keyboardType: TextInputType.numberWithOptions(
-                    //     signed: true, decimal: false),
-                    inputBorder: OutlineInputBorder(),
-                    initialValue: PhoneNumber(isoCode: PackageInfoService.country),
-                    onSaved: (PhoneNumber number) {
-                      print('On Saved: $number');
-                      _signInController.requestOTP(context, number.toString());
-                    },
-                    // maxLength: 16,
-                    spaceBetweenSelectorAndTextField: 0,
                   )
                 else
                   FormInputFieldWithIcon(
