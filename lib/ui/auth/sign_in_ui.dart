@@ -1,4 +1,4 @@
-import 'package:fire_starter/constants/constants.dart';
+import 'package:fire_starter/controllers/theme_controller.dart';
 import 'package:fire_starter/services/package_info.dart';
 import 'sign_in_controller.dart';
 import 'package:fire_starter/ui/components/widgets/glass/blob.dart';
@@ -10,7 +10,6 @@ import 'package:fire_starter/localizations.dart';
 import 'package:fire_starter/ui/components/components.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:logger/logger.dart';
 
 class SignInUI extends StatelessWidget {
   static Widget builder([RouteSettings routeSettings]) =>
@@ -46,7 +45,7 @@ class SignInUI extends StatelessWidget {
                 if (!_signInController.waitingForOTP.value)
                   Container(
                     padding: EdgeInsets.all(8),
-                    decoration: AppThemes.to.kGradientBoxDecoration(context),
+                    decoration: ThemeController.to.appTheme.value.kGradientBoxDecoration(context),
                     child: InternationalPhoneNumberInput(
                       onInputChanged: (PhoneNumber number) {
                         // print(number.phoneNumber);
@@ -57,6 +56,8 @@ class SignInUI extends StatelessWidget {
                       ),
                       selectorTextStyle: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
                       ignoreBlank: true,
+                      scrollPadding: EdgeInsets.all(0),
+                      textAlign: TextAlign.left,
                       autoValidateMode: AutovalidateMode.onUserInteraction,
                       // selectorTextStyle: TextStyle(color: Colors.black),
                       textFieldController: _signInController.phoneController,
@@ -77,14 +78,18 @@ class SignInUI extends StatelessWidget {
                     ),
                   )
                 else
-                  FormInputFieldWithIcon(
-                    controller: _signInController.otpController,
-                    iconPrefix: Icons.vpn_key,
-                    labelText: labels?.auth?.enterOTP,
-                    // validator: Validator(labels).number,
-                    keyboardType: TextInputType.phone,
-                    onChanged: (value) => null,
-                    onSaved: (value) => _signInController.phoneController.text = value,
+                  Container(
+                    padding: EdgeInsets.all(4),
+                    decoration: ThemeController.to.appTheme.value.kGradientBoxDecoration(context),
+                    child: FormInputFieldWithIcon(
+                      controller: _signInController.otpController,
+                      iconPrefix: Icons.vpn_key,
+                      labelText: labels?.auth?.enterOTP,
+                      // validator: Validator(labels).number,
+                      keyboardType: TextInputType.phone,
+                      onChanged: (value) => null,
+                      onSaved: (value) => _signInController.phoneController.text = value,
+                    ),
                   ),
                 FormVerticalSpace(),
                 if (!_signInController.waitingForOTP.value)
@@ -125,8 +130,8 @@ class SignInUI extends StatelessWidget {
                         }
                       }),
                 if (_signInController.waitingForOTP.value)
-                  LabelButton(
-                      labelText: labels?.auth?.otpVerificationChangeNumber(phone: _signInController.phoneNumber),
+                  TextButton(
+                      child: Text(labels?.auth?.otpVerificationChangeNumber(phone: _signInController.phoneNumber)),
                       onPressed: () => _signInController.cancelPhoneVerification()),
               ],
             ),

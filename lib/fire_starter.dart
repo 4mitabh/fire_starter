@@ -1,7 +1,6 @@
 library firestarter;
 
 import 'dart:async';
-import 'package:fire_starter/constants/constants.dart';
 import 'package:fire_starter/controllers/controllers.dart';
 import 'package:fire_starter/services/auth_service.dart';
 import 'package:fire_starter/services/database_service.dart';
@@ -9,6 +8,7 @@ import 'package:fire_starter/services/notification.dart';
 import 'package:fire_starter/services/package_info.dart';
 import 'package:fire_starter/services/upgrade_check.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -37,7 +37,6 @@ class FireStarter {
     await Firebase.initializeApp();
     await GetStorage.init();
     await PackageInfoService.init();
-    Get.put<AppThemes>(AppThemes());
     Get.put<LanguageController>(LanguageController());
     Get.put<ThemeController>(ThemeController());
     Get.put<AuthService>(AuthService());
@@ -46,12 +45,17 @@ class FireStarter {
     UpgradeCheckService.init();
 
     ThemeController themeController = ThemeController.to;
-    Timer.periodic(const Duration(seconds: 5), (Timer timer) {
-      return themeController.setThemeMode(themeController.isDarkModeOn ? 'light' : 'dark');
+    Timer.periodic(const Duration(seconds: 320), (Timer timer) {
+      // int i = FlexScheme.values.indexOf(themeController.themeName.toString());
+      themeIndex = (themeIndex + 1) % FlexScheme.values.length;
+      themeController.setTheme(FlexScheme.values[themeIndex].toString().split('.')[1]);
+      if (themeIndex == 0) themeController.setThemeMode(themeController.isDarkModeOn ? 'light' : 'dark');
     });
     // LanguageController languageController = LanguageController.to;
     // Timer.periodic(const Duration(seconds: 13), (Timer timer) {
     //   return languageController.updateLanguage(languageController.currentLanguage == 'en' ? 'hi' : 'en');
     // });
   }
+
+  int themeIndex = 0;
 }

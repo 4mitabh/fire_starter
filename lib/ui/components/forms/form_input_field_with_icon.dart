@@ -29,7 +29,8 @@ class FormInputFieldWithIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        filled: true,
+        border: InputBorder.none,
+        filled: false,
         prefixIcon: Icon(iconPrefix),
         labelText: labelText,
       ),
