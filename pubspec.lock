@@ -370,13 +370,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_glow:
-    dependency: "direct main"
-    description:
-      name: flutter_glow
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.2"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -412,7 +405,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.25.4"
+    version: "3.25.6"
   get_storage:
     dependency: "direct main"
     description:
@@ -427,6 +420,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  google_fonts:
+    dependency: "direct main"
+    description:
+      name: google_fonts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.2"
   google_nav_bar:
     dependency: "direct main"
     description:
@@ -510,7 +510,7 @@ packages:
       name: io
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.4"
+    version: "0.3.5"
   js:
     dependency: transitive
     description:
