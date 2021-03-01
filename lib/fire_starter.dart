@@ -45,17 +45,17 @@ class FireStarter {
     UpgradeCheckService.init();
 
     ThemeController themeController = ThemeController.to;
-    Timer.periodic(const Duration(seconds: 320), (Timer timer) {
-      // int i = FlexScheme.values.indexOf(themeController.themeName.toString());
-      themeIndex = (themeIndex + 1) % FlexScheme.values.length;
-      themeController.setTheme(FlexScheme.values[themeIndex].toString().split('.')[1]);
-      if (themeIndex == 0) themeController.setThemeMode(themeController.isDarkModeOn ? 'light' : 'dark');
-    });
+    if (themeIndex == -1)
+      Timer.periodic(const Duration(seconds: 15), (Timer timer) {
+        themeIndex = (themeIndex + 7) % FlexScheme.values.length;
+        themeController.setTheme(FlexScheme.values[themeIndex].toString().split('.')[1]);
+        if (themeIndex == 0) themeController.setThemeMode(themeController.isDarkModeOn ? 'light' : 'dark');
+      });
     // LanguageController languageController = LanguageController.to;
     // Timer.periodic(const Duration(seconds: 13), (Timer timer) {
     //   return languageController.updateLanguage(languageController.currentLanguage == 'en' ? 'hi' : 'en');
     // });
   }
 
-  int themeIndex = 0;
+  static int themeIndex = -1;
 }

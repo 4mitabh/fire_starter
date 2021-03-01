@@ -2,7 +2,7 @@ export 'forms/form_input_field_with_icon.dart';
 export 'forms/form_input_field.dart';
 export 'forms/form_vertical_spacing.dart';
 export 'widgets/primary_button.dart';
-export 'widgets/label_button.dart';
+export 'widgets/line_button.dart';
 export 'widgets/logo_graphic_header.dart';
 export 'widgets/dropdown_picker.dart';
 export 'widgets/dropdown_picker_with_icon.dart';

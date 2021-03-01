@@ -1,3 +1,4 @@
+import 'package:fire_starter/helpers/helpers.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,7 +69,7 @@ class AppTheme {
       headline5: TextStyle(color: colorScheme.onBackground, fontWeight: FontWeight.w400),
       headline4: TextStyle(color: colorScheme.onBackground, fontWeight: FontWeight.w200),
       headline3: TextStyle(color: colorScheme.onBackground, fontWeight: FontWeight.w200),
-      headline2: TextStyle(color: colorScheme.primary, fontWeight: FontWeight.w200),
+      headline2: TextStyle(color: colorScheme.primary, fontWeight: FontWeight.w100),
       headline1: TextStyle(color: colorScheme.primary, fontWeight: FontWeight.w200),
     );
 

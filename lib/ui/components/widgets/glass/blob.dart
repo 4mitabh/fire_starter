@@ -43,11 +43,14 @@ class _BubblesState extends State<Bubbles> with SingleTickerProviderStateMixin {
   final int numberOfBubbles = 3;
   Color color;
   final double maxBubbleSize = 400.0;
+  final ThemeData darkTheme = ThemeController.to.appTheme.value.darkTheme();
+  final ThemeData lightTheme = ThemeController.to.appTheme.value.lightTheme();
 
   @override
   void initState() {
     super.initState();
-    color = themeController.isDarkModeOn ? const Color.fromRGBO(30, 30, 55, 1) : const Color.fromRGBO(100, 140, 255, 1);
+    // color = themeController.isDarkModeOn ? const Color.fromRGBO(30, 30, 55, 1) : const Color.fromRGBO(100, 140, 255, 1);
+    color = themeController.isDarkModeOn ? darkTheme.primaryColor : lightTheme.primaryColor;
     // Initialize bubbles
     bubbles = List();
     int i = numberOfBubbles;
@@ -75,7 +78,8 @@ class _BubblesState extends State<Bubbles> with SingleTickerProviderStateMixin {
     return CustomPaint(
       foregroundPainter: BubblePainter(
           bubbles: bubbles,
-          background: themeController.isDarkModeOn ? const Color.fromRGBO(155, 130, 130, 1) : const Color.fromRGBO(255, 100, 100, 1)),
+          // background: themeController.isDarkModeOn ? const Color.fromRGBO(155, 130, 130, 1) : const Color.fromRGBO(255, 100, 100, 1)),
+          background: themeController.isDarkModeOn ? darkTheme.colorScheme.secondary : lightTheme.colorScheme.secondary),
       size: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
     );
   }
@@ -112,6 +116,8 @@ class Bubble {
   double y = 0;
   final ThemeController themeController = ThemeController.to;
 
+  final ThemeData darkTheme = ThemeController.to.appTheme.value.darkTheme();
+  final ThemeData lightTheme = ThemeController.to.appTheme.value.lightTheme();
   Bubble(Color colour, double maxBubbleSize) {
     this.colour = colour.withOpacity(0.5 + Random().nextDouble() / 2);
     this.direction = Random().nextDouble() * 360;
@@ -122,7 +128,8 @@ class Bubble {
   draw(Canvas canvas, Size canvasSize) {
     Paint paint = new Paint()
       // ..color = colour
-      ..color = themeController.isDarkModeOn ? const Color.fromRGBO(70, 70, 105, 1) : const Color.fromRGBO(100, 140, 255, 1)
+      // ..color = themeController.isDarkModeOn ? const Color.fromRGBO(70, 70, 105, 1) : const Color.fromRGBO(100, 140, 255, 1)
+      ..color = themeController.isDarkModeOn ? darkTheme.primaryColorLight : lightTheme.primaryColorDark
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.fill;
 

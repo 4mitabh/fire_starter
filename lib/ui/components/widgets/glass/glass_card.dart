@@ -1,6 +1,30 @@
 import 'package:fire_starter/ui/components/widgets/glass/glass.dart';
 import 'package:flutter/material.dart';
 
+class GlassCard extends StatelessWidget {
+  final Widget child;
+
+  const GlassCard({Key key, this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Color bg = Theme.of(context).backgroundColor;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: bg.withAlpha(100),
+            border: Border.all(
+              color: bg.withAlpha(170),
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        child: child,
+      ),
+    );
+  }
+}
+
+/*
 // ignore: non_constant_identifier_names
 GlassCard(var context) {
   return Glass(
@@ -170,3 +194,4 @@ GlassCard(var context) {
         ],
       ));
 }
+*/

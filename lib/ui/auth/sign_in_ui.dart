@@ -1,5 +1,6 @@
 import 'package:fire_starter/controllers/theme_controller.dart';
 import 'package:fire_starter/services/package_info.dart';
+import 'package:fire_starter/ui/components/widgets/link_button%20copy.dart';
 import 'sign_in_controller.dart';
 import 'package:fire_starter/ui/components/widgets/glass/blob.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class SignInUI extends StatelessWidget {
                 Text(
                   PackageInfoService.appName,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 64, fontWeight: FontWeight.w100, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
+                  style: Theme.of(context).textTheme.headline2.copyWith(color: Theme.of(context).colorScheme.primary.withAlpha(120)),
                 ),
                 LogoGraphicHeader(),
                 SizedBox(height: 48.0),
@@ -108,7 +109,7 @@ class SignInUI extends StatelessWidget {
                       }),
                 FormVerticalSpace(),
                 if (!_signInController.waitingForOTP.value && GetPlatform.isAndroid)
-                  LabelButton(
+                  LinkButton(
                       labelText: labels?.auth?.googleSignIn,
                       onPressed: () async {
                         try {
@@ -119,7 +120,7 @@ class SignInUI extends StatelessWidget {
                         }
                       }),
                 if (!_signInController.waitingForOTP.value && (GetPlatform.isMacOS || GetPlatform.isIOS))
-                  LabelButton(
+                  LinkButton(
                       labelText: labels?.auth?.appleSignIn,
                       onPressed: () async {
                         try {

@@ -2,8 +2,8 @@ import 'package:fire_starter/controllers/theme_controller.dart';
 import 'package:fire_starter/services/app_themes.dart';
 import 'package:flutter/material.dart';
 
-class LabelButton extends StatelessWidget {
-  LabelButton({this.labelText, this.onPressed, this.radius, this.child, this.padding = 22});
+class LineButton extends StatelessWidget {
+  LineButton({this.labelText, this.onPressed, this.radius, this.child, this.padding = 8});
   final String labelText;
   final double radius;
   final double padding;
