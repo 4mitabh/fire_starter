@@ -21,7 +21,7 @@ class PrimaryButton extends StatelessWidget {
                 child: child ??
                     Text(
                       labelText.toUpperCase(),
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary),
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
                     )),
             decoration: ThemeController.to.appTheme.value.kInnerDecoration(context),
           ),

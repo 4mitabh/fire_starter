@@ -35,6 +35,7 @@ dependencies:
   url_launcher:
   flex_color_scheme:
   google_fonts:
+  auto_size_text:
 dev_dependencies:
   flutter_test:
     sdk: flutter
