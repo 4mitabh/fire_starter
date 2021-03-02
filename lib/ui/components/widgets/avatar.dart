@@ -10,23 +10,22 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if ((user?.photoUrl == '') || (user?.photoUrl == null)) {
-      return LogoGraphicHeader();
-    }
     return Hero(
-      tag: 'User Avatar Image',
+      tag: 'avatar',
       child: CircleAvatar(
           foregroundColor: Colors.blue,
           backgroundColor: Colors.white,
-          radius: 70.0,
-          child: ClipOval(
-            child: Image.network(
-              user?.photoUrl,
-              fit: BoxFit.cover,
-              width: 120.0,
-              height: 120.0,
-            ),
-          )),
+          radius: 25.0,
+          child: ((user?.photoUrl == '') || (user?.photoUrl == null))
+              ? Icon(Icons.person)
+              : ClipOval(
+                  child: Image.network(
+                    user?.photoUrl,
+                    fit: BoxFit.cover,
+                    width: 50.0,
+                    height: 50.0,
+                  ),
+                )),
     );
   }
 }
