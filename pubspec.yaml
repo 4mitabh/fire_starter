@@ -5,7 +5,7 @@ author: Amitabh Mehta
 homepage: https://github.com/4mitabh/flutter_starter
 
 environment:
-  sdk: "2.10.5" # 2.12
+  sdk: "2.12.0" # 2.12
   flutter: ">=1.17.0"
 
 dependencies:
@@ -14,33 +14,33 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  firebase_auth: ^0.20.0
-  firebase_core: ^0.7.0
-  cloud_firestore: ^0.16.0
-  firebase_messaging: ^8.0.0-dev
-  firebase_storage:
+  firebase_auth: "^1.0.0"
+  firebase_core: "^1.0.0"
+  cloud_firestore: "^1.0.0"
+  firebase_messaging: "^9.0.0"
+  firebase_storage: "^8.0.0"
   firebase_analytics:
-  google_sign_in:
+  google_sign_in: "^5.0.0"
   sign_in_with_apple:
   intl_phone_number_input:
   devicelocale:
   logger:
   get:
   country_pickers:
-  get_storage:
-  flutter_sheet_localization:
+  # get_storage: ^1.4.0
+  flutter_sheet_localization: "^2.0.1"
   google_nav_bar:
   intl:
-  package_info_plus:
+  package_info_plus: "^1.0.0"
   url_launcher:
   flex_color_scheme:
-  google_fonts:
+  google_fonts: "^2.0.0"
   auto_size_text:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^1.10.2
-  flutter_sheet_localization_generator:
+  build_runner: ^1.11.5
+  # flutter_sheet_localization_generator: "^2.1.2"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
