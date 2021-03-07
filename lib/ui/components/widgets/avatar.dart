@@ -16,11 +16,11 @@ class Avatar extends StatelessWidget {
           foregroundColor: Colors.blue,
           backgroundColor: Colors.white,
           radius: 25.0,
-          child: ((user?.photoUrl == '') || (user?.photoUrl == null))
+          child: ((user.photoUrl == null) || (user.photoUrl == ''))
               ? Icon(Icons.person)
               : ClipOval(
                   child: Image.network(
-                    user?.photoUrl,
+                    user.photoUrl!,
                     fit: BoxFit.cover,
                     width: 50.0,
                     height: 50.0,

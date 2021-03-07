@@ -9,7 +9,7 @@ part of 'localizations.dart';
 // ignore_for_file: camel_case_types
 
 class AppLocalizations {
-  AppLocalizations(this.locale) : labels = languages[locale];
+  AppLocalizations(this.locale) : labels = languages[locale]!;
 
   final Locale locale;
 
@@ -24,8 +24,7 @@ class AppLocalizations {
         enterOTP: 'Enter OTP',
         otpVerificationSentTitle: 'OTP Sent',
         otpVerificationSent: 'OTP sent to your mobile number',
-        otpVerificationChangeNumber: ({phone}) =>
-            '''OTP sent to ${phone}. Number not correct?''',
+        otpVerificationChangeNumber: ({phone = ''}) => '''OTP sent to ${phone = ''}. Number not correct?''',
         signInButton: 'Sign In',
         nameFormField: 'Name',
         emailFormField: 'Email',
@@ -68,8 +67,7 @@ class AppLocalizations {
         name: 'Please enter a name.',
         number: 'Please enter a number.',
         notEmpty: 'This is a required field.',
-        amount:
-            'Please enter a number i.e. 250 - no dollar symbol and no cents',
+        amount: 'Please enter a number i.e. 250 - no dollar symbol and no cents',
       ),
     ),
     Locale.fromSubtags(languageCode: 'fr'): AppLocalizations_Labels(
@@ -82,8 +80,7 @@ class AppLocalizations {
         enterOTP: 'Entrez OTP',
         otpVerificationSentTitle: 'Sent Bureau du Procureur',
         otpVerificationSent: 'OTP envoyé à votre numéro de téléphone mobile',
-        otpVerificationChangeNumber: ({phone}) =>
-            '''OTP envoyé à {{téléphone}}. Nombre incorrect?''',
+        otpVerificationChangeNumber: ({phone = ''}) => '''OTP envoyé à {{téléphone}}. Nombre incorrect?''',
         signInButton: 'Se connecter',
         nameFormField: 'Nom',
         emailFormField: 'Email',
@@ -92,8 +89,7 @@ class AppLocalizations {
         resetPasswordLabelButton: 'Mot de passe oublié?',
         updateUser: 'Mettre à jour le profil',
         updateUserSuccessNoticeTitle: 'Mise à jour l\'utilisateur',
-        updateUserSuccessNotice:
-            'Informations sur l\'utilisateur mis à jour avec succès.',
+        updateUserSuccessNotice: 'Informations sur l\'utilisateur mis à jour avec succès.',
         updateUserFailNotice: 'Impossible de mettre à jour l\'utilisateur',
         cancel: 'Annuler',
         submit: 'Soumettre',
@@ -127,8 +123,7 @@ class AppLocalizations {
         name: 'S\'il vous plaît entrer un nom.',
         number: 'S\'il vous plaît entrer un numéro.',
         notEmpty: 'Ceci est un champ obligatoire.',
-        amount:
-            'S\'il vous plaît entrer un numéro à savoir 250 - aucun symbole du dollar et pas cents',
+        amount: 'S\'il vous plaît entrer un numéro à savoir 250 - aucun symbole du dollar et pas cents',
       ),
     ),
     Locale.fromSubtags(languageCode: 'es'): AppLocalizations_Labels(
@@ -141,8 +136,7 @@ class AppLocalizations {
         enterOTP: 'Introduzca OTP',
         otpVerificationSentTitle: 'Enviados OTP',
         otpVerificationSent: 'OTP enviado a su número de teléfono móvil',
-        otpVerificationChangeNumber: ({phone}) =>
-            '''OTP enviado al teléfono {{}}. Número no es correcta?''',
+        otpVerificationChangeNumber: ({phone = ''}) => '''OTP enviado al teléfono {{}}. Número no es correcta?''',
         signInButton: 'Registrarse',
         nameFormField: 'Nombre',
         emailFormField: 'Email',
@@ -151,8 +145,7 @@ class AppLocalizations {
         resetPasswordLabelButton: '¿Se te olvidó tu contraseña?',
         updateUser: 'Actualización del perfil',
         updateUserSuccessNoticeTitle: 'Actualización de usuario',
-        updateUserSuccessNotice:
-            'La información de usuario actualizada correctamente.',
+        updateUserSuccessNotice: 'La información de usuario actualizada correctamente.',
         updateUserFailNotice: 'Error al usuario la actualización',
         cancel: 'Cancelar',
         submit: 'Enviar',
@@ -181,14 +174,12 @@ class AppLocalizations {
         title: 'Scorizen',
       ),
       validator: AppLocalizations_Labels_Validator(
-        email:
-            'Por favor, introduce una dirección de correo electrónico válida.',
+        email: 'Por favor, introduce una dirección de correo electrónico válida.',
         password: 'La contraseña debe tener al menos 6 caracteres.',
         name: 'Por favor, introduzca un nombre.',
         number: 'Por favor, introduzca un número.',
         notEmpty: 'Este es un campo obligatorio.',
-        amount:
-            'Por favor, introduzca un número, es decir 250 - ningún símbolo del dólar y sin centavos',
+        amount: 'Por favor, introduzca un número, es decir 250 - ningún símbolo del dólar y sin centavos',
       ),
     ),
     Locale.fromSubtags(languageCode: 'de'): AppLocalizations_Labels(
@@ -201,8 +192,7 @@ class AppLocalizations {
         enterOTP: 'Geben Sie OTP',
         otpVerificationSentTitle: 'OTP Sent',
         otpVerificationSent: 'OTP an Ihre Handy-Nummer',
-        otpVerificationChangeNumber: ({phone}) =>
-            '''OTP an {{Telefon}}. Nummer nicht korrekt?''',
+        otpVerificationChangeNumber: ({phone = ''}) => '''OTP an {{Telefon}}. Nummer nicht korrekt?''',
         signInButton: 'Anmelden',
         nameFormField: 'Name',
         emailFormField: 'Email',
@@ -211,8 +201,7 @@ class AppLocalizations {
         resetPasswordLabelButton: 'Passwort vergessen?',
         updateUser: 'Profil aktualisieren',
         updateUserSuccessNoticeTitle: 'Benutzer Aktualisiert',
-        updateUserSuccessNotice:
-            'Benutzerinformationen erfolgreich aktualisiert.',
+        updateUserSuccessNotice: 'Benutzerinformationen erfolgreich aktualisiert.',
         updateUserFailNotice: 'Fehler beim Update Benutzer',
         cancel: 'Stornieren',
         submit: 'einreichen',
@@ -246,8 +235,7 @@ class AppLocalizations {
         name: 'Bitte geben Sie einen Namen.',
         number: 'Bitte gebe eine Nummer ein.',
         notEmpty: 'Dies ist ein Pflichtfeld.',
-        amount:
-            'Bitte geben Sie eine Zahl das heißt 250 - kein Dollar-Symbol und keinen Cent',
+        amount: 'Bitte geben Sie eine Zahl das heißt 250 - kein Dollar-Symbol und keinen Cent',
       ),
     ),
     Locale.fromSubtags(languageCode: 'hi'): AppLocalizations_Labels(
@@ -260,8 +248,7 @@ class AppLocalizations {
         enterOTP: 'OTP दर्ज करें',
         otpVerificationSentTitle: 'OTP भेजा',
         otpVerificationSent: 'OTP अपने मोबाइल नंबर पर भेजा',
-        otpVerificationChangeNumber: ({phone}) =>
-            '''OTP भेजा {{फोन}}। संख्या नहीं सही है?''',
+        otpVerificationChangeNumber: ({phone = ''}) => '''OTP भेजा {{फोन}}। संख्या नहीं सही है?''',
         signInButton: 'दाखिल करना',
         nameFormField: 'नाम',
         emailFormField: 'ईमेल',
@@ -317,8 +304,7 @@ class AppLocalizations {
         enterOTP: 'Digite OTP',
         otpVerificationSentTitle: 'OTP Sent',
         otpVerificationSent: 'OTP enviada para o seu número de telemóvel',
-        otpVerificationChangeNumber: ({phone}) =>
-            '''OTP enviado para {{telefone}}. Número não está correta?''',
+        otpVerificationChangeNumber: ({phone = ''}) => '''OTP enviado para {{telefone}}. Número não está correta?''',
         signInButton: 'Assinar em',
         nameFormField: 'Nome',
         emailFormField: 'O email',
@@ -327,8 +313,7 @@ class AppLocalizations {
         resetPasswordLabelButton: 'Esqueceu sua senha?',
         updateUser: 'Atualizar perfil',
         updateUserSuccessNoticeTitle: 'do usuário atualizada',
-        updateUserSuccessNotice:
-            'informações do usuário atualizado com sucesso.',
+        updateUserSuccessNotice: 'informações do usuário atualizado com sucesso.',
         updateUserFailNotice: 'Falha ao usuário de atualização',
         cancel: 'Cancelar',
         submit: 'Enviar',
@@ -362,8 +347,7 @@ class AppLocalizations {
         name: 'Por favor, indique um nome.',
         number: 'Por favor, coloque um numero.',
         notEmpty: 'Este é um campo obrigatório.',
-        amount:
-            'Por favor insira um número ou seja 250 - nenhum símbolo dólar e há centavos',
+        amount: 'Por favor insira um número ou seja 250 - nenhum símbolo dólar e há centavos',
       ),
     ),
     Locale.fromSubtags(languageCode: 'zh'): AppLocalizations_Labels(
@@ -376,7 +360,7 @@ class AppLocalizations {
         enterOTP: '输入OTP',
         otpVerificationSentTitle: 'OTP发送',
         otpVerificationSent: 'OTP发送到您的手机号码',
-        otpVerificationChangeNumber: ({phone}) => '''OTP发送到{{电话}}。号码不正确？''',
+        otpVerificationChangeNumber: ({phone = ''}) => '''OTP发送到{{电话}}。号码不正确？''',
         signInButton: '登入',
         nameFormField: '名称',
         emailFormField: '电子邮件',
@@ -432,8 +416,7 @@ class AppLocalizations {
         enterOTP: 'OTPを入力します。',
         otpVerificationSentTitle: 'OTP SENT',
         otpVerificationSent: 'OTPは、あなたの携帯電話番号に送信されました',
-        otpVerificationChangeNumber: ({phone}) =>
-            '''OTPは{{}}電話に送られます。番号が正しくありませんか？''',
+        otpVerificationChangeNumber: ({phone = ''}) => '''OTPは{{}}電話に送られます。番号が正しくありませんか？''',
         signInButton: 'ログイン',
         nameFormField: '名前',
         emailFormField: 'Eメール',
@@ -489,8 +472,7 @@ class AppLocalizations {
         enterOTP: 'Введите одноразовый пароль',
         otpVerificationSentTitle: 'OTP Sent',
         otpVerificationSent: 'OTP отправлено на Ваш номер мобильного',
-        otpVerificationChangeNumber: ({phone}) =>
-            '''OTP адрес {{телефон}}. Номер не правильно?''',
+        otpVerificationChangeNumber: ({phone = ''}) => '''OTP адрес {{телефон}}. Номер не правильно?''',
         signInButton: 'Войти в систему',
         nameFormField: 'имя',
         emailFormField: 'Эл. адрес',
@@ -533,47 +515,43 @@ class AppLocalizations {
         name: 'Пожалуйста, введите имя.',
         number: 'Пожалуйста, введите число.',
         notEmpty: 'Это поле обязательно для заполнения.',
-        amount:
-            'Пожалуйста, введите номер 250 - т.е. без символа доллара и ни цента',
+        amount: 'Пожалуйста, введите номер 250 - т.е. без символа доллара и ни цента',
       ),
     ),
   };
 
   final AppLocalizations_Labels labels;
 
-  static AppLocalizations_Labels of(BuildContext context) =>
-      Localizations.of<AppLocalizations>(context, AppLocalizations)?.labels;
+  static AppLocalizations_Labels of(BuildContext context) => (Localizations.of<AppLocalizations>(context, AppLocalizations)!.labels)!;
 }
 
-typedef AppLocalizations_Labels_Auth_otpVerificationChangeNumber = String
-    Function({@required String phone});
+typedef AppLocalizations_Labels_Auth_otpVerificationChangeNumber = String Function({@required String phone});
 
 class AppLocalizations_Labels_Auth {
   const AppLocalizations_Labels_Auth(
-      {this.googleSignIn,
-      this.appleSignIn,
-      this.aborted,
-      this.phone,
-      this.requestOTP,
-      this.enterOTP,
-      this.otpVerificationSentTitle,
-      this.otpVerificationSent,
-      AppLocalizations_Labels_Auth_otpVerificationChangeNumber
-          otpVerificationChangeNumber,
-      this.signInButton,
-      this.nameFormField,
-      this.emailFormField,
-      this.signInErrorTitle,
-      this.signInError,
-      this.resetPasswordLabelButton,
-      this.updateUser,
-      this.updateUserSuccessNoticeTitle,
-      this.updateUserSuccessNotice,
-      this.updateUserFailNotice,
-      this.cancel,
-      this.submit,
-      this.updateProfileTitle,
-      this.unknownError})
+      {required this.googleSignIn,
+      required this.appleSignIn,
+      required this.aborted,
+      required this.phone,
+      required this.requestOTP,
+      required this.enterOTP,
+      required this.otpVerificationSentTitle,
+      required this.otpVerificationSent,
+      required AppLocalizations_Labels_Auth_otpVerificationChangeNumber otpVerificationChangeNumber,
+      required this.signInButton,
+      required this.nameFormField,
+      required this.emailFormField,
+      required this.signInErrorTitle,
+      required this.signInError,
+      required this.resetPasswordLabelButton,
+      required this.updateUser,
+      required this.updateUserSuccessNoticeTitle,
+      required this.updateUserSuccessNotice,
+      required this.updateUserFailNotice,
+      required this.cancel,
+      required this.submit,
+      required this.updateProfileTitle,
+      required this.unknownError})
       : _otpVerificationChangeNumber = otpVerificationChangeNumber;
 
   final String googleSignIn;
@@ -592,8 +570,7 @@ class AppLocalizations_Labels_Auth {
 
   final String otpVerificationSent;
 
-  final AppLocalizations_Labels_Auth_otpVerificationChangeNumber
-      _otpVerificationChangeNumber;
+  final AppLocalizations_Labels_Auth_otpVerificationChangeNumber _otpVerificationChangeNumber;
 
   final String signInButton;
 
@@ -674,22 +651,21 @@ class AppLocalizations_Labels_Auth {
     }
   }
 
-  String otpVerificationChangeNumber({@required String phone}) =>
-      _otpVerificationChangeNumber(
+  String otpVerificationChangeNumber({required String phone}) => _otpVerificationChangeNumber(
         phone: phone,
       );
 }
 
 class AppLocalizations_Labels_Settings {
   const AppLocalizations_Labels_Settings(
-      {this.title,
-      this.language,
-      this.theme,
-      this.signOut,
-      this.dark,
-      this.light,
-      this.system,
-      this.updateProfile});
+      {required this.title,
+      required this.language,
+      required this.theme,
+      required this.signOut,
+      required this.dark,
+      required this.light,
+      required this.system,
+      required this.updateProfile});
 
   final String title;
 
@@ -733,12 +709,12 @@ class AppLocalizations_Labels_Settings {
 
 class AppLocalizations_Labels_Home {
   const AppLocalizations_Labels_Home(
-      {this.title,
-      this.nameLabel,
-      this.uidLabel,
-      this.emailLabel,
-      this.phoneLabel,
-      this.adminUserLabel});
+      {required this.title,
+      required this.nameLabel,
+      required this.uidLabel,
+      required this.emailLabel,
+      required this.phoneLabel,
+      required this.adminUserLabel});
 
   final String title;
 
@@ -773,7 +749,7 @@ class AppLocalizations_Labels_Home {
 }
 
 class AppLocalizations_Labels_App {
-  const AppLocalizations_Labels_App({this.title});
+  const AppLocalizations_Labels_App({required this.title});
 
   final String title;
 
@@ -789,12 +765,7 @@ class AppLocalizations_Labels_App {
 
 class AppLocalizations_Labels_Validator {
   const AppLocalizations_Labels_Validator(
-      {this.email,
-      this.password,
-      this.name,
-      this.number,
-      this.notEmpty,
-      this.amount});
+      {required this.email, required this.password, required this.name, required this.number, required this.notEmpty, required this.amount});
 
   final String email;
 
@@ -829,8 +800,7 @@ class AppLocalizations_Labels_Validator {
 }
 
 class AppLocalizations_Labels {
-  const AppLocalizations_Labels(
-      {this.auth, this.settings, this.home, this.app, this.validator});
+  const AppLocalizations_Labels({required this.auth, required this.settings, required this.home, required this.app, required this.validator});
 
   final AppLocalizations_Labels_Auth auth;
 

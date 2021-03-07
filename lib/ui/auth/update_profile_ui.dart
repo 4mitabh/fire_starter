@@ -13,7 +13,7 @@ class UpdateProfileUI extends StatelessWidget {
 
   Widget build(BuildContext context) {
     final labels = AppLocalizations.of(context);
-    nameController.text = authController?.firestoreUser?.value?.name;
+    nameController.text = authController.firestoreUser.value?.name ?? '';
     return Scaffold(
       appBar: AppBar(title: Text(labels.auth.updateProfileTitle)),
       body: Form(
@@ -34,16 +34,16 @@ class UpdateProfileUI extends StatelessWidget {
                     labelText: labels.auth.nameFormField,
                     validator: Validator(labels).name,
                     onChanged: (value) => null,
-                    onSaved: (value) => nameController.text = value,
+                    onSaved: (value) => nameController.text = value ?? '',
                   ),
                   FormVerticalSpace(),
                   PrimaryButton(
-                      labelText: labels?.auth?.updateUser,
+                      labelText: labels.auth.updateUser,
                       onPressed: () async {
-                        if (_formKey.currentState.validate()) {
+                        if ((_formKey.currentState != null) && _formKey.currentState!.validate()) {
                           SystemChannels.textInput.invokeMethod('TextInput.hide');
                           UserModel _updatedUser =
-                              UserModel(uid: authController?.firestoreUser?.value?.uid, photoUrl: authController?.firestoreUser?.value?.photoUrl);
+                              UserModel(id: authController.firestoreUser.value.id, photoUrl: authController.firestoreUser.value?.photoUrl);
                           authController.updateUser(context, _updatedUser);
                         }
                       }),

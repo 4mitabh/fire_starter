@@ -47,7 +47,7 @@ class FireStarterUI extends StatelessWidget {
         ],
         onGenerateRoute: (settings) {
           GetLogger.to.i('Navigating to: ${settings.name}');
-          List<String> path = settings.name.split('/');
+          List<String> path = (settings.name ?? '').split('/');
           Widget Function(BuildContext) builder;
           switch (path[1]) {
             case '':

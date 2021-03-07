@@ -2,10 +2,10 @@ import 'package:fire_starter/controllers/theme_controller.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
-  PrimaryButton({this.labelText, this.child, this.onPressed});
+  PrimaryButton({this.labelText = '', this.child, required this.onPressed});
 
   final String labelText;
-  final Widget child;
+  final Widget? child;
   final void Function() onPressed;
 
   @override

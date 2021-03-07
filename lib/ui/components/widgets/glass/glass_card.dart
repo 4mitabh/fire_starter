@@ -1,10 +1,9 @@
-import 'package:fire_starter/ui/components/widgets/glass/glass.dart';
 import 'package:flutter/material.dart';
 
 class GlassCard extends StatelessWidget {
   final Widget child;
 
-  const GlassCard({Key key, this.child}) : super(key: key);
+  const GlassCard({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:fire_starter/controllers/theme_controller.dart';
 import 'package:fire_starter/services/package_info.dart';
-import 'package:fire_starter/ui/components/widgets/link_button%20copy.dart';
+import 'package:fire_starter/ui/components/widgets/link_button.dart';
 import 'sign_in_controller.dart';
 import 'package:fire_starter/ui/components/widgets/glass/blob.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ import 'package:fire_starter/helpers/helpers.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignInUI extends StatelessWidget {
-  static Widget builder([RouteSettings routeSettings]) =>
+  static Widget builder([RouteSettings? routeSettings]) =>
       GetBuilder<SignInController>(init: SignInController(), builder: (controller) => SignInUI(controller));
 
   SignInUI(this._signInController);
@@ -39,7 +39,7 @@ class SignInUI extends StatelessWidget {
                 Text(
                   PackageInfoService.appName,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline2.copyWith(color: Theme.of(context).colorScheme.primary.withAlpha(120)),
+                  style: Theme.of(context).textTheme.headline2!.copyWith(color: Theme.of(context).colorScheme.primary.withAlpha(120)),
                 ),
                 LogoGraphicHeader(),
                 SizedBox(height: 48.0),
@@ -57,8 +57,6 @@ class SignInUI extends StatelessWidget {
                       ),
                       selectorTextStyle: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
                       ignoreBlank: true,
-                      scrollPadding: EdgeInsets.all(0),
-                      textAlign: TextAlign.left,
                       autoValidateMode: AutovalidateMode.onUserInteraction,
                       // selectorTextStyle: TextStyle(color: Colors.black),
                       textFieldController: _signInController.phoneController,
@@ -70,12 +68,11 @@ class SignInUI extends StatelessWidget {
                       textStyle: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
                       inputDecoration: InputDecoration(fillColor: Colors.transparent, border: InputBorder.none),
                       initialValue: PhoneNumber(isoCode: PackageInfoService.country),
-                      onSaved: (PhoneNumber number) {
+                      onSaved: (String number) {
                         print('On Saved: $number');
-                        _signInController.requestOTP(context, number.toString());
+                        _signInController.requestOTP(context, number);
                       },
                       // maxLength: 16,
-                      spaceBetweenSelectorAndTextField: 0,
                     ),
                   )
                 else
@@ -85,43 +82,40 @@ class SignInUI extends StatelessWidget {
                     child: FormInputFieldWithIcon(
                       controller: _signInController.otpController,
                       iconPrefix: Icons.vpn_key,
-                      labelText: labels?.auth?.enterOTP,
+                      labelText: labels.auth.enterOTP,
                       // validator: Validator(labels).number,
                       keyboardType: TextInputType.phone,
                       onChanged: (value) => null,
-                      onSaved: (value) => _signInController.phoneController.text = value,
+                      onSaved: (value) => _signInController.phoneController.text = value ?? '',
                     ),
                   ),
                 FormVerticalSpace(),
                 if (!_signInController.waitingForOTP.value)
                   PrimaryButton(
-                      labelText: labels?.auth?.requestOTP,
+                      labelText: labels.auth.requestOTP,
                       onPressed: () {
-                        if (_formKey.currentState.validate()) _formKey.currentState.save();
+                        if (_formKey.currentState != null && _formKey.currentState!.validate()) _formKey.currentState!.save();
                       })
                 else
                   PrimaryButton(
-                      labelText: labels?.auth?.signInButton,
+                      labelText: labels.auth.signInButton,
                       onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          _signInController.verifyOTP(context);
-                        }
+                        if (_formKey.currentState != null && _formKey.currentState!.validate()) _signInController.verifyOTP(context);
                       }),
                 FormVerticalSpace(),
                 if (!_signInController.waitingForOTP.value && GetPlatform.isAndroid)
                   LinkButton(
-                      labelText: labels?.auth?.googleSignIn,
+                      labelText: labels.auth.googleSignIn,
                       onPressed: () async {
                         try {
                           await _signInController.signInWithGoogle();
-                          // Get.toNamed('home');
                         } catch (e) {
-                          showSnackBar('Error', e.toString());
+                          showSnackBar('Error', labels.auth.aborted);
                         }
                       }),
                 if (!_signInController.waitingForOTP.value && (GetPlatform.isMacOS || GetPlatform.isIOS))
                   LinkButton(
-                      labelText: labels?.auth?.appleSignIn,
+                      labelText: labels.auth.appleSignIn,
                       onPressed: () async {
                         try {
                           await _signInController.signInWithApple();
@@ -132,7 +126,7 @@ class SignInUI extends StatelessWidget {
                       }),
                 if (_signInController.waitingForOTP.value)
                   TextButton(
-                      child: Text(labels?.auth?.otpVerificationChangeNumber(phone: _signInController.phoneNumber)),
+                      child: Text(labels.auth.otpVerificationChangeNumber(phone: _signInController.phoneNumber ?? '')),
                       onPressed: () => _signInController.cancelPhoneVerification()),
               ],
             ),

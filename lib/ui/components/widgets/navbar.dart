@@ -6,19 +6,18 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 class NavbarItem {
   Widget page;
   GButton button;
-  NavbarItem({this.page, IconData icon, String label}) {
-    this.button = GButton(
-      text: label,
-      icon: icon,
-    );
-  }
+  NavbarItem({required this.page, required IconData icon, required String label})
+      : this.button = GButton(
+          text: label,
+          icon: icon,
+        );
 }
 
 class Navbar extends StatelessWidget {
   final int currentIndex;
   final List<NavbarItem> items;
   final Function(int index) onTap;
-  Navbar({this.currentIndex, this.items, this.onTap});
+  Navbar({required this.currentIndex, required this.items, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class Navbar extends StatelessWidget {
       child: GNav(
           tabBackgroundGradient: ThemeController.to.isDarkModeOn
               ? LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [Colors.black12, Colors.black87])
-              : LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [Colors.lightBlue[100], Colors.cyan]),
+              : LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [Colors.lightBlue, Colors.cyan]),
           gap: 8,
           tabBorderRadius: 15,
           color: Colors.grey[600],

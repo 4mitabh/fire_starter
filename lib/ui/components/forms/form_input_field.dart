@@ -15,7 +15,7 @@ FormInputField(
 class FormInputField extends StatelessWidget {
   FormInputField(
       {this.controller,
-      this.labelText,
+      required this.labelText,
       this.validator,
       this.keyboardType = TextInputType.text,
       this.obscureText = false,
@@ -23,14 +23,14 @@ class FormInputField extends StatelessWidget {
       this.onChanged,
       this.onSaved});
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String labelText;
-  final String Function(String) validator;
+  final String? Function(String?)? validator;
   final TextInputType keyboardType;
   final bool obscureText;
   final int minLines;
-  final void Function(String) onChanged;
-  final void Function(String) onSaved;
+  final void Function(String?)? onChanged;
+  final void Function(String?)? onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +45,7 @@ class FormInputField extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: /*Palette.focusedinputBorderColor*/ Colors.black45,
-              width: 1.0),
+          borderSide: BorderSide(color: /*Palette.focusedinputBorderColor*/ Colors.black45, width: 1.0),
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         filled: true,

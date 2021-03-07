@@ -8,10 +8,10 @@ class MetadataModel {
   String version;
 
   MetadataModel({
-    this.build,
-    this.minorVersion,
-    this.majorVersion,
-    this.version,
+    required this.build,
+    required this.minorVersion,
+    required this.majorVersion,
+    required this.version,
   });
 
   Map toJson() => {'build': build, 'version': version};
@@ -22,12 +22,12 @@ class MetadataModel {
       DocumentSnapshot doc = await db.doc('${FirebasePaths.metadata}/all').get();
       return MetadataModel._fromDocumentSnapshot(doc);
     } on Exception catch (e) {
-      return null;
+      return MetadataModel(build: 1, version: '0.0.0', majorVersion: 0, minorVersion: 0);
     }
   }
 
   factory MetadataModel._fromDocumentSnapshot(DocumentSnapshot snapshot) {
-    var data = snapshot?.data();
+    var data = snapshot.data();
     if (data == null) return MetadataModel(build: 1, version: '0.0.0', majorVersion: 0, minorVersion: 0);
     return MetadataModel(
         build: data['build'],

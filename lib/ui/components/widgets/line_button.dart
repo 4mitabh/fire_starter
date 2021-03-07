@@ -3,11 +3,11 @@ import 'package:fire_starter/services/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class LineButton extends StatelessWidget {
-  LineButton({this.labelText, this.onPressed, this.radius, this.child, this.padding = 8});
+  LineButton({this.labelText = '', required this.onPressed, this.radius = AppTheme.containerRadius, this.child, this.padding = 8});
   final String labelText;
   final double radius;
   final double padding;
-  final Widget child;
+  final Widget? child;
   final void Function() onPressed;
 
   @override
@@ -23,7 +23,7 @@ class LineButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           side: BorderSide(width: 2, color: Theme.of(context).buttonColor.withAlpha(AppTheme.containerAlpha ~/ 2)),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(this.radius ?? AppTheme.containerRadius),
+            borderRadius: BorderRadius.circular(this.radius),
           ),
           padding: EdgeInsets.all(this.padding),
         ));

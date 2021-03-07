@@ -12,14 +12,13 @@ import 'package:fire_starter/ui/components/components.dart';
 class SignInController extends GetxController {
   static SignInController to = Get.find();
   static AuthService _authService = Get.find();
-  AppLocalizations_Labels labels;
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController otpController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final RxBool waitingForOTP = false.obs;
-  String _verificationId;
-  String phoneNumber;
+  String? _verificationId;
+  String? phoneNumber;
 
   @override
   void onReady() async {
@@ -81,7 +80,7 @@ class SignInController extends GetxController {
     showLoadingIndicator();
     try {
       await _auth.signInWithCredential(PhoneAuthProvider.credential(
-        verificationId: _verificationId,
+        verificationId: _verificationId!,
         smsCode: code,
       ));
       hideLoadingIndicator();
@@ -109,7 +108,7 @@ class SignInController extends GetxController {
     otpController.clear();
   }
 
-  Future<User> signInWithApple() async {
+  Future<User?> signInWithApple() async {
     final appleIdCredential = await SignInWithApple.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,
@@ -125,19 +124,19 @@ class SignInController extends GetxController {
     return userCredential.user;
   }
 
-  Future<User> signInWithGoogle() async {
+  Future<User?> signInWithGoogle() async {
     // Trigger the authentication flow
 
     await GoogleSignIn().signOut(); // to ensure you can sign in different user.
 
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) throw labels.auth.aborted;
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) return null;
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
     // Create a new credential
-    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+    final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );

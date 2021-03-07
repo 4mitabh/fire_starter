@@ -19,12 +19,13 @@ Future<String> getCountry() async {
     log.v('Country from timeoffset Japan');
     return 'JP';
   }
+  // Extend more locales using timezone here....
 
-  String locale = await Devicelocale.currentLocale;
-  if ((locale != null) && (locale.length >= 5)) locale = locale.substring(locale.length - 2, locale.length);
-  log.v("Country from locale: ${locale}");
+  String locale = (await Devicelocale.currentLocale) ?? 'US';
+  if (locale.length >= 5) locale = locale.substring(locale.length - 2, locale.length);
+  log.v("Country from locale: $locale");
   if (['IN', 'JP', 'US', 'CA', 'GB'].contains(locale)) return locale;
-  return 'IN';
+  return locale;
 }
 
 showSnackBar(title, message, {SnackPosition position = SnackPosition.TOP}) => Get.snackbar(title, message,

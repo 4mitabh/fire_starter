@@ -8,13 +8,13 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 class TopBar extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
-  final Function onBack;
+  final void Function()? onBack;
   final String title;
 
   TopBar({
-    this.title,
+    required this.title,
     this.onBack,
-    Key key,
+    Key? key,
   })  : preferredSize = Size.fromHeight(50.0),
         super(key: key);
 
@@ -25,7 +25,7 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
       title: AutoSizeText(title, style: Theme.of(context).textTheme.headline5, maxLines: 1),
       backgroundColor: Colors.transparent,
       automaticallyImplyLeading: true,
-      leading: (onBack == null)
+      leading: (onBack != null)
           ? null
           : Padding(
               padding: const EdgeInsets.all(8.0),
@@ -33,7 +33,7 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
                 radius: 8,
                 padding: 4,
                 child: Icon(Icons.chevron_left, color: Theme.of(context).colorScheme.onBackground),
-                onPressed: onBack,
+                onPressed: onBack!,
               ),
             ),
     );

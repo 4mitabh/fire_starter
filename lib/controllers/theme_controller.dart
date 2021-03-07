@@ -12,8 +12,7 @@ class ThemeController extends GetxController {
   final themeName = 'gold'.obs;
   final store = GetStorage();
   final appTheme = AppTheme('gold').obs;
-  ThemeMode _themeMode;
-  ThemeController() {}
+  ThemeMode _themeMode = ThemeMode.system;
 
   void onInit() async {
     appTheme(AppTheme(await store.read('theme') ?? themeName.value));
@@ -50,7 +49,7 @@ class ThemeController extends GetxController {
   // checks whether darkmode is set via system or previously by user
   bool get isDarkModeOn {
     if (currentTheme == 'system') {
-      if (WidgetsBinding.instance.window.platformBrightness == Brightness.dark) {
+      if (WidgetsBinding.instance?.window.platformBrightness == Brightness.dark) {
         return true;
       }
     }

@@ -8,6 +8,9 @@ environment:
   sdk: "2.12.0" # 2.12
   flutter: ">=1.17.0"
 
+dependency_overrides:
+  path_provider: ^2.0.1
+
 dependencies:
   flutter:
     sdk: flutter
@@ -25,9 +28,9 @@ dependencies:
   intl_phone_number_input:
   devicelocale:
   logger:
-  get:
+  get: #"^4.0.0-nullsafety.2"
+  get_storage: ^1.4.0
   country_pickers:
-  # get_storage: ^1.4.0
   flutter_sheet_localization: "^2.0.1"
   google_nav_bar:
   intl:

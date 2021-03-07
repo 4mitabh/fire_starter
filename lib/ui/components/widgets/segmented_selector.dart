@@ -10,8 +10,7 @@ SegmentedSelector(
 */
 
 class SegmentedSelector extends StatelessWidget {
-  SegmentedSelector(
-      {this.menuOptions, this.selectedOption, this.onValueChanged});
+  SegmentedSelector({required this.menuOptions, required this.selectedOption, required this.onValueChanged});
 
   final List<dynamic> menuOptions;
   final String selectedOption;

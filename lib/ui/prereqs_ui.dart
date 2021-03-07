@@ -22,7 +22,7 @@ class PrereqsUI extends StatelessWidget {
 
   Future checks() {
     if (UpgradeCheckService.check != 0) return goTo('/${RouteNames.UPGRADE}');
-    if (AuthService.to.firebaseUser?.value?.uid == null) return goTo('/${RouteNames.SIGN_IN}');
+    if (AuthService.to.firebaseUser.value?.uid == null) return goTo('/${RouteNames.SIGN_IN}');
     return goTo('/${RouteNames.HOME}');
   }
 }

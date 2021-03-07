@@ -19,10 +19,10 @@ class AuthService extends GetxService {
   Rx<UserModel> firestoreUser = Rx<UserModel>();
 
   // Firebase user one-time fetch
-  Future<User> get getFirebaseUser async => _auth.currentUser;
+  Future<User?> get getFirebaseUser async => _auth.currentUser;
 
   // Firebase user a realtime stream
-  Stream<User> get user => _auth.authStateChanges();
+  Stream<User?> get user => _auth.authStateChanges();
 
   @override
   void onReady() async {
@@ -38,7 +38,7 @@ class AuthService extends GetxService {
     super.onClose();
   }
 
-  handleAuthChanged(_firebaseUser) async {
+  handleAuthChanged(User? _firebaseUser) async {
     //get user data from firestore
     if (_firebaseUser?.uid != null) {
       firestoreUser.bindStream(await streamFirestoreUser());
@@ -52,35 +52,35 @@ class AuthService extends GetxService {
   }
 
   //Streams the firestore user from the firestore collection
-  Future<Stream<UserModel>> streamFirestoreUser() async {
-    print('streamFirestoreUser()');
-    var userRecord = await getFirestoreUser();
+  Future<Stream<UserModel>?> streamFirestoreUser() async {
+    UserModel? userRecord = await getFirestoreUser();
     if (userRecord != null) {
-      return _db.doc('${FirebasePaths.users}/${firebaseUser.value.uid}').snapshots().map((snapshot) => UserModel.fromMap(snapshot.data()));
+      return _db.doc('${FirebasePaths.users}/${firebaseUser.value.uid}').snapshots().map((snapshot) {
+        return UserModel.fromMap(snapshot.data()!);
+      });
     }
-
-    return null;
+    return Future.value();
   }
 
   //get the firestore user from the firestore collection
-  Future<UserModel> getFirestoreUser() {
-    if (firebaseUser?.value?.uid != null) {
+  Future<UserModel?> getFirestoreUser() {
+    if (firebaseUser.value?.uid != null) {
       return _db.doc('${FirebasePaths.users}/${firebaseUser.value.uid}').get().then((documentSnapshot) {
         if (documentSnapshot.exists)
-          return UserModel.fromMap(documentSnapshot.data());
+          return UserModel.fromMap(documentSnapshot.data()!);
         else {
           return _createNewUserFirestore();
         }
       });
     }
-    return null;
+    return Future.value();
   }
 
   //handles updating the user when updating profile
   Future<void> updateUser(BuildContext context, UserModel user) async {
     final labels = AppLocalizations.of(context);
     try {
-      User _firebaseUser = firebaseUser?.value;
+      User _firebaseUser = firebaseUser.value;
       _updateUserFirestore(user, _firebaseUser);
       hideLoadingIndicator();
       Get.snackbar(labels.auth.updateUserSuccessNoticeTitle, labels.auth.updateUserSuccessNotice,
@@ -111,10 +111,11 @@ class AuthService extends GetxService {
     _db.doc('${FirebasePaths.users}/${_firebaseUser.uid}').set(user.toJson());
   }
 
-  UserModel _createNewUserFirestore() {
-    User _firebaseUser = firebaseUser?.value;
+  UserModel? _createNewUserFirestore() {
+    if (firebaseUser.value == null) return null;
+    User _firebaseUser = firebaseUser.value;
     UserModel _newUser = UserModel(
-      uid: _firebaseUser.uid,
+      id: _firebaseUser.uid,
       email: _firebaseUser.email,
       name: _firebaseUser.displayName,
       photoUrl: _firebaseUser.photoURL,

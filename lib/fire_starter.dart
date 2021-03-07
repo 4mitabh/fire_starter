@@ -29,7 +29,7 @@ class FireStarter {
 
   Future<void> init({
     // String firebaseServerToken,
-    Map<String, Map<dynamic, dynamic>> settings,
+    required Map<String, Map<dynamic, dynamic>> settings,
     // Map<String, Map<String, String>> translations,
   }) async {
     WidgetsFlutterBinding.ensureInitialized();

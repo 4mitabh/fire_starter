@@ -2,15 +2,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseDoc {
-  String uid;
+  String id;
   String path;
   Map<String, dynamic> properties;
 
-  FirebaseDoc({this.uid, this.path, this.properties});
-  factory FirebaseDoc.fromDocumentSnapshot(DocumentSnapshot snapshot) => FirebaseDoc.fromMap(snapshot.data(), snapshot.reference);
-  factory FirebaseDoc.fromMap(Map data, DocumentReference ref) {
+  FirebaseDoc({required this.id, required this.path, required this.properties});
+  factory FirebaseDoc.fromDocumentSnapshot(DocumentSnapshot snapshot) => FirebaseDoc.fromMap(snapshot.data() ?? {}, snapshot.reference);
+  factory FirebaseDoc.fromMap(Map<String, dynamic> data, DocumentReference ref) {
     return FirebaseDoc(
-      uid: ref.id,
+      id: ref.id,
       path: ref.path,
       properties: data,
     );

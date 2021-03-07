@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class MenuOptionsModel {
   String key;
   String value;
-  IconData icon;
+  IconData? icon;
 
-  MenuOptionsModel({this.key, this.value, this.icon});
+  MenuOptionsModel({required this.key, required this.value, this.icon});
 }

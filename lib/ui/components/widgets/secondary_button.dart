@@ -2,7 +2,7 @@ import 'package:fire_starter/controllers/theme_controller.dart';
 import 'package:flutter/material.dart';
 
 class SecondaryButton extends StatelessWidget {
-  SecondaryButton({this.labelText, this.onPressed});
+  SecondaryButton({required this.labelText, required this.onPressed});
   final String labelText;
   final void Function() onPressed;
 

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_starter/constants/constants.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:fire_starter/services/auth_service.dart';
+import 'package:fire_starter/services/package_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -21,13 +22,13 @@ class NotificationService extends GetxService {
   static const _NOTIFICATION_TOKEN = 'nt';
   static NotificationService get to => Get.find();
   static FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  String _uid;
-  StreamSubscription _fcmTokenListener;
+  String? _uid;
+  StreamSubscription? _fcmTokenListener;
   NotificationService() {
     AuthService authService = AuthService.to;
     authService.user.listen(userUpdated);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      if (message.notification != null) showSnackBar(message.notification.title, message.notification.body);
+      if (message.notification != null) showSnackBar(message.notification?.title ?? PackageInfoService.appName, message.notification?.body ?? '');
     });
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
@@ -39,11 +40,11 @@ class NotificationService extends GetxService {
     }
   }
 
-  Future<void> updateToken(String token) async {
+  FutureOr<void> updateToken(String? token) async {
     if (token == null || _uid == null) return null;
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
     DocumentSnapshot userSS = await _firestore.doc('${FirebasePaths.users}/$_uid').get();
-    var tokens = userSS.data() != null ? userSS.data()[_NOTIFICATION_TOKEN] : [];
+    var tokens = userSS.data() != null ? (userSS.data()?[_NOTIFICATION_TOKEN]) : [];
     GetLogger.to.i('Token Updated for $_uid to $token');
     if (tokens == null)
       tokens = [token];
@@ -74,7 +75,7 @@ class NotificationService extends GetxService {
     GetLogger.to.i('Removing Token: $token');
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
     DocumentSnapshot userSS = await _firestore.doc('${FirebasePaths.users}/$_uid').get();
-    var tokens = userSS.data()[_NOTIFICATION_TOKEN];
+    var tokens = userSS.data()?[_NOTIFICATION_TOKEN];
     if ((tokens == null) || (!tokens.contains(token))) return;
     GetStorage().remove(_NOTIFICATION_TOKEN);
     tokens = tokens..removeWhere((t) => t == token);
@@ -84,13 +85,13 @@ class NotificationService extends GetxService {
     });
   }
 
-  Future<void> userUpdated(User user) async {
+  Future<void> userUpdated(User? user) async {
     if (user == null || user.uid == _uid) return;
     _uid = user.uid;
     if (user == null) {
       await removeToken();
       _uid = null;
-      _fcmTokenListener.cancel();
+      _fcmTokenListener?.cancel();
       _fcmTokenListener = null;
       return;
     }

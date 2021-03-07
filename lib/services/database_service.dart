@@ -6,14 +6,14 @@ import '../models/models.dart';
 class DatabaseService extends GetxService {
   static FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  static Future<List<FirebaseDoc>> collection(String path, {String orderby, bool useCache = true}) async {
+  static Future<List<FirebaseDoc>> collection(String path, {String? orderby, bool useCache = true}) async {
     Query query = orderby == null ? _firestore.collection(path) : _firestore.collection(path).orderBy(orderby, descending: true);
     QuerySnapshot qs;
     if (!useCache)
       qs = await query.get(GetOptions(source: Source.server));
     else
       try {
-        qs = (await query.get(GetOptions(source: Source.cache))) ?? await query.get(GetOptions(source: Source.server));
+        qs = (await query.get(GetOptions(source: Source.cache)));
         if (qs.metadata.isFromCache && qs.size == 0) {
           GetLogger.to.w('${query} got ${qs.size} from ${qs.metadata.isFromCache ? 'cache' : 'server'}. Forcing get from server.');
           qs = await query.get(GetOptions(source: Source.server));
@@ -25,7 +25,7 @@ class DatabaseService extends GetxService {
     return qs.docs.map((QueryDocumentSnapshot doc) => FirebaseDoc.fromDocumentSnapshot(doc)).toList();
   }
 
-  Future<void> update({Map data, String path}) async {
+  Future<void> update({required Map<String, dynamic> data, required String path}) async {
     try {
       data['ts'] = FieldValue.serverTimestamp();
       GetLogger.to.i('Updating ${path} to ${data.toString()}');
@@ -48,7 +48,7 @@ class DocumentWatcher extends GetxController {
     }
   }
 
-  FirebaseDoc doc;
+  FirebaseDoc? doc;
   DocumentWatcher._(String path) {
     GetLogger.to.d('New doc watcher for $path');
     _firestore.doc(path).snapshots().listen(_updateListner);
