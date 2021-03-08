@@ -6,8 +6,8 @@ import 'package:fire_starter/services/upgrade_check.dart';
 import 'package:fire_starter/ui/auth/auth.dart';
 import 'package:fire_starter/ui/ui.dart';
 import 'package:fire_starter/ui/upgrade_prompt_ui.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/observer.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:fire_starter/controllers/controllers.dart';
@@ -43,7 +43,7 @@ class FireStarterUI extends StatelessWidget {
         // home: StreamBuilder(stream: authcontorller.user, builder: (_, user) => (user?.data?.uid == null) ? SignInUI() : SignedInHome.builder()),
         initialRoute: "/",
         navigatorObservers: [
-          FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
+          // FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
         ],
         onGenerateRoute: (settings) {
           GetLogger.to.i('Navigating to: ${settings.name}');

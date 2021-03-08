@@ -22,7 +22,7 @@ dependencies:
   cloud_firestore: "^1.0.0"
   firebase_messaging: "^9.0.0"
   firebase_storage: "^8.0.0"
-  firebase_analytics:
+  # firebase_analytics: "^7.1.0"
   google_sign_in: "^5.0.0"
   sign_in_with_apple:
   intl_phone_number_input:
