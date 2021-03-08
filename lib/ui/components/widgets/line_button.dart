@@ -3,10 +3,11 @@ import 'package:fire_starter/services/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class LineButton extends StatelessWidget {
-  LineButton({this.labelText = '', required this.onPressed, this.radius = AppTheme.containerRadius, this.child, this.padding = 8});
+  LineButton(
+      {this.labelText = '', required this.onPressed, this.radius = AppTheme.containerRadius, this.child, this.padding = const EdgeInsets.all(8)});
   final String labelText;
   final double radius;
-  final double padding;
+  final EdgeInsetsGeometry padding;
   final Widget? child;
   final void Function() onPressed;
 
@@ -25,7 +26,7 @@ class LineButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(this.radius),
           ),
-          padding: EdgeInsets.all(this.padding),
+          padding: this.padding,
         ));
   }
 }

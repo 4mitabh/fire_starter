@@ -31,7 +31,7 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
               padding: const EdgeInsets.all(8.0),
               child: LineButton(
                 radius: 8,
-                padding: 4,
+                padding: EdgeInsets.all(4),
                 child: Icon(Icons.chevron_left, color: Theme.of(context).colorScheme.onBackground),
                 onPressed: onBack!,
               ),
