@@ -29,7 +29,7 @@ dependencies:
   devicelocale:
   logger:
   get: #"^4.0.0-nullsafety.2"
-  get_storage: ^1.4.0
+  get_storage:
   country_pickers:
   flutter_sheet_localization: "^2.0.1"
   google_nav_bar:
