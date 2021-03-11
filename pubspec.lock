@@ -197,13 +197,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.14"
-  devicelocale:
-    dependency: "direct main"
-    description:
-      name: devicelocale
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.0"
   equatable:
     dependency: transitive
     description:
@@ -363,14 +356,14 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0-nullsafety.2"
+    version: "3.26.0"
   get_storage:
     dependency: "direct main"
     description:
       name: get_storage
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "1.4.0"
   glob:
     dependency: transitive
     description:

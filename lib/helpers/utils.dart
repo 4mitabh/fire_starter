@@ -1,4 +1,4 @@
-import 'package:devicelocale/devicelocale.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
@@ -10,7 +10,7 @@ Future<String> getCountry() async {
   Logger log = GetLogger.to;
   Duration timeoffset = DateTime.now().timeZoneOffset;
   log.v("Using timeoffset ${DateTime.now().timeZoneOffset} ${DateTime.now().timeZoneName}");
-  log.v(await Devicelocale.currentLocale);
+  if (!kIsWeb) log.v(Get.deviceLocale);
   if (timeoffset == Duration(hours: 5, minutes: 30)) {
     log.v('Country from timeoffset India');
     return 'IN';
@@ -21,7 +21,7 @@ Future<String> getCountry() async {
   }
   // Extend more locales using timezone here....
 
-  String locale = (await Devicelocale.currentLocale) ?? 'US';
+  String locale = (Get.deviceLocale.countryCode) ?? 'US';
   if (locale.length >= 5) locale = locale.substring(locale.length - 2, locale.length);
   log.v("Country from locale: $locale");
   if (['IN', 'JP', 'US', 'CA', 'GB'].contains(locale)) return locale;

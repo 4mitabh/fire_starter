@@ -1,4 +1,5 @@
 import 'package:fire_starter/helpers/helpers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -126,6 +127,7 @@ class SignInController extends GetxController {
 
   Future<User?> signInWithGoogle() async {
     // Trigger the authentication flow
+    if (kIsWeb) return signInWithGoogleWeb();
 
     await GoogleSignIn().signOut(); // to ensure you can sign in different user.
 
@@ -145,6 +147,13 @@ class SignInController extends GetxController {
     UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
 
     // onSocialLogin(userCredential.user);
+    return userCredential.user;
+  }
+
+  Future<User?> signInWithGoogleWeb() async {
+    GetLogger.to.i('Using web siginin');
+    GoogleAuthProvider googleProvider = GoogleAuthProvider();
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithPopup(googleProvider);
     return userCredential.user;
   }
 }

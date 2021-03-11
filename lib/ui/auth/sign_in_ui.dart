@@ -103,17 +103,17 @@ class SignInUI extends StatelessWidget {
                         if (_formKey.currentState != null && _formKey.currentState!.validate()) _signInController.verifyOTP(context);
                       }),
                 FormVerticalSpace(),
-                if (!_signInController.waitingForOTP.value && GetPlatform.isAndroid)
+                if (!_signInController.waitingForOTP.value && (GetPlatform.isAndroid || GetPlatform.isWeb))
                   LinkButton(
                       labelText: labels.auth.googleSignIn,
                       onPressed: () async {
                         try {
                           await _signInController.signInWithGoogle();
                         } catch (e) {
-                          showSnackBar('Error', labels.auth.aborted);
+                          showSnackBar('Error', e.toString());
                         }
                       }),
-                if (!_signInController.waitingForOTP.value && (GetPlatform.isMacOS || GetPlatform.isIOS))
+                if (!_signInController.waitingForOTP.value && !GetPlatform.isWeb && (GetPlatform.isMacOS || GetPlatform.isIOS))
                   LinkButton(
                       labelText: labels.auth.appleSignIn,
                       onPressed: () async {

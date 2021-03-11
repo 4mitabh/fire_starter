@@ -33,7 +33,7 @@ class Navbar extends StatelessWidget {
           activeColor: Colors.white,
           iconSize: 16,
           textStyle: TextStyle(fontSize: 12, color: Colors.white),
-          tabBackgroundColor: Colors.grey[800],
+          tabBackgroundColor: Colors.grey,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16.5),
           duration: Duration(milliseconds: 800),
           tabs: this.items.map((e) => e.button).toList(),

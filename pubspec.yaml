@@ -26,9 +26,8 @@ dependencies:
   google_sign_in: "^5.0.0"
   sign_in_with_apple:
   intl_phone_number_input:
-  devicelocale:
   logger:
-  get: #"^4.0.0-nullsafety.2"
+  get: ^3.26.0 #"^4.0.0-nullsafety.2"
   get_storage:
   country_pickers:
   flutter_sheet_localization: "^2.0.1"
