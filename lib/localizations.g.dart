@@ -522,7 +522,7 @@ class AppLocalizations {
 
   final AppLocalizations_Labels labels;
 
-  static AppLocalizations_Labels of(BuildContext context) => (Localizations.of<AppLocalizations>(context, AppLocalizations)!.labels)!;
+  static AppLocalizations_Labels of(BuildContext context) => (Localizations.of<AppLocalizations>(context, AppLocalizations)!.labels);
 }
 
 typedef AppLocalizations_Labels_Auth_otpVerificationChangeNumber = String Function({@required String phone});
