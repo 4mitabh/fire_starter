@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:fire_starter/services/package_info.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 
 class StorageService extends GetxService {
@@ -24,8 +26,14 @@ class StorageService extends GetxService {
     return result;
   }
 
-  static Future<void> upload({required String filePath, required String path, Map<String, String> customMetadata = const {}}) async {
-    File file = File(filePath);
+  static Future<File> getImageFileFromAssets(ByteData byteData) async {
+    final file = File('${(await getTemporaryDirectory()).path}/${Random().nextInt(1000).toString()}');
+    await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+
+    return file;
+  }
+
+  static Future<void> upload({required File file, required String path, Map<String, String> customMetadata = const {}}) async {
     SettableMetadata metadata = SettableMetadata(
       cacheControl: 'max-age=60',
       customMetadata: customMetadata,
@@ -76,10 +84,11 @@ class StorageService extends GetxService {
       GetLogger.to.w(e);
     }
     for (var r in resultList) {
-      // upload(filePath: r. , path: path+(r.name?? Random().nextInt(1000).toString() ) );
-    }
-    for (var r in imagePaths) {
-      upload(filePath: r, path: path + '/' + r);
+      //   // upload(filePath: r. , path: path+(r.name?? Random().nextInt(1000).toString() ) );
+      // }
+      // for (var r in imagePaths) {
+      var file = await getImageFileFromAssets(await r.getByteData());
+      upload(file: file, path: path + '/' + Random().nextInt(1000).toString() + '.jpg');
     }
   }
 }
