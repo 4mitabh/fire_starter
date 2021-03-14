@@ -5,7 +5,7 @@ author: Amitabh Mehta
 homepage: https://github.com/4mitabh/flutter_starter
 
 environment:
-  sdk: "2.12.0" # 2.12
+  sdk: "^2.12.1" # 2.12
   flutter: ">=1.17.0"
 
 dependency_overrides:
