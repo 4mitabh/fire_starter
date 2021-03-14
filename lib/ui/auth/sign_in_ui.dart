@@ -1,4 +1,5 @@
 import 'package:fire_starter/controllers/theme_controller.dart';
+import 'package:fire_starter/fire_starter.dart';
 import 'package:fire_starter/services/package_info.dart';
 import 'package:fire_starter/ui/components/widgets/link_button.dart';
 import 'sign_in_controller.dart';
@@ -61,7 +62,7 @@ class SignInUI extends StatelessWidget {
                       // selectorTextStyle: TextStyle(color: Colors.black),
                       textFieldController: _signInController.phoneController,
                       formatInput: true,
-                      countries: ['IN', 'US', 'CA', 'JP'],
+                      countries: FireStarter.settings['auth']?['countries'] ?? ['IN', 'US', 'CA', 'JP'],
                       // keyboardType: TextInputType.numberWithOptions(
                       //     signed: true, decimal: false),
                       // inputBorder: InputBorder.none,

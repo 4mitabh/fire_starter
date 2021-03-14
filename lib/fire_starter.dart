@@ -9,6 +9,7 @@ import 'package:fire_starter/services/package_info.dart';
 import 'package:fire_starter/services/upgrade_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -22,6 +23,8 @@ import 'package:logger/logger.dart';
 /// Warning: instantiate it after `initFirebase`. One of good places is insdie
 /// the first widget loaded by `runApp()` or home screen.
 class FireStarter {
+  static Map<String, Map> settings = {};
+
   /// [socialLoginHandler] will be invoked when a social login success or fail.
   FireStarter() {
     // print('FireFlutter');
@@ -32,6 +35,7 @@ class FireStarter {
     required Map<String, Map<dynamic, dynamic>> settings,
     // Map<String, Map<String, String>> translations,
   }) async {
+    FireStarter.settings = settings;
     WidgetsFlutterBinding.ensureInitialized();
     Get.put<Logger>(Logger());
     await Firebase.initializeApp();
@@ -45,7 +49,7 @@ class FireStarter {
     UpgradeCheckService.init();
 
     ThemeController themeController = ThemeController.to;
-    if (themeIndex == -1)
+    if (kDebugMode && themeIndex == -1)
       Timer.periodic(const Duration(seconds: 15), (Timer timer) {
         themeIndex = (themeIndex + 7) % FlexScheme.values.length;
         themeController.setTheme(FlexScheme.values[themeIndex].toString().split('.')[1]);

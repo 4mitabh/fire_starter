@@ -56,6 +56,11 @@ class FBImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: ref?.getDownloadURL(),
-        builder: (BuildContext context, AsyncSnapshot<String> urlSS) => urlSS.hasData ? CachedNetworkImage(imageUrl: urlSS.data) : Container());
+        builder: (BuildContext context, AsyncSnapshot<String> urlSS) => urlSS.hasData
+            ? CachedNetworkImage(
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                imageUrl: urlSS.data)
+            : Container());
   }
 }
