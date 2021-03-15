@@ -17,7 +17,7 @@ class AppLocalizations {
     Locale.fromSubtags(languageCode: 'en'): AppLocalizations_Labels(
       auth: AppLocalizations_Labels_Auth(
         googleSignIn: 'Sign In With Google',
-        appleSignIn: 'Sign In With Apple',
+        appleSignIn: ' Sign In With Apple',
         aborted: 'Sign In Aborted',
         phone: 'Enter Phone Number',
         requestOTP: 'Get OTP',
