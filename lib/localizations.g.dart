@@ -16,8 +16,8 @@ class AppLocalizations {
   static final Map<Locale, AppLocalizations_Labels> languages = {
     Locale.fromSubtags(languageCode: 'en'): AppLocalizations_Labels(
       auth: AppLocalizations_Labels_Auth(
-        googleSignIn: 'Google Sign In',
-        appleSignIn: 'Apple Sign In',
+        googleSignIn: 'Sign In With Google',
+        appleSignIn: 'Sign In With Apple',
         aborted: 'Sign In Aborted',
         phone: 'Enter Phone Number',
         requestOTP: 'Get OTP',
