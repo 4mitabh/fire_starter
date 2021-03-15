@@ -12,6 +12,7 @@ import 'package:fire_starter/localizations.dart';
 import 'package:fire_starter/ui/components/components.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SignInUI extends StatelessWidget {
   static Widget builder([RouteSettings? routeSettings]) =>
@@ -106,7 +107,14 @@ class SignInUI extends StatelessWidget {
                 FormVerticalSpace(),
                 if (!_signInController.waitingForOTP.value && (GetPlatform.isAndroid || GetPlatform.isWeb))
                   LinkButton(
-                      labelText: labels.auth.googleSignIn,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(MdiIcons.google),
+                          Text(' ' + labels.auth.googleSignIn,
+                              style: Theme.of(context).textTheme.button?.copyWith(fontSize: 18, color: Theme.of(context).accentColor)),
+                        ],
+                      ),
                       onPressed: () async {
                         try {
                           await _signInController.signInWithGoogle();
@@ -114,9 +122,16 @@ class SignInUI extends StatelessWidget {
                           showSnackBar('Error', e.toString());
                         }
                       }),
-                if (!_signInController.waitingForOTP.value && !GetPlatform.isWeb && (GetPlatform.isMacOS || GetPlatform.isIOS))
+                if (!_signInController.waitingForOTP.value && (GetPlatform.isMacOS || GetPlatform.isIOS))
                   LinkButton(
-                      labelText: labels.auth.appleSignIn,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(MdiIcons.apple),
+                          Text(' ' + labels.auth.appleSignIn,
+                              style: Theme.of(context).textTheme.button?.copyWith(fontSize: 18, color: Theme.of(context).accentColor)),
+                        ],
+                      ),
                       onPressed: () async {
                         try {
                           await _signInController.signInWithApple();
