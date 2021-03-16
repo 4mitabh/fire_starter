@@ -50,32 +50,33 @@ class SignInUI extends StatelessWidget {
                     padding: EdgeInsets.all(8),
                     decoration: ThemeController.to.appTheme.value.kGradientBoxDecoration(context),
                     child: InternationalPhoneNumberInput(
-                      onInputChanged: (PhoneNumber number) {
-                        // print(number.phoneNumber);
-                      },
-                      onInputValidated: (bool valid) {},
-                      selectorConfig: SelectorConfig(
-                        selectorType: PhoneInputSelectorType.DIALOG,
-                      ),
-                      selectorTextStyle: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
-                      ignoreBlank: true,
-                      autoValidateMode: AutovalidateMode.onUserInteraction,
-                      // selectorTextStyle: TextStyle(color: Colors.black),
-                      textFieldController: _signInController.phoneController,
-                      formatInput: true,
-                      countries: FireStarter.settings['auth']?['countries'] ?? ['IN', 'US', 'CA', 'JP'],
-                      // keyboardType: TextInputType.numberWithOptions(
-                      //     signed: true, decimal: false),
-                      // inputBorder: InputBorder.none,
-                      textStyle: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
-                      inputDecoration: InputDecoration(fillColor: Colors.transparent, border: InputBorder.none),
-                      initialValue: PhoneNumber(isoCode: PackageInfoService.country),
-                      onSaved: (String number) {
-                        print('On Saved: $number');
-                        _signInController.requestOTP(context, number);
-                      },
-                      // maxLength: 16,
-                    ),
+                        onInputChanged: (PhoneNumber number) {
+                          _signInController.phoneNumber = number.phoneNumber;
+                        },
+                        onInputValidated: (bool valid) {},
+                        selectorConfig: SelectorConfig(
+                          selectorType: PhoneInputSelectorType.DIALOG,
+                        ),
+                        selectorTextStyle: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
+                        ignoreBlank: true,
+                        autoValidateMode: AutovalidateMode.onUserInteraction,
+                        // selectorTextStyle: TextStyle(color: Colors.black),
+                        textFieldController: _signInController.phoneController,
+                        formatInput: true,
+                        countries: FireStarter.settings['auth']?['countries'] ?? ['IN', 'US', 'CA', 'JP'],
+                        // keyboardType: TextInputType.numberWithOptions(
+                        //     signed: true, decimal: false),
+                        // inputBorder: InputBorder.none,
+                        textStyle: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary.withAlpha(120)),
+                        inputDecoration: InputDecoration(fillColor: Colors.transparent, border: InputBorder.none),
+                        initialValue: PhoneNumber(isoCode: PackageInfoService.country),
+                        onSaved: (String number) {
+                          print('On Saved: $number');
+                          _signInController.requestOTP(context, _signInController.phoneNumber ?? '');
+                        },
+                        onSubmit: () {}
+                        // maxLength: 16,
+                        ),
                   )
                 else
                   Container(
@@ -85,7 +86,8 @@ class SignInUI extends StatelessWidget {
                       controller: _signInController.otpController,
                       iconPrefix: Icons.vpn_key,
                       labelText: labels.auth.enterOTP,
-                      // validator: Validator(labels).number,
+                      validator: Validator(labels).number,
+                      maxLength: 6,
                       keyboardType: TextInputType.phone,
                       onChanged: (value) => null,
                       onSaved: (value) => _signInController.phoneController.text = value ?? '',
