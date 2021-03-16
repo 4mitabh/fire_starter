@@ -55,7 +55,7 @@ class AuthService extends GetxService {
   Future<Stream<UserModel>?> streamFirestoreUser() async {
     UserModel? userRecord = await getFirestoreUser();
     if (userRecord != null) {
-      return _db.doc('${FirebasePaths.users}/${firebaseUser.value.uid}').snapshots().map((snapshot) {
+      return _db.doc('${FirebasePaths.prefix}${FirebasePaths.users}/${firebaseUser.value.uid}').snapshots().map((snapshot) {
         return UserModel.fromMap(snapshot.data()!);
       });
     }
@@ -65,7 +65,7 @@ class AuthService extends GetxService {
   //get the firestore user from the firestore collection
   Future<UserModel?> getFirestoreUser() {
     if (firebaseUser.value?.uid != null) {
-      return _db.doc('${FirebasePaths.users}/${firebaseUser.value.uid}').get().then((documentSnapshot) {
+      return _db.doc('${FirebasePaths.prefix}${FirebasePaths.users}/${firebaseUser.value.uid}').get().then((documentSnapshot) {
         if (documentSnapshot.exists)
           return UserModel.fromMap(documentSnapshot.data()!);
         else {
@@ -103,12 +103,12 @@ class AuthService extends GetxService {
 
   //updates the firestore user in users collection
   void _updateUserFirestore(UserModel user, User _firebaseUser) {
-    _db.doc('${FirebasePaths.users}/${_firebaseUser.uid}').update(user.toJson());
+    _db.doc('${FirebasePaths.prefix}${FirebasePaths.users}/${_firebaseUser.uid}').update(user.toJson());
   }
 
   //create the firestore user in users collection
   void _createUserFirestore(UserModel user, User _firebaseUser) {
-    _db.doc('${FirebasePaths.users}/${_firebaseUser.uid}').set(user.toJson());
+    _db.doc('${FirebasePaths.prefix}${FirebasePaths.users}/${_firebaseUser.uid}').set(user.toJson());
   }
 
   UserModel? _createNewUserFirestore() {

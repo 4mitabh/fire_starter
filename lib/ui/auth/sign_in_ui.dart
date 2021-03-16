@@ -105,7 +105,8 @@ class SignInUI extends StatelessWidget {
                         if (_formKey.currentState != null && _formKey.currentState!.validate()) _signInController.verifyOTP(context);
                       }),
                 FormVerticalSpace(),
-                if (!_signInController.waitingForOTP.value && (GetPlatform.isAndroid || GetPlatform.isWeb))
+                if (!_signInController.waitingForOTP.value &&
+                    ((FireStarter.settings['auth']?['googleSignIn'] == true) || GetPlatform.isAndroid || GetPlatform.isWeb))
                   LinkButton(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -122,7 +123,8 @@ class SignInUI extends StatelessWidget {
                           showSnackBar('Error', e.toString());
                         }
                       }),
-                if (!_signInController.waitingForOTP.value && (GetPlatform.isMacOS || GetPlatform.isIOS))
+                if (!_signInController.waitingForOTP.value &&
+                    ((FireStarter.settings['auth']?['appleSignIn'] == true) || GetPlatform.isMacOS || GetPlatform.isIOS))
                   LinkButton(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

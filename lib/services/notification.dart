@@ -43,7 +43,7 @@ class NotificationService extends GetxService {
   FutureOr<void> updateToken(String? token) async {
     if (token == null || _uid == null) return null;
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    DocumentSnapshot userSS = await _firestore.doc('${FirebasePaths.users}/$_uid').get();
+    DocumentSnapshot userSS = await _firestore.doc('${FirebasePaths.prefix}${FirebasePaths.users}/$_uid').get();
     var tokens = userSS.data() != null ? (userSS.data()?[_NOTIFICATION_TOKEN]) : [];
     GetLogger.to.i('Token Updated for $_uid to $token');
     if (tokens == null)
@@ -74,7 +74,7 @@ class NotificationService extends GetxService {
     if (token == null) return null;
     GetLogger.to.i('Removing Token: $token');
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    DocumentSnapshot userSS = await _firestore.doc('${FirebasePaths.users}/$_uid').get();
+    DocumentSnapshot userSS = await _firestore.doc('${FirebasePaths.prefix}${FirebasePaths.users}/$_uid').get();
     var tokens = userSS.data()?[_NOTIFICATION_TOKEN];
     if ((tokens == null) || (!tokens.contains(token))) return;
     GetStorage().remove(_NOTIFICATION_TOKEN);
